@@ -42,25 +42,31 @@ class CourseExamsState extends State<CourseExams> {
 
   @override
   Widget build(BuildContext context) {
-    //print(t_idx);
-    //print('~~~~~~ ${courseList[t_idx].exams.length}');
     // TODO: implement Notes build
     return Scaffold(
       appBar: Functions.appBar("Exams", Icons.add, popUpButton()),
       body: ListView.builder(
-        //itemCount: courseList[t_idx].exams.length,
-        itemCount: 1,
+        itemCount: courseList[t_idx].exams.length,
         itemBuilder: (BuildContext context, int index) {
-          return Card(
-            color: Colors.transparent,
-            shape: UnderlineInputBorder(
+
+          if(courseList[t_idx].exams.length == 0) {
+            return Scaffold(
+              body: Center(
+                child: Text("No exam information"),
+              ),
+            );
+          } else {
+            return Card(
+              color: Colors.transparent,
+              shape: UnderlineInputBorder(
                 borderSide: BorderSide(
                   width: 0.5,
                   color: Colors.grey,
                 )),
-            child: ListTile(
-                title: Text(courseList[t_idx].exams[index].name, style: TextStyle(fontSize: 20)),
-                subtitle: Text(courseList[t_idx].exams[index].value),
+              child: ListTile(
+                title: Text(courseList[t_idx].exams[index].name,
+                  style: TextStyle(fontSize: 20)),
+                subtitle: Text(courseList[t_idx].exams[index].day.toString()),
                 trailing: Icon(Icons.attach_file, color: Colors.blue),
                 //leading: Icon(Icons.category, color: Colors.blue),
                 onTap: () {
@@ -69,9 +75,10 @@ class CourseExamsState extends State<CourseExams> {
                   //    builder: (context) => new CourseInfo())
                   //);
                 }
-            ),
-            elevation: 0.0,
-          );
+              ),
+              elevation: 0.0,
+            );
+          }
         },
       ),
     );

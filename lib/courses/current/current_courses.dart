@@ -4,7 +4,7 @@ import 'package:flutter_app_ihc/classes/Exam.dart';
 import 'package:flutter_app_ihc/courses/current/course_info.dart';
 
 List<Course> courseList = [
-  new Course("Human-Computer Interaction", "12345", "DETI", "Gonçalo Faria","",[new Exam('Mini-test 1', '20', '4.1.20', DateTime.now()),new Exam('Mini-test 2', '20', '4.1.15', DateTime.now())]),
+  new Course("Human-Computer Interaction", "12345", "DETI", "Gonçalo Faria","",[new Exam('Mini-test 1', '20', '4.1.20', DateTime.parse("12/05/2019")),new Exam('Mini-test 2', '20', '4.1.15', DateTime.now())]),
   new Course("Network Architecture", "12346", "DETI", "Mario Gomes","",[]),
   new Course("Project in Informatic Engineering", "12346", "DETI", "Luis Fernandes","",[]),
   new Course("Databases", "12346", "DETI", "Pedro Costa","",[]),
