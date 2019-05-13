@@ -107,36 +107,61 @@ class Functions {
   static var items1 = ['Edit', 'Delete'];
 
   static Widget appBar(String text, IconData icon, Widget popUpButton) {
+    /// appBar() suporta um null no popUpButton, sendo que reprime este elemento
 
     final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-    return AppBar(
-      key: _scaffoldKey,
-      title: Text(text, textAlign: TextAlign.center ,
-        style: TextStyle(
-          fontSize: 25.0,
-          fontFamily: 'Questrial',
-          color: Colors.blue,
+    if(popUpButton != null) {
+      return AppBar(
+        key: _scaffoldKey,
+        title: Text(text, textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 25.0,
+            fontFamily: 'Questrial',
+            color: Colors.blue,
+          ),
         ),
-      ),
-      leading: IconButton(
-        icon: new Icon(Icons.view_headline), // clear all?
-        onPressed: () {
-          //_scaffoldKey.currentState.openDrawer();
-          //print("sdna");
-        }
-      ),
+        leading: IconButton(
+            icon: new Icon(Icons.view_headline), // clear all?
+            onPressed: () {
+              //_scaffoldKey.currentState.openDrawer();
+            }
+        ),
 
-      elevation: 2.0,
-      iconTheme: IconThemeData(
-        color: Colors.grey, //change your color here
-      ),
-      centerTitle: true,
-      backgroundColor: Colors.white,
-      actions: <Widget>[
-        popUpButton,
-      ],
-    );
+        elevation: 2.0,
+        iconTheme: IconThemeData(
+          color: Colors.grey, //change your color here
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        actions: <Widget>[
+          popUpButton,
+        ],
+      );
+    }else{
+      return AppBar(
+        key: _scaffoldKey,
+        title: Text(text, textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 25.0,
+            fontFamily: 'Questrial',
+            color: Colors.blue,
+          ),
+        ),
+        leading: IconButton(
+            icon: new Icon(Icons.view_headline), // clear all?
+            onPressed: () {
+              //_scaffoldKey.currentState.openDrawer();
+            }
+        ),
+
+        elevation: 2.0,
+        iconTheme: IconThemeData(
+          color: Colors.grey, //change your color here
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      );
+    }
   }
 
   static Widget createBar(String text, doneAction(), goBackAction()) {
