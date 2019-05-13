@@ -51,64 +51,29 @@ class CourseExamsState extends State<CourseExams> {
         //itemCount: courseList[t_idx].exams.length,
         itemCount: 1,
         itemBuilder: (BuildContext context, int index) {
-          //print('----${courseList[t_idx].exams.length}');
-          /*if(courseList[t_idx].exams.length == 0) {
-            print("NO EXAMS");
-          } else {
-            print(courseList[t_idx].exams[index].name.toString());
-            print(courseList[t_idx].exams[index].value);
-            print(courseList[t_idx].exams[index].room);
-            print(courseList[t_idx].exams[index].day);
-            //_infoE(courseList[t_idx].exams[index].name, courseList[t_idx].exams[index].day.toString(), Icons.map);
-          */
-          ListTile(
-          title: Text("ABCD"),
-          subtitle: Text("aa"),
-          //trailing: Icon("ASA")
+          return Card(
+            color: Colors.transparent,
+            shape: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  width: 0.5,
+                  color: Colors.grey,
+                )),
+            child: ListTile(
+                title: Text(courseList[t_idx].exams[index].name, style: TextStyle(fontSize: 20)),
+                subtitle: Text(courseList[t_idx].exams[index].value),
+                trailing: Icon(Icons.attach_file, color: Colors.blue),
+                //leading: Icon(Icons.category, color: Colors.blue),
+                onTap: () {
+                  //t_idx = index;
+                  //Navigator.push(context, new MaterialPageRoute(
+                  //    builder: (context) => new CourseInfo())
+                  //);
+                }
+            ),
+            elevation: 0.0,
           );
-          //ListTile(
-           //   title: Text(courseList[t_idx].exams[index].name),
-             // subtitle: Text(courseList[t_idx].exams[index].day.toString()),
-              //trailing: Icon(Icons.settings),
-            //);
-
         },
       ),
-    );
-  }
-
-  Widget _infoE(String title, String sub, IconData icon) {
-    return Card(
-      color: Colors.transparent,
-      shape: UnderlineInputBorder(
-          borderSide: BorderSide(
-            width: 0.5,
-            color: Colors.grey,
-          )),
-      child: ListTile(
-        title: Text(title),
-        subtitle: Text(sub),
-        //trailing: traillingAction,
-        trailing: Icon(icon),
-      ),
-      elevation: 0.0,
-    );
-  }
-
-  Widget traillingAction(IconData icon, String text, actions()) {
-    return GestureDetector(
-      child: Container(
-        width: 70,
-        child: Column(
-            children: <Widget>[
-              Icon(icon, color: Colors.blue,),
-              Text(text, style: TextStyle(color: Colors.blue),),
-            ]
-        ),
-      ),
-      onTap: () {
-        actions();
-      },
     );
   }
 
