@@ -52,9 +52,11 @@ class MenuState extends State<Menu> {
             SizedBox(height: 20,),
             _buildTileIcon('Users', Icons.supervised_user_circle, () => Navigator.of(context).pushNamed('/user_tab_controller')),
             _buildTileIcon('Courses', Icons.book, () => Navigator.of(context).pushNamed('/courses_tab_controller')),
+            _buildTileIcon('Timeline', Icons.timeline, () => Navigator.of(context).pushNamed('/timeline')),
 
           ],
           staggeredTiles: [
+            StaggeredTile.fit(2),
             StaggeredTile.fit(2),
             StaggeredTile.fit(2),
             StaggeredTile.fit(2),

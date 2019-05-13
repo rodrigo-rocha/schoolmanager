@@ -43,16 +43,16 @@ class CourseExamsState extends State<CourseExams> {
   @override
   Widget build(BuildContext context) {
     //print(t_idx);
-    print('~~~~~~ ${courseList[t_idx].exams.length}');
+    //print('~~~~~~ ${courseList[t_idx].exams.length}');
     // TODO: implement Notes build
     return Scaffold(
       appBar: Functions.appBar("Exams", Icons.add, popUpButton()),
-
       body: ListView.builder(
-        itemCount: courseList[t_idx].exams.length,
+        //itemCount: courseList[t_idx].exams.length,
+        itemCount: 1,
         itemBuilder: (BuildContext context, int index) {
           //print('----${courseList[t_idx].exams.length}');
-          if(courseList[t_idx].exams.length == 0) {
+          /*if(courseList[t_idx].exams.length == 0) {
             print("NO EXAMS");
           } else {
             print(courseList[t_idx].exams[index].name.toString());
@@ -60,15 +60,20 @@ class CourseExamsState extends State<CourseExams> {
             print(courseList[t_idx].exams[index].room);
             print(courseList[t_idx].exams[index].day);
             //_infoE(courseList[t_idx].exams[index].name, courseList[t_idx].exams[index].day.toString(), Icons.map);
-            ListTile(
-              title: Text(courseList[t_idx].exams[index].name),
-              subtitle: Text(courseList[t_idx].exams[index].day.toString()),
-              trailing: Icon(Icons.settings),
-            );
-          }
+          */
+          ListTile(
+          title: Text("ABCD"),
+          subtitle: Text("aa"),
+          //trailing: Icon("ASA")
+          );
+          //ListTile(
+           //   title: Text(courseList[t_idx].exams[index].name),
+             // subtitle: Text(courseList[t_idx].exams[index].day.toString()),
+              //trailing: Icon(Icons.settings),
+            //);
+
         },
       ),
-
     );
   }
 

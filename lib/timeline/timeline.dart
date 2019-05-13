@@ -12,16 +12,23 @@ class TimelineState extends State<Timeline> {
   Widget build(BuildContext context) {
     // TODO: implement Notes build
     return Scaffold(
-      appBar: Functions.appBar("TIMELINE", Icons.add, null),
+      backgroundColor: Colors.white,
+      appBar: Functions.appBar("Timeline", Icons.add, null),
       drawer: Functions.sideBar(context),
       body: new ListView(
         children: <Widget>[
-          _event("Aniversário da Ana", Icons.cake),
-          _event("Apresentação de IHC", Icons.event_note),
-          _event("Exame Prático de  IHC", Icons.shopping_cart),
-          _event("", Icons.today),
-          _event("", Icons.today),
-          _event("", Icons.today),
+          _event("Aniversário da Susana", "25/02/2019", Icons.cake),
+          _event("Apresentação de IHC", "12/05/2019", Icons.event_note),
+          _event("Exame Prático de  IHC", "12/05/2019", Icons.shopping_cart),
+          _event("", "12/05/2019", Icons.today),
+          _event("", "12/05/2019", Icons.today),
+          _event("", "12/05/2019", Icons.today),
+          _event("", "12/05/2019", Icons.today),
+          _event("", "12/05/2019", Icons.today),
+          _event("", "12/05/2019", Icons.today),
+          _event("", "12/05/2019", Icons.today),
+          _event("", "", Icons.today),
+
         ],
       ),
     );
@@ -29,20 +36,35 @@ class TimelineState extends State<Timeline> {
 }
 
 
-Widget _event(String txt, IconData icon){
+Widget _event(String txt, String data, IconData icon){
   return Stack(
     children: <Widget>[
       new Padding(
         padding: const EdgeInsets.only(left: 50.0),
         child: new Card(
+          elevation: 0,
+          shape: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.blue
+            )
+          ),
           margin: new EdgeInsets.all(20.0),
           child: Center(
             child: new Container(
               width: double.infinity,
-              height: 200.0,
-              color: Colors.green[50],
-              child: Center(
-                child: Text(txt),
+              height: 80.0,
+              //color: Colors.green[50],
+              color: Colors.transparent,
+              child:
+                Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(txt, style: TextStyle(fontSize: 20)),
+                    Text(data, style: TextStyle(fontWeight: FontWeight.bold),),
+                  ],
+              ),
               ),
             ),
           ),
@@ -55,11 +77,11 @@ Widget _event(String txt, IconData icon){
         child: new Container(
           height: double.infinity,
           width: 1.0,
-          color: Colors.green,
+          color: Colors.blue,
         ),
       ),
       new Positioned(
-        top: 100.0,
+        top: 40.0,
         left: 15.0,
         child: new Container(
           height: 40.0,
