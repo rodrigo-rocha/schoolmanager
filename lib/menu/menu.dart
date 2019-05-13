@@ -91,7 +91,7 @@ class MenuState extends State<Menu> {
             ),*/
 
             Functions.showLogo(),
-            _buildTileIcon('Calendar', Icons.calendar_today, () => Navigator.of(context).pushNamed('/timeline')),
+            _buildTileIcon('Calendar', Icons.calendar_today, () => Navigator.of(context).pushNamed('/calendar')),
             _buildTileIcon('Users', Icons.supervised_user_circle, () => Navigator.of(context).pushNamed('/user_tab_controller')),
             _buildTileIcon('Courses', Icons.book, () => Navigator.of(context).pushNamed('/courses_tab_controller')),
             _buildTileIcon('Notes', Icons.note, () => Navigator.of(context).pushNamed('/notes_tab_controller')),
@@ -100,6 +100,13 @@ class MenuState extends State<Menu> {
             _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
             _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
             _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
+            _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
+
+
+            /// ADD TODO list menu
+            /// Add Focus timer menu, onde é possivel a pessoa se consentrar
+            /// Add Calendar
+            /// Add Settings to change Colors in the
           ],
           staggeredTiles: [
             StaggeredTile.fit(2),
