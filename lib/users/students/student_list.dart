@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/users/students/student_add.dart';
+import 'package:flutter_app_ihc/users/students/student_info.dart';
+import 'package:flutter_app_ihc/classes/Student.dart';
 
-import "dart:math";
+List<Student> studentList = [
+  new Student("Ana Silva", "anasilva@sm.pt","Eng. Computadores e Telemática","221000001","ESSUA","https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/1024px-Missing_avatar.svg.png"),
+  new Student("Beatriz Almeida", "beatrizalmeida@sm.pt","Eng. Computadores e Telemática","221000002","DETI","https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/1024px-Missing_avatar.svg.png"),
+  new Student("Carlos Matias", "carlosmatias@sm.pt","Eng. Computadores e Telemática","221000003","DETI","https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/1024px-Missing_avatar.svg.png"),
+  new Student("João Fernandes", "joaofernandes@sm.pt","Eng. Computadores e Telemática","221000004","DETI","https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/1024px-Missing_avatar.svg.png"),
+  new Student("Mário Aguiar", "marioaguiar@sm.pt","Eng. Computadores e Telemática","221000005","ISCAA","https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/1024px-Missing_avatar.svg.png"),
+  new Student("Pedro André", "pedro@sm.pt","ISCAA","Eng. Informática","221000006","https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/1024px-Missing_avatar.svg.png"),
+  new Student("Cláudio Matos", "cmatos@sm.pt","ESSUA","Eng. Informática","221000007","https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/1024px-Missing_avatar.svg.png"),
+  new Student("Diana Maria", "diana@sm.pt","ESSUA","Eng. Informática","221000008","https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/1024px-Missing_avatar.svg.png"),
+];
+
+int t_idx;
 
 class StudentList extends StatefulWidget {
   @override
@@ -10,44 +23,16 @@ class StudentList extends StatefulWidget {
 }
 
 class StudentListState extends State<StudentList> {
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       //appBar: Functions.appBar("Teachers", Icons.add, context),
-      drawer: Functions.sideBar(context),
+      //drawer: Functions.sideBar(context),
       //bottomNavigationBar: Functions.navBar(context),
-      //floatingActionButton: FloatingActionButton(
-      //  tooltip: 'Add new note',
-      //  child: Icon(Icons.add, color: Colors.white),
-      //  onPressed: () {
-      //    // New Note Pressed
-      //    Navigator.of(context).pushNamed('/add_teacher');
-      //  },
-      // ),
-      body: new Container(
-        child: new Center(
-          child: new RefreshIndicator(
-            child: ListView(
-                children: <Widget> [
-                  _teacher("Joaquim Batista", "jb@sm.com", 'https://greatergood.berkeley.edu/images/application_uploads/Hopeful_student_1.jpg'),
-                  _teacher("Paula Fernandes", "paula@sm.com", 'https://www.caprent.com/img/student.jpg'),
-                  _teacher("Ana Maria", "ana@sm.com", 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnHDvkOYQGL6khvCU2UotPqgFh_XMjS1Dov97TuMnmHBXHvl4fTA'),
-                ] //_teacherShow(),
-            ),
-            //new FutureBuilder(
-            //  future: _usersShow(),
-            //  builder: (context, snapshot) {
-            //    return snapshot.requireData;
-            //  },
-            //),
-            onRefresh: () {
-              print("Refreshed");
-            },
-          ),
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
-        tooltip: 'Add new teacher',
+        tooltip: 'Add new student',
         backgroundColor: Colors.white,
         child: Icon(Icons.add, color: Colors.blue),
         onPressed: () {
@@ -57,62 +42,39 @@ class StudentListState extends State<StudentList> {
               ));
         },
       ),
-    );
-  }
-
-  Widget _teacher(String i, String sub, String url) {
-    return Card(
-      color: Colors.transparent,
-      shape: UnderlineInputBorder(
-          borderSide: BorderSide(
-            width: 0.5,
-            color: Colors.grey,
-          )),
-      child: ListTile(
-        title: Text(i.toString()),
-        //leading: Icon(Icons.account_circle, size: 50,), ///Change for pic
-        subtitle: Text(sub),
-        trailing: Icon(Icons.info_outline),
-        leading: CircleAvatar(
-          backgroundImage: NetworkImage(url),
+      body: new Container(
+        child: new Center(
+          child: ListView.builder(
+              itemCount: studentList.length,
+              itemBuilder: (context, index) {
+                //return _teacher(teachersList[index].name, teachersList[index].email, teachersList[index].photo);
+                return Card(
+                  color: Colors.transparent,
+                  shape: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 0.5,
+                        color: Colors.grey,
+                      )),
+                  child: ListTile(
+                      title: Text(studentList[index].name, style: TextStyle(fontSize: 20)),
+                      subtitle: Text(studentList[index].email),
+                      trailing: Icon(Icons.info_outline, color: Colors.blue,),
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage(studentList[index].photo),
+                      ),
+                      onTap: () {
+                        t_idx = index;
+                        Navigator.push(context, new MaterialPageRoute(
+                            builder: (context) => new StudentInfo())
+                        );
+                      }
+                  ),
+                  elevation: 0.0,
+                );
+              }
+          ),
         ),
-        onTap: () => {Navigator.of(context).pushNamed('/info_teacher')},
       ),
-      elevation: 0.0,
     );
-  }
-
-  Future<void> _refreshPage() async {
-    Navigator.of(context).pushNamed('/teachers');
-  }
-
-  List<Widget> _teacherShow() {
-    int nTeachers = 10;
-    var disciplines = [
-      'IHC',
-      'BD',
-      'PEI',
-      'AR',
-      'FR',
-      'AMS',
-      'ARA',
-      'P1',
-      'P2',
-      'P3',
-      'C1',
-      'C2',
-      'AlgC',
-      'ISD',
-      'LSD',
-      '',
-    ];
-
-    List<Widget> list = new List<Widget>();
-
-    for (int i = 1; i <= nTeachers; i++) {
-      list.add(_teacher('i', disciplines[Random().nextInt(disciplines.length)], ''));
-    }
-
-    return list;
   }
 }

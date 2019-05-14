@@ -4,6 +4,8 @@ import 'package:flutter_app_ihc/courses/current/current_courses.dart';
 import 'package:flutter_app_ihc/classes/Course.dart';
 import 'package:flutter_app_ihc/courses/finished/finished_courses.dart';
 
+TextEditingController gradeController = new TextEditingController();
+
 class CourseInfo extends StatefulWidget {
 
   @override
@@ -19,10 +21,7 @@ class CourseInfoState extends State<CourseInfo> {
       courseList.removeAt(t_idx);
       Navigator.of(context).pushNamed('/courses_tab_controller');
     } else {
-      print(t_idx);
-      finishedCoursesList.add(new Course(courseList[t_idx].name, courseList[t_idx].code, courseList[t_idx].department, courseList[t_idx].coordinator,  '16', []));
-      courseList.removeAt(t_idx);
-      Navigator.of(context).pushNamed('/courses_tab_controller');
+      _showDialog();
     }
   }
 
@@ -56,8 +55,6 @@ class CourseInfoState extends State<CourseInfo> {
           _infoT(courseList[t_idx].code, 'Code', traillingAction(Icons.code, "Call", () {print("this");})),
           _infoT(courseList[t_idx].department, 'Department', traillingAction(Icons.place, "Locate", () {print("this");})),
           _infoT(courseList[t_idx].coordinator, 'Coordinator', traillingAction(Icons.account_circle, "Information", () {print("this");} )),
-
-
         ],
       ),
 
@@ -109,4 +106,83 @@ class CourseInfoState extends State<CourseInfo> {
     );
   }
 
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Please idicate the final grade"),
+          content: dropdownField("Final Grade", gradeController, grade),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Go Back", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Submit", style: TextStyle(color: Colors.green, fontSize: 17)),
+              onPressed: () {
+                finishedCoursesList.add(new Course(courseList[t_idx].name, courseList[t_idx].code, courseList[t_idx].department, courseList[t_idx].coordinator,  gradeController.text, []));
+                courseList.removeAt(t_idx);
+                Navigator.of(context).pushNamed('/courses_tab_controller');
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  List<String> grade = ['10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
+
+  Widget gradeActions(){
+    return PopupMenuButton<String> (
+      icon: Icon(Icons.add_circle),
+      onSelected: choiceActions,
+      itemBuilder: (BuildContext context) {
+        return grade.map((String choice) {
+          return PopupMenuItem<String>(
+            value: choice,
+            child: Text(choice),
+          );
+        }).toList();
+      },
+    );
+  }
+
+  Widget dropdownField(String hint, TextEditingController cont, var items) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 18.0, left: 18.0),
+      child: new Row(
+        children: <Widget>[
+          new Expanded(
+            child: new TextField(
+              controller: cont,
+              decoration: InputDecoration(hintText: hint),
+            ),
+          ),
+          new PopupMenuButton<String>(
+            elevation: 5,
+
+            icon: const Icon(Icons.arrow_drop_down),
+
+            onSelected: (String value) {
+              cont.text = value;
+            },
+            itemBuilder: (BuildContext context) {
+              return items.map<PopupMenuItem<String>>((String value) {
+                return new PopupMenuItem(
+                  child: new Text(value),
+                  value: value,
+                );
+              }).toList();
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }

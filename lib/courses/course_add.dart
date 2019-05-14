@@ -3,6 +3,8 @@ import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/courses/current/current_courses.dart';
 import 'package:flutter_app_ihc/users/tab_controller.dart';
 import 'package:flutter_app_ihc/classes/Course.dart';
+import 'package:flutter_app_ihc/classes/Teacher.dart';
+import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
 
 TextEditingController nameController = new TextEditingController();
 TextEditingController codeController = new TextEditingController();
@@ -45,9 +47,10 @@ class CourseAddState extends State<CourseAdd> {
       ListView(
         children: <Widget>[
           textField('Name *', nameController),
-          textField('Code *', codeController),
+          textField('Code', codeController),
           textField('Department', departmentController),
-          textField('Coordinator', coordinatorController),
+          //textField('Coordinator', coordinatorController),
+          dropdownField("Coordinator", teachersList),
           SizedBox(height: 10),
           reqFieldInfo()
         ],
@@ -116,29 +119,30 @@ class CourseAddState extends State<CourseAdd> {
     );
   }
 
-  Widget dropdownField(String hint, TextEditingController cont, var items) {
+
+  Widget dropdownField(String hint, var items) {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0, left: 18.0),
       child: new Row(
         children: <Widget>[
           new Expanded(
               child: new TextField(
-                controller: cont,
+                controller: coordinatorController,
                 decoration: InputDecoration(hintText: hint),
               ),
           ),
-          new PopupMenuButton<String>(
+          new PopupMenuButton<Teacher>(
             elevation: 5,
 
             icon: const Icon(Icons.arrow_drop_down),
 
-            onSelected: (String value) {
-              cont.text = value;
+            onSelected: (Teacher value) {
+              coordinatorController.text = value.name;
             },
             itemBuilder: (BuildContext context) {
-              return items.map<PopupMenuItem<String>>((String value) {
+              return items.map<PopupMenuItem<Teacher>>((Teacher value) {
                 return new PopupMenuItem(
-                  child: new Text(value),
+                  child: new Text(value.name),
                   value: value,
                 );
               }).toList();

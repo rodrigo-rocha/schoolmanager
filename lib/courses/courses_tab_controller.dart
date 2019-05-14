@@ -13,6 +13,8 @@ class CoursesTabControllerState extends State<CoursesTabController> {
   void choiceActions(String choice) {
     if(choice == 'Add course') {
       Navigator.of(context).pushNamed('/course_add');
+    } else if(choice == 'Add finished course') {
+      Navigator.of(context).pushNamed('/finished_course_add');
     }
   }
 
@@ -20,7 +22,7 @@ class CoursesTabControllerState extends State<CoursesTabController> {
     return PopupMenuButton<String> (
       onSelected: choiceActions,
       itemBuilder: (BuildContext context) {
-        return ['Add course', 'Delete course'].map((String choice) {
+        return ['Add course', 'Add finished course'].map((String choice) {
           return PopupMenuItem<String>(
             value: choice,
             child: Text(choice),

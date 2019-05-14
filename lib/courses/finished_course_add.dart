@@ -1,42 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
-import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
-import 'package:flutter_app_ihc/users/tab_controller.dart';
+import 'package:flutter_app_ihc/courses/finished/finished_courses.dart';
+import 'package:flutter_app_ihc/courses/courses_tab_controller.dart';
+import 'package:flutter_app_ihc/classes/Course.dart';
 import 'package:flutter_app_ihc/classes/Teacher.dart';
+import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
 
-TextEditingController nameController = new TextEditingController(text: teachersList[t_idx].name);
-TextEditingController emailController = new TextEditingController(text: teachersList[t_idx].email);
-TextEditingController officeController = new TextEditingController(text: teachersList[t_idx].office);
-TextEditingController phoneController = new TextEditingController(text: teachersList[t_idx].phone);
-TextEditingController deptController = new TextEditingController(text: teachersList[t_idx].department);
-TextEditingController coursesController = new TextEditingController(text: teachersList[t_idx].courses);
+TextEditingController nameController = new TextEditingController();
+TextEditingController codeController = new TextEditingController();
+TextEditingController departmentController = new TextEditingController();
+TextEditingController coordinatorController = new TextEditingController();
+TextEditingController gradeController = new TextEditingController();
 
 var coursesItems = ['Interação Humano-Computador', 'Arquitetura de Redes', 'Projeto em Engenharia Informatica', 'Bases de Dados'];
 var deptItems = ['DETI', 'Biology', 'Physics', 'ISCAA', 'Mathematics'];
 
-class TeachersEdit extends StatefulWidget {
+class FinishedCourseAdd extends StatefulWidget {
 
   @override
-  TeachersEditState createState() => TeachersEditState();
+  FinishedCourseAddState createState() => FinishedCourseAddState();
 }
 
-class TeachersEditState extends State<TeachersEdit> {
+class FinishedCourseAddState extends State<FinishedCourseAdd> {
 
-  void addTeacherAction() {
-    String photo = teachersList[t_idx].photo;
-    teachersList.removeAt(t_idx);
-    teachersList.add(new Teacher(nameController.text, emailController.text, officeController.text, phoneController.text, deptController.text, coursesController.text, photo));
+  void addCourseAction() {
+    finishedCoursesList.add(new Course(nameController.text, codeController.text, departmentController.text, coordinatorController.text,gradeController.text,[]));
 
     nameController.text = "";
-    emailController.text = "";
-    officeController.text = "";
-    phoneController.text = "";
-    deptController.text = "";
-    coursesController.text = "";
-    
+    codeController.text = "";
+    departmentController.text = "";
+    coordinatorController.text = "";
+    gradeController.text = "";
+
     Navigator.push(
         context,
-        new MaterialPageRoute(builder: (context) => UserTabController()
+        new MaterialPageRoute(builder: (context) => CoursesTabController()
         ));
   }
 
@@ -44,21 +42,19 @@ class TeachersEditState extends State<TeachersEdit> {
   @override
   Widget build(BuildContext context) {
 
-
     return Scaffold(
-      appBar: Functions.createBar("Edit Teacher", () => addTeacherAction(), () => Navigator.pop(context)),
+      appBar: Functions.createBar("Create Course", () => addCourseAction(), () => Navigator.pop(context)),
+
       body:
       ListView(
         children: <Widget>[
           textField('Name *', nameController),
-          textField('E-Mail *', emailController),
-          textField('Office', officeController),
-          textField('Phone', phoneController),
-          dropdownField('Department', deptController, deptItems),
-          dropdownField('Courses', coursesController, coursesItems),
-          imageField(),
-          //reqFieldInfo(),
-          // clearFieldText(), // Necessary??
+          textField('Code', codeController),
+          textField('Department', departmentController),
+          dropdownField("Coordinator", teachersList),
+          dropdownStringField("Final Grade", gradeController, ['10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']),
+          SizedBox(height: 10),
+          reqFieldInfo()
         ],
       ),
     );
@@ -125,7 +121,8 @@ class TeachersEditState extends State<TeachersEdit> {
     );
   }
 
-  Widget dropdownField(String hint, TextEditingController cont, var items) {
+
+  Widget dropdownStringField(String hint, TextEditingController cont, var items) {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0, left: 18.0),
       child: new Row(
@@ -148,6 +145,39 @@ class TeachersEditState extends State<TeachersEdit> {
               return items.map<PopupMenuItem<String>>((String value) {
                 return new PopupMenuItem(
                   child: new Text(value),
+                  value: value,
+                );
+              }).toList();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget dropdownField(String hint, var items) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 18.0, left: 18.0),
+      child: new Row(
+        children: <Widget>[
+          new Expanded(
+            child: new TextField(
+              controller: coordinatorController,
+              decoration: InputDecoration(hintText: hint),
+            ),
+          ),
+          new PopupMenuButton<Teacher>(
+            elevation: 5,
+
+            icon: const Icon(Icons.arrow_drop_down),
+
+            onSelected: (Teacher value) {
+              coordinatorController.text = value.name;
+            },
+            itemBuilder: (BuildContext context) {
+              return items.map<PopupMenuItem<Teacher>>((Teacher value) {
+                return new PopupMenuItem(
+                  child: new Text(value.name),
                   value: value,
                 );
               }).toList();

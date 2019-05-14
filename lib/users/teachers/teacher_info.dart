@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
+import 'package:flutter_app_ihc/users/teachers/teacher_edit.dart';
 
 class TeacherInfo extends StatefulWidget {
 
@@ -12,9 +13,9 @@ class TeacherInfoState extends State<TeacherInfo> {
 
   void choiceActions(String choice) {
     if(choice == 'Edit') {
-      print("W8");
+      Navigator.pushNamed(context, '/teacher_edit');
     } else if(choice == 'Delete') {
-      print("This");
+      _showDialog();
     }
   }
 
@@ -38,9 +39,6 @@ class TeacherInfoState extends State<TeacherInfo> {
     // TODO: implement Notes build
     return Scaffold(
       appBar: Functions.appBar("Information", Icons.add, popUpButton()),
-      //drawer: Functions.sideBar(context),
-      //bottomNavigationBar: Functions.navBar(context),
-
       body: ListView(
         children: <Widget>[
           SizedBox(height: 10),
@@ -61,7 +59,6 @@ class TeacherInfoState extends State<TeacherInfo> {
                   Text(teachersList[t_idx].email),
                 ],
               )
-
             ],
           ),
           _infoT(teachersList[t_idx].email, 'E-Mail', traillingAction(Icons.mail_outline, "Send Email", () {print("this");} )),
@@ -105,6 +102,35 @@ class TeacherInfoState extends State<TeacherInfo> {
       ),
       onTap: () {
         actions();
+      },
+    );
+  }
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Delete ${teachersList[t_idx].name}"),
+          content: new Text("Are you sure you want to delete ${teachersList[t_idx].name}?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Delete", style: TextStyle(color: Colors.red, fontSize: 17)),
+              onPressed: () {
+                teachersList.removeAt(t_idx);
+                Navigator.pushNamed(context, '/user_tab_controller');
+              },
+            ),
+            new FlatButton(
+              child: new Text("Go Back", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
       },
     );
   }

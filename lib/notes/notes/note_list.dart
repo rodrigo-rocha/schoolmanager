@@ -3,12 +3,14 @@ import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/classes/Notes.dart';
 
 List<Note> noteList = [
-  new Note("Repository Github", "Check repository schoolmanager2.0"),
+  new Note("Repository Github", "Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0Check repository schoolmanager2.0"),
   new Note("Repository Github A", "Check repository schoolmanager2.0 A"),
   new Note("Repository Github B", "Check repository schoolmanager2.0 B"),
   new Note("Repository Github C", "Check repository schoolmanager2.0 C"),
   new Note("Repository Github D", "Check repository schoolmanager2.0 D"),
 ];
+
+int note_idx;
 
 class NoteList extends StatefulWidget {
 
@@ -55,14 +57,12 @@ class NoteListState extends State<NoteList> {
               )),
             child: ListTile(
               title: Text(noteList[index].title, style: TextStyle(fontSize: 20)),
-              subtitle: Text(noteList[index].body),
+              subtitle: Text(noteList[index].body, maxLines: 1,),
               leading: Icon(Icons.speaker_notes, color: Colors.blue,),
               //leading: Icon(Icons.category, color: Colors.blue),
               onTap: () {
-                //t_idx = index;
-                //Navigator.push(context, new MaterialPageRoute(
-                //    builder: (context) => new CourseInfo())
-                //);
+                note_idx = index;
+                Navigator.pushNamed(context, '/note_view');
               }
             ),
             elevation: 0.0,
