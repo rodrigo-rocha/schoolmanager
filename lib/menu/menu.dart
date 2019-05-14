@@ -96,7 +96,7 @@ class MenuState extends State<Menu> {
             _buildTileIcon('Courses', Icons.book, () => Navigator.of(context).pushNamed('/courses_tab_controller')),
             _buildTileIcon('Notes', Icons.note, () => Navigator.of(context).pushNamed('/notes_tab_controller')),
             _buildTileIcon('Timeline', Icons.timeline, () => Navigator.of(context).pushNamed('/timeline')),
-            _buildTileIcon('Settings', Icons.settings, () => Navigator.of(context).pushNamed('/timeline')),
+            _buildTileIcon('Settings', Icons.settings, () => Navigator.of(context).pushNamed('/settings')),
             _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
             _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
             _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
