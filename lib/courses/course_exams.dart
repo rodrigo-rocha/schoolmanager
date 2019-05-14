@@ -3,6 +3,7 @@ import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/courses/current/current_courses.dart';
 import 'package:flutter_app_ihc/classes/Course.dart';
 import 'package:flutter_app_ihc/courses/finished/finished_courses.dart';
+import 'package:flutter_app_ihc/classes/DateFormat.dart';
 
 class CourseExams extends StatefulWidget {
 
@@ -49,13 +50,6 @@ class CourseExamsState extends State<CourseExams> {
         itemCount: courseList[t_idx].exams.length,
         itemBuilder: (BuildContext context, int index) {
 
-          if(courseList[t_idx].exams.length == 0) {
-            return Scaffold(
-              body: Center(
-                child: Text("No exam information"),
-              ),
-            );
-          } else {
             return Card(
               color: Colors.transparent,
               shape: UnderlineInputBorder(
@@ -66,7 +60,7 @@ class CourseExamsState extends State<CourseExams> {
               child: ListTile(
                 title: Text(courseList[t_idx].exams[index].name,
                   style: TextStyle(fontSize: 20)),
-                subtitle: Text(courseList[t_idx].exams[index].day.toString()),
+                subtitle: Text(DateReformat.reformat(courseList[t_idx].exams[index].day.toString())),
                 trailing: Icon(Icons.attach_file, color: Colors.blue),
                 //leading: Icon(Icons.category, color: Colors.blue),
                 onTap: () {
@@ -78,7 +72,6 @@ class CourseExamsState extends State<CourseExams> {
               ),
               elevation: 0.0,
             );
-          }
         },
       ),
     );

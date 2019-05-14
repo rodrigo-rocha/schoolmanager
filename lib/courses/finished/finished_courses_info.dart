@@ -76,7 +76,7 @@ class FinishedCoursesInfoState extends State<FinishedCoursesInfo> {
   Widget traillingAction(IconData icon, String text, actions()) {
     return GestureDetector(
       child: Container(
-        width: 70,
+        width: 100,
         child: Column(
             children: <Widget>[
               Icon(icon, color: Colors.blue,),

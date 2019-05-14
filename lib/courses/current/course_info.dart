@@ -51,7 +51,7 @@ class CourseInfoState extends State<CourseInfo> {
       body: ListView(
         children: <Widget>[
           _infoExams(traillingAction(Icons.keyboard_arrow_right, "Exams information", () { Navigator.of(context).pushNamed('/course_exams'); } )),
-          Container(height: 30, color: Colors.grey[200]),
+          Container(height: 10, color: Colors.grey[200]),
           _infoT(courseList[t_idx].name, 'Name', traillingAction(Icons.text_fields, "Send Email", () {print("this");} )),
           _infoT(courseList[t_idx].code, 'Code', traillingAction(Icons.code, "Call", () {print("this");})),
           _infoT(courseList[t_idx].department, 'Department', traillingAction(Icons.place, "Locate", () {print("this");})),
@@ -67,11 +67,6 @@ class CourseInfoState extends State<CourseInfo> {
   Widget _infoExams(Widget traillingAction) {
     return Card(
       color: Colors.transparent,
-      shape: UnderlineInputBorder(
-          borderSide: BorderSide(
-            width: 0.5,
-            color: Colors.grey,
-          )),
       child: ListTile(
         title: Text('Exam Information'),
         trailing: traillingAction,
@@ -100,7 +95,7 @@ class CourseInfoState extends State<CourseInfo> {
   Widget traillingAction(IconData icon, String text, actions()) {
     return GestureDetector(
       child: Container(
-        width: 70,
+        width: 100,
         child: Column(
             children: <Widget>[
               Icon(icon, color: Colors.blue,),
