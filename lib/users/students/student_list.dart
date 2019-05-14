@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
+import 'package:flutter_app_ihc/users/students/student_add.dart';
 
 import "dart:math";
 
@@ -45,6 +46,39 @@ class StudentListState extends State<StudentList> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'Add new teacher',
+        backgroundColor: Colors.white,
+        child: Icon(Icons.add, color: Colors.blue),
+        onPressed: () {
+          Navigator.push(
+              context,
+              new MaterialPageRoute(builder: (context) => new StudentAdd()
+              ));
+        },
+      ),
+    );
+  }
+
+  Widget _teacher(String i, String sub, String url) {
+    return Card(
+      color: Colors.transparent,
+      shape: UnderlineInputBorder(
+          borderSide: BorderSide(
+            width: 0.5,
+            color: Colors.grey,
+          )),
+      child: ListTile(
+        title: Text(i.toString()),
+        //leading: Icon(Icons.account_circle, size: 50,), ///Change for pic
+        subtitle: Text(sub),
+        trailing: Icon(Icons.info_outline),
+        leading: CircleAvatar(
+          backgroundImage: NetworkImage(url),
+        ),
+        onTap: () => {Navigator.of(context).pushNamed('/info_teacher')},
+      ),
+      elevation: 0.0,
     );
   }
 
@@ -80,27 +114,5 @@ class StudentListState extends State<StudentList> {
     }
 
     return list;
-  }
-
-  Widget _teacher(String i, String sub, String url) {
-    return Card(
-      color: Colors.transparent,
-      shape: UnderlineInputBorder(
-          borderSide: BorderSide(
-            width: 0.5,
-            color: Colors.grey,
-          )),
-      child: ListTile(
-          title: Text(i.toString()),
-          //leading: Icon(Icons.account_circle, size: 50,), ///Change for pic
-          subtitle: Text(sub),
-          trailing: Icon(Icons.info_outline),
-          leading: CircleAvatar(
-            backgroundImage: NetworkImage(url),
-          ),
-          onTap: () => {Navigator.of(context).pushNamed('/info_teacher')},
-    ),
-    elevation: 0.0,
-    );
   }
 }

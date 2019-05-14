@@ -91,7 +91,7 @@ class MenuState extends State<Menu> {
             ),*/
 
             Functions.showLogo(),
-            _buildTileIcon('Calendar', Icons.calendar_today, () => Navigator.of(context).pushNamed('/calendar')),
+            _buildTileIcon('Calendar', Icons.today, () => Navigator.of(context).pushNamed('/calendar')),
             _buildTileIcon('Users', Icons.supervised_user_circle, () => Navigator.of(context).pushNamed('/user_tab_controller')),
             _buildTileIcon('Courses', Icons.book, () => Navigator.of(context).pushNamed('/courses_tab_controller')),
             _buildTileIcon('Notes', Icons.note, () => Navigator.of(context).pushNamed('/notes_tab_controller')),

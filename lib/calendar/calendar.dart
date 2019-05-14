@@ -25,7 +25,7 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
     _selectedDay = DateTime.now();
     _events = {
       //selDay: ['Aniversário'],
-      /*_selectedDay.subtract(Duration(days: 30)): ['Event A0', 'Event B0', 'Event C0'],
+      _selectedDay.subtract(Duration(days: 30)): ['Event A0', 'Event B0', 'Event C0'],
       _selectedDay.subtract(Duration(days: 27)): ['Event A1'],
       _selectedDay.subtract(Duration(days: 20)): ['Event A2', 'Event B2', 'Event C2', 'Event D2'],
       _selectedDay.subtract(Duration(days: 16)): ['Event A3', 'Event B3'],
@@ -39,7 +39,7 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
       _selectedDay.add(Duration(days: 11)): ['Event A11', 'Event B11'],
       _selectedDay.add(Duration(days: 17)): ['Event A12', 'Event B12', 'Event C12', 'Event D12'],
       _selectedDay.add(Duration(days: 22)): ['Event A13', 'Event B13'],
-      _selectedDay.add(Duration(days: 26)): ['Event A14', 'Event B14', 'Event C14'], */
+      _selectedDay.add(Duration(days: 26)): ['Event A14', 'Event B14', 'Event C14'],
       //_selectedDay: ['ABCD', 'AQRT'],
     };
     _selectedEvents = _events[_selectedDay] ?? [];
@@ -231,7 +231,7 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
         margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         child: ListTile(
           title: Text(event.toString()),
-          onTap: () => print('$event tapped!'),
+          onTap: () => Navigator.of(context).pushNamed('/event_info'),
         ),
       ))
           .toList(),

@@ -16,6 +16,7 @@ import 'package:flutter_app_ihc/courses/finished/finished_courses_info.dart';
 import 'package:flutter_app_ihc/timeline/timeline.dart';
 import 'package:flutter_app_ihc/notes/notes_tab_controller.dart';
 import 'package:flutter_app_ihc/calendar/calendar.dart';
+import 'package:flutter_app_ihc/calendar/event_info.dart';
 import 'package:flutter_app_ihc/settings/settings.dart';
 
 
@@ -56,6 +57,7 @@ class SchoolManager extends StatelessWidget {
         '/timeline': (BuildContext context) => new Timeline(),
         '/calendar': (BuildContext context) => new Calendar(),
         '/settings': (BuildContext context) => new Settings(),
+        '/event_info': (BuildContext context) => new EventInfo(),
 
       },
       home: Menu(),

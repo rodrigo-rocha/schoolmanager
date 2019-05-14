@@ -1,24 +1,26 @@
+import 'package:date_utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
-class Settings extends StatefulWidget {
+class EventInfo extends StatefulWidget {
 
   @override
-  SettingsState createState() => SettingsState();
+  EventInfoState createState() => EventInfoState();
 }
 
-class SettingsState extends State<Settings> {
+class EventInfoState extends State<EventInfo> {
+
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Functions.appBar("Settings", Icons.add, null),
+      appBar: Functions.appBar("Event Information", Icons.add, null),
       body: new Container(
         child: new Center(
           child: ListView.builder(
-              itemCount: 3,
+              itemCount: 1,
               itemBuilder: (context, index) {
-                //return _teacher(teachersList[index].name, teachersList[index].email, teachersList[index].photo);
                 return Card(
                   color: Colors.transparent,
                   shape: UnderlineInputBorder(
@@ -32,6 +34,7 @@ class SettingsState extends State<Settings> {
                       trailing: Icon(Icons.info_outline, color: Colors.blue,),
                       leading: Icon(Icons.category, color: Colors.blue),
                       onTap: () {
+                        _onTap();
                       }
                   ),
                   elevation: 0.0,
@@ -42,4 +45,16 @@ class SettingsState extends State<Settings> {
       ),
     );
   }
+
+  _onTap() async{
+    const url = 'https://www.instagram.com/__rodrigorocha__/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+
+
 }
