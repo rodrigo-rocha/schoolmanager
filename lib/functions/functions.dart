@@ -4,17 +4,32 @@ import 'package:flutter/material.dart';
 class Functions {
 
   static Widget showLogo() {
-
-    return Hero(
-      tag: 'hero',
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
-        child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: 70.0,
-          child: Image.asset('assets/images/logo.png'),
+    //TODO: não está centrado??
+    return Row(
+      children: <Widget>[
+        SizedBox(width: 20.0),
+        Hero(
+          tag: 'hero',
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+            child: CircleAvatar(
+              backgroundColor: Colors.transparent,
+              radius: 70.0,
+              child: Image.asset('assets/images/logo.png'),
+            ),
+          ),
         ),
-      ),
+        SizedBox(width: 20.0),
+        Flexible(
+          child: new Text("School Manager",
+            style: new TextStyle(
+              fontSize: 30.0,
+            ),
+            maxLines: 3,
+            overflow: TextOverflow.clip,
+          ),
+        ),
+      ],
     );
   }
 

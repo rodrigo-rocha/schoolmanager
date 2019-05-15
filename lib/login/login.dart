@@ -44,7 +44,7 @@ class LoginState extends State<Login> {
             SizedBox(height: 15),
             forgotPassword(),
             SizedBox(height: 15),
-            loginButton("LOGIN", '/main_menu'),
+            loginButton("LOGIN", '/menu'),
             SizedBox(height: 15),
             AuthFunctions.createAccount(context)
           ],
@@ -80,7 +80,7 @@ class LoginState extends State<Login> {
         ),
         onPressed: () {
           if(_formKey.currentState.validate()) {
-            Navigator.of(context).pushReplacementNamed('/menu');
+            Navigator.of(context).pushReplacementNamed(path);
           }
         },
         padding: EdgeInsets.all(12),

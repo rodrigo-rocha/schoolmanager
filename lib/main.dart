@@ -38,6 +38,7 @@ class SchoolManager extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
         '/login' : (BuildContext context) => new Login(),
+        '/forget_password' : (BuildContext context) => new Login(),
         '/menu' : (BuildContext context) => new Menu(),
         '/teacher_list': (BuildContext context) => new TeacherList(),
         '/teacher_add': (BuildContext context) => new TeachersAdd(),
