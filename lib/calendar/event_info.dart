@@ -16,32 +16,48 @@ class EventInfoState extends State<EventInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Functions.appBar("Event Information", Icons.add, null),
-      body: new Container(
-        child: new Center(
-          child: ListView.builder(
-              itemCount: 1,
-              itemBuilder: (context, index) {
-                return Card(
-                  color: Colors.transparent,
-                  shape: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 0.5,
-                        color: Colors.grey,
-                      )),
-                  child: ListTile(
-                      title: Text("Set" , style: TextStyle(fontSize: 20)),
-                      subtitle: Text("set 1"),
-                      trailing: Icon(Icons.info_outline, color: Colors.blue,),
-                      leading: Icon(Icons.category, color: Colors.blue),
-                      onTap: () {
-                        _onTap();
-                      }
-                  ),
-                  elevation: 0.0,
-                );
-              }
+      body: ListView(
+        children: <Widget>[
+          SizedBox(height: 10.0),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text("Teste de IHC", textAlign: TextAlign.left,style: TextStyle(fontSize: 25)),
+              Text("12/9/2019"),
+            ],
           ),
-        ),
+          Card(
+            color: Colors.transparent,
+            shape: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  width: 0.5,
+                  color: Colors.grey,
+                )),
+            child: ListTile(
+              title: Text("19 May 2019"),
+              subtitle: Text("Date"),
+              trailing: Icon(Icons.accessible_forward),
+            ),
+            elevation: 0.0,
+          ),
+          Card(
+            color: Colors.transparent,
+            shape: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  width: 0.5,
+                  color: Colors.grey,
+                )),
+            child: ListTile(
+              title: Text("30%"),
+              subtitle: Text("Percentage"),
+              trailing: Icon(Icons.accessible_forward),
+            ),
+            elevation: 0.0,
+          ),
+
+
+        ],
       ),
     );
   }
