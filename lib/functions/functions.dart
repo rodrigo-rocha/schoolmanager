@@ -3,33 +3,39 @@ import 'package:flutter/material.dart';
 
 class Functions {
 
+  static Widget showLocation(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Location"),
+          content: Image.asset('assets/images/location.png'),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Go Back", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   static Widget showLogo() {
-    //TODO: não está centrado??
-    return Row(
-      children: <Widget>[
-        SizedBox(width: 20.0),
-        Hero(
-          tag: 'hero',
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
-            child: CircleAvatar(
-              backgroundColor: Colors.transparent,
-              radius: 70.0,
-              child: Image.asset('assets/images/logo.png'),
-            ),
-          ),
+
+    return Hero(
+      tag: 'hero',
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+        child: CircleAvatar(
+          backgroundColor: Colors.transparent,
+          radius: 70.0,
+          child: Image.asset('assets/images/logo.png'),
         ),
-        SizedBox(width: 20.0),
-        Flexible(
-          child: new Text("School Manager",
-            style: new TextStyle(
-              fontSize: 30.0,
-            ),
-            maxLines: 3,
-            overflow: TextOverflow.clip,
-          ),
-        ),
-      ],
+      ),
     );
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
-import 'package:flutter_app_ihc/users/teachers/teacher_edit.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TeacherInfo extends StatefulWidget {
 
@@ -61,11 +61,11 @@ class TeacherInfoState extends State<TeacherInfo> {
               )
             ],
           ),
-          _infoT(teachersList[t_idx].email, 'E-Mail', traillingAction(Icons.mail_outline, "Send Email", () {print("this");} )),
-          _infoT(teachersList[t_idx].phone, 'Phone', traillingAction(Icons.phone, "Call", () {print("this");})),
-          _infoT(teachersList[t_idx].courses, 'Courses', traillingAction(Icons.description, "Information", () {print("this");})),
-          _infoT(teachersList[t_idx].department, 'Department', traillingAction(Icons.place, "Locate", () {print("this");})),
-          _infoT(teachersList[t_idx].office, 'Office', traillingAction(Icons.place, "Locate", () {print("this");} )),
+          _infoT(teachersList[t_idx].email, 'E-Mail', traillingAction(Icons.mail_outline, "Send Email", () { _openWith('mailto:<${teachersList[t_idx].email}>'); } )),
+          _infoT(teachersList[t_idx].phone, 'Phone', traillingAction(Icons.phone, "Call", () { _openWith('tel:${teachersList[t_idx].phone}'); })),
+          _infoT(teachersList[t_idx].courses, 'Courses', traillingAction(Icons.description, "Information", () { _googleSearch(teachersList[t_idx].courses); })),
+          _infoT(teachersList[t_idx].department, 'Department', traillingAction(Icons.place, "Locate", () { Functions.showLocation(context); })),
+          _infoT(teachersList[t_idx].office, 'Office', traillingAction(Icons.place, "Locate", () { Functions.showLocation(context); } )),
         ],
       ),
 
@@ -133,6 +133,24 @@ class TeacherInfoState extends State<TeacherInfo> {
         );
       },
     );
+  }
+
+  _openWith(String url) async{
+    //const url = urlProp;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _googleSearch(String query) async {
+    String url = 'https://www.google.com/search?q=$query';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
 }
