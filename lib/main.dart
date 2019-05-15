@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_ihc/login/login.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_add.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_edit.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_info.dart';
@@ -36,6 +37,7 @@ class SchoolManager extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
+        '/login' : (BuildContext context) => new Login(),
         '/menu' : (BuildContext context) => new Menu(),
         '/teacher_list': (BuildContext context) => new TeacherList(),
         '/teacher_add': (BuildContext context) => new TeachersAdd(),
@@ -61,7 +63,7 @@ class SchoolManager extends StatelessWidget {
         '/event_info': (BuildContext context) => new EventInfo(),
 
       },
-      home: Menu(),
+      home: Login(),
     );
   }
 }
