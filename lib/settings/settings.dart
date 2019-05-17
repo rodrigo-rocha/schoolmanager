@@ -44,6 +44,7 @@ class SettingsState extends State<Settings> {
                         ),
                       ),
                       onTap: () {
+                        _showDialogColors();
                       }
                   ),
                   elevation: 0.0,
@@ -59,14 +60,107 @@ class SettingsState extends State<Settings> {
                   child: ListTile(
                       title: Text("English" , style: TextStyle(fontSize: 20)),
                       subtitle: Text("Language"),
-                      leading: Icon(Icons.info_outline, color: Colors.blue,),
+                      leading: Icon(Icons.flag, color: Colors.blue,),
+                      trailing: CircleAvatar(
+                        child: Image.network('https://images-na.ssl-images-amazon.com/images/I/61RmUb5bD1L._UX522_.jpg'),
+                      ),
                       onTap: () {
+                        _showDialog();
                       }
                   ),
                   elevation: 0.0,
                 ),
               ],
           ),
+        ),
+      ),
+    );
+  }
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Select Language"),
+          content: new ListView(
+            children: <Widget>[
+              colorLanguageTile('English', 'https://images-na.ssl-images-amazon.com/images/I/61RmUb5bD1L._UX522_.jpg'),
+              colorLanguageTile('Português', 'https://i.ebayimg.com/images/g/RC0AAOSwPRxbPj-K/s-l300.jpg'),
+              colorLanguageTile('Deutsch', 'https://www.publicdomainpictures.net/pictures/250000/nahled/german-flag.jpg'),
+
+            ],
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Go Back", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showDialogColors() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Select Color"),
+          content: new ListView(
+            children: <Widget>[
+               colorSelectTile("Blue", Colors.blue),
+               colorSelectTile("Red", Colors.red),
+               colorSelectTile("Green", Colors.green),
+               colorSelectTile("Orange", Colors.orange),
+               colorSelectTile("Black", Colors.black),
+            ],
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Go Back", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget colorSelectTile(String color, Color colorS) {
+    return Card(
+      elevation: 0.0,
+      shape:UnderlineInputBorder(
+        borderSide: BorderSide(
+          width: 0.1
+        )
+      ) ,
+      child: ListTile(
+        title: Text(color),
+        leading: Icon(Icons.adjust, color: colorS,)
+      ),
+    );
+  }
+
+  Widget colorLanguageTile(String language, String url) {
+    return Card(
+      elevation: 0.0,
+      shape:UnderlineInputBorder(
+          borderSide: BorderSide(
+              width: 0.1
+          )
+      ) ,
+      child: ListTile(
+        title: Text(language),
+        leading: CircleAvatar(
+          backgroundImage: NetworkImage(url),
         ),
       ),
     );
