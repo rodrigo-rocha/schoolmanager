@@ -1,4 +1,3 @@
-// TODO: Reformat
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -19,9 +18,10 @@ class MenuState extends State<Menu> {
   Widget _buildTile(Widget child, {Function() onTap}) {
     return Material(
       color: tileColor,
-      elevation: 1.5, // Relevo dos botões
-      borderRadius: BorderRadius.circular(30), // Tiles Border Radius
+      elevation: 1.0, // Relevo dos botões
+      borderRadius: BorderRadius.circular(10), // Tiles Border Radius
       shadowColor: _shadowColor,
+
       child: InkWell
         (
         // Do onTap() if it isn't null, otherwise do print()
@@ -38,57 +38,12 @@ class MenuState extends State<Menu> {
       (
         backgroundColor: Colors.white,
         body: StaggeredGridView.count(
-          crossAxisCount: 2,
+          crossAxisCount: 3,
           scrollDirection: Axis.vertical,
           crossAxisSpacing: 12.0, // Spacing
           mainAxisSpacing: 12.0, // Spacing
           padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0), // Check horizontal 16? ou 26-26
           children: <Widget>[
-           /* Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                height: 50,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Functions.showLogo(),
-                   /* Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.red
-                        )
-                      ),
-                      child: Column(
-
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            //crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              Text("Luísa Santos"),
-                              SizedBox(width: 5),
-                              Icon(Icons.fiber_smart_record, color: Colors.green)
-                            ],
-                          ),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            //crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              Text("João Santos"),
-                              SizedBox(width: 5),
-                              Icon(Icons.fiber_smart_record, color: Colors.red)
-                            ],
-                          ),
-                        ],
-                      ),
-                    ), */
-                  ],
-                )
-              ),
-            ),*/
 
             Functions.showLogo(),
             _buildTileIcon('Calendar', Icons.today, () => Navigator.of(context).pushNamed('/calendar')),
@@ -97,11 +52,12 @@ class MenuState extends State<Menu> {
             _buildTileIcon('Notes', Icons.note, () => Navigator.of(context).pushNamed('/notes_tab_controller')),
             _buildTileIcon('Timeline', Icons.timeline, () => Navigator.of(context).pushNamed('/timeline')),
             _buildTileIcon('Settings', Icons.settings, () => Navigator.of(context).pushNamed('/settings')),
+            _buildTileIcon('Share', Icons.share, () => Navigator.of(context).pushNamed('/share')),
             _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
             _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
             _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
             _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
-
+            _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
 
             /// ADD TODO list menu
             /// Add Focus timer menu, onde é possivel a pessoa se consentrar
@@ -109,7 +65,11 @@ class MenuState extends State<Menu> {
             /// Add Settings to change Colors in the
           ],
           staggeredTiles: [
-            StaggeredTile.fit(2),
+            StaggeredTile.fit(3),
+            StaggeredTile.fit(1),
+            StaggeredTile.fit(1),
+            StaggeredTile.fit(1),
+            StaggeredTile.fit(1),
             StaggeredTile.fit(1),
             StaggeredTile.fit(1),
             StaggeredTile.fit(1),
@@ -167,7 +127,7 @@ class MenuState extends State<Menu> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title, style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 20.0))
+              Text(title, style: TextStyle(color: Colors.black, fontSize: 15.0))
             ],
           ),
         ]

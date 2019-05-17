@@ -35,7 +35,6 @@ class FinishedCoursesInfoState extends State<FinishedCoursesInfo> {
   @override
   Widget build(BuildContext context) {
 
-    // TODO: implement Notes build
     return Scaffold(
       appBar: Functions.appBar("Information", Icons.add, popUpButton()),
       //drawer: Functions.sideBar(context),

@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 //import 'package:school_manager/menu/main_menu.dart';
 
 class Functions {
-
-  static Widget showLocation(BuildContext context) {
+  static Widget showLocation(BuildContext context, String path) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
           title: new Text("Location"),
-          content: Image.asset('assets/images/location.png'),
+          content: Image.asset(path),
           actions: <Widget>[
             new FlatButton(
               child: new Text("Go Back", style: TextStyle(fontSize: 17)),
@@ -25,23 +24,44 @@ class Functions {
   }
 
   static Widget showLogo() {
-
-    return Hero(
-      tag: 'hero',
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
-        child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: 70.0,
-          child: Image.asset('assets/images/logo.png'),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+//        SizedBox(width: 20.0),
+            Hero(
+              tag: 'hero',
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+                child: CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  radius: 70.0,
+                  child: Image.asset('assets/images/logo.png'),
+                ),
+              ),
+            ),
+            SizedBox(width: 20,),
+            Text(
+              "School\nManager",
+              style: new TextStyle(
+                fontSize: 30.0,
+              ),
+              maxLines: 3,
+              overflow: TextOverflow.clip,
+            ),
+          ],
         ),
-      ),
+      ],
     );
   }
 
   static Widget sideBar(BuildContext context) {
-
-    String img = 'https://scontent.flis4-1.fna.fbcdn.net/v/t1.0-9/54430395_2199184333474025_1424275597042909184_n.jpg?_nc_cat=102&_nc_ht=scontent.flis4-1.fna&oh=2a48f3ed61349d967bd8031ee9659a50&oe=5D028F90';
+    String img =
+        'https://scontent.flis4-1.fna.fbcdn.net/v/t1.0-9/54430395_2199184333474025_1424275597042909184_n.jpg?_nc_cat=102&_nc_ht=scontent.flis4-1.fna&oh=2a48f3ed61349d967bd8031ee9659a50&oe=5D028F90';
 
     return SizedBox(
       width: 250,
@@ -54,13 +74,9 @@ class Functions {
               accountEmail: Text('rocha.rodrigo@ua.pt'),
               currentAccountPicture: Container(
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image:
-                      NetworkImage(img)
-                  )
-                ),
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        fit: BoxFit.fill, image: NetworkImage(img))),
               ),
               onDetailsPressed: () {
                 /// TODO: Implement more details
@@ -78,10 +94,12 @@ class Functions {
             ),
             new Column(
               children: <Widget>[
-                _addListItem("Calendar", Icons.calendar_today, '/calendar', context),
+                _addListItem(
+                    "Calendar", Icons.calendar_today, '/calendar', context),
                 _addListItem("Courses", Icons.book, '/courses', context),
                 _addListItem("Notes", Icons.speaker_notes, '/notes', context),
-                _addListItem("Teachers", Icons.supervised_user_circle, '/teachers', context),
+                _addListItem("Teachers", Icons.supervised_user_circle,
+                    '/teachers', context),
                 _addListItem("Settings", Icons.settings, '/settings', context),
               ],
             ),
@@ -89,24 +107,23 @@ class Functions {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget> [
+              children: <Widget>[
                 ButtonBar(
-                  alignment: MainAxisAlignment.center ,
-                  children: <Widget> [
-                    IconButton(
-                      icon: new Icon(Icons.exit_to_app),
-                      onPressed: null,
-                    ),
-                    IconButton(
-                      icon: new Icon(Icons.power_settings_new),
-                      onPressed: null,
-                    ),
-                    IconButton(
-                      icon: new Icon(Icons.help_outline),
-                      onPressed: null,
-                    )
-                  ]
-                ),
+                    alignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      IconButton(
+                        icon: new Icon(Icons.exit_to_app),
+                        onPressed: null,
+                      ),
+                      IconButton(
+                        icon: new Icon(Icons.power_settings_new),
+                        onPressed: null,
+                      ),
+                      IconButton(
+                        icon: new Icon(Icons.help_outline),
+                        onPressed: null,
+                      )
+                    ]),
               ],
             ),
           ],
@@ -115,7 +132,8 @@ class Functions {
     );
   }
 
-  static ListTile _addListItem(String name, IconData icon, String path, BuildContext context) {
+  static ListTile _addListItem(
+      String name, IconData icon, String path, BuildContext context) {
     return new ListTile(
       title: new Text(name),
       leading: new Icon(icon),
@@ -130,11 +148,14 @@ class Functions {
   static Widget appBar(String text, IconData icon, Widget popUpButton) {
     /// appBar() suporta um null no popUpButton, sendo que reprime este elemento
 
-    final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-    if(popUpButton != null) {
+    final GlobalKey<ScaffoldState> _scaffoldKey =
+        new GlobalKey<ScaffoldState>();
+    if (popUpButton != null) {
       return AppBar(
         key: _scaffoldKey,
-        title: Text(text, textAlign: TextAlign.center,
+        title: Text(
+          text,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 25.0,
             fontFamily: 'Questrial',
@@ -145,9 +166,7 @@ class Functions {
             icon: new Icon(Icons.view_headline), // clear all?
             onPressed: () {
               //_scaffoldKey.currentState.openDrawer();
-            }
-        ),
-
+            }),
         elevation: 2.0,
         iconTheme: IconThemeData(
           color: Colors.grey, //change your color here
@@ -158,10 +177,12 @@ class Functions {
           popUpButton,
         ],
       );
-    }else{
+    } else {
       return AppBar(
         key: _scaffoldKey,
-        title: Text(text, textAlign: TextAlign.center,
+        title: Text(
+          text,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 25.0,
             fontFamily: 'Questrial',
@@ -172,9 +193,7 @@ class Functions {
             icon: new Icon(Icons.view_headline), // clear all?
             onPressed: () {
               //_scaffoldKey.currentState.openDrawer();
-            }
-        ),
-
+            }),
         elevation: 2.0,
         iconTheme: IconThemeData(
           color: Colors.grey, //change your color here
@@ -186,11 +205,13 @@ class Functions {
   }
 
   static Widget createBar(String text, doneAction(), goBackAction()) {
-
-    final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> _scaffoldKey =
+        new GlobalKey<ScaffoldState>();
     return AppBar(
       key: _scaffoldKey,
-      title: Text(text, textAlign: TextAlign.center ,
+      title: Text(
+        text,
+        textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 25.0,
           fontFamily: 'Questrial',
@@ -201,9 +222,7 @@ class Functions {
           icon: new Icon(Icons.keyboard_backspace), // clear all?
           onPressed: () {
             goBackAction();
-          }
-      ),
-
+          }),
       elevation: 2.0,
       iconTheme: IconThemeData(
         color: Colors.grey, //change your color here
@@ -213,13 +232,55 @@ class Functions {
       actions: <Widget>[
         IconButton(
           icon: new Icon(Icons.done),
-          onPressed: ()
-          {
+          onPressed: () {
             doneAction();
           },
           iconSize: 30,
         ),
       ],
+    );
+  }
+
+
+  static void showShareDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Scan QR Code to share"),
+          content: Image.network('https://cdn.instructables.com/FG3/T9YT/I71QJ2RG/FG3T9YTI71QJ2RG.LARGE.jpg'),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  static void showDownloadDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Transfer completed"),
+          content: Text("Check your download folder."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

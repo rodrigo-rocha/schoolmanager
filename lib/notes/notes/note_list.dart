@@ -42,7 +42,6 @@ class NoteListState extends State<NoteList> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       //appBar: Functions.appBar("Notes", Icons.speaker_notes, popUpButton()),
       body: ListView.builder(

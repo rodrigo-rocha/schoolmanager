@@ -10,7 +10,6 @@ class Timeline extends StatefulWidget {
 class TimelineState extends State<Timeline> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement Notes build
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: Functions.appBar("Timeline", Icons.add, null),

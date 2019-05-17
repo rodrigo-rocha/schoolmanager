@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/login/auth_functions.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 
-TextEditingController emailController = new TextEditingController();
-TextEditingController passwordController = new TextEditingController();
+TextEditingController emailController = new TextEditingController(text: "admin@admin.sm.pt");
+TextEditingController passwordController = new TextEditingController(text: "*******");
 
 final FocusNode _emailFocus = FocusNode();
 final FocusNode _passFocus = FocusNode();

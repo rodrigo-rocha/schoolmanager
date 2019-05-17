@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
+import 'package:flutter_app_ihc/users/teachers/teacher_info.dart';
 import 'package:flutter_app_ihc/users/tab_controller.dart';
 import 'package:flutter_app_ihc/classes/Teacher.dart';
 
@@ -27,14 +28,16 @@ class TeachersEditState extends State<TeachersEdit> {
     teachersList.removeAt(t_idx);
     teachersList.add(new Teacher(nameController.text, emailController.text, officeController.text, phoneController.text, deptController.text, coursesController.text, photo));
 
+    /*
     nameController.text = "";
     emailController.text = "";
     officeController.text = "";
     phoneController.text = "";
     deptController.text = "";
     coursesController.text = "";
-    
-    Navigator.push(
+    */
+
+    Navigator.pushReplacement(
         context,
         new MaterialPageRoute(builder: (context) => UserTabController()
         ));

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/users/students/student_add.dart';
 import 'package:flutter_app_ihc/users/students/student_info.dart';
 import 'package:flutter_app_ihc/classes/Student.dart';
@@ -28,9 +27,6 @@ class StudentListState extends State<StudentList> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      //appBar: Functions.appBar("Teachers", Icons.add, context),
-      //drawer: Functions.sideBar(context),
-      //bottomNavigationBar: Functions.navBar(context),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add new student',
         backgroundColor: Colors.white,

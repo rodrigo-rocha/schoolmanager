@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
 import 'package:flutter_app_ihc/users/students/student_list.dart';
-import 'package:flutter_app_ihc/main.dart';
+import 'package:flutter_app_ihc/functions/functions.dart';
+
+
+import 'package:flutter_app_ihc/users/teachers/teacher_info.dart';
+import 'package:flutter_app_ihc/users/teachers/teacher_add.dart';
+
+import 'package:flutter_app_ihc/classes/Teacher.dart';
 
 class UserTabController extends StatefulWidget {
   @override
@@ -10,21 +16,52 @@ class UserTabController extends StatefulWidget {
 
 class UserTabControllerState extends State<UserTabController> {
 
+  static TextStyle textStyle() {
+    return TextStyle(
+      fontSize: 30.0,
+      color: Colors.blue,
+    );
+  }
+  /* Serach Bar Options */
+  final TextEditingController _filter = new TextEditingController();
+
+  String _searchText = "";
+
+  List names = ['A', 'B', 'C', 'D', 'A', 'B', 'C', 'D']; // names we get from API
+
+  List filteredNames = new List(); // names filtered by search text
+
+  Icon _searchIcon = new Icon(Icons.search);
+
+  Widget _appBarTitle = new Text('Users', style: textStyle());
+  /* Serach Bar Options */
+
   @override
   Widget build(BuildContext context) {
     return new DefaultTabController(
       length: 2,
       child: Scaffold(
+        drawer: Functions.sideBar(context),
         appBar: AppBar(
-          centerTitle: true,
-          title: Text('Users', textAlign: TextAlign.left ,
-            style: TextStyle(
-                fontSize: 30.0,
-                color: Colors.blue,
+          title: _appBarTitle,
+          actions: <Widget>[
+            new IconButton(
+              icon: _searchIcon,
+              onPressed: () {
+                _searchPressed();
+              },
             ),
-          ),
+          ],
+
+          centerTitle: true,
+          //title: Text('Users', textAlign: TextAlign.left ,
+          //  style: TextStyle(
+          //      fontSize: 30.0,
+          //      color: Colors.blue,
+          //  ),
+          //),
           elevation: 0.5, // 2
-          leading: IconButton(icon:Icon(Icons.arrow_back),
+          leading: IconButton(icon:Icon(Icons.dehaze),
             onPressed:() => Navigator.pop(context, false),
           ),
           iconTheme: IconThemeData(
@@ -51,4 +88,28 @@ class UserTabControllerState extends State<UserTabController> {
     );
   }
 
+  void _searchPressed() {
+    setState(() {
+      if (this._searchIcon.icon == Icons.search) {
+        this._searchIcon = new Icon(Icons.close);
+        this._appBarTitle = new TextField(
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 25
+          ),
+          controller: _filter,
+          decoration: new InputDecoration(
+            prefixIcon: new Icon(Icons.search),
+            hintText: 'Search...'
+          ),
+        );
+      } else {
+        this._searchIcon = new Icon(Icons.search);
+        this._appBarTitle = new Text('Users', style: textStyle(),
+      );
+        filteredNames = names;
+        _filter.clear();
+      }
+    });
+  }
 }

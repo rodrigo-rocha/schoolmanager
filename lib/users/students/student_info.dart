@@ -35,7 +35,6 @@ class StudentInfoState extends State<StudentInfo> {
   @override
   Widget build(BuildContext context) {
 
-    // TODO: implement Notes build
     return Scaffold(
       appBar: Functions.appBar("Information", Icons.add, popUpButton()),
       body: ListView(

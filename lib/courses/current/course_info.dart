@@ -42,8 +42,6 @@ class CourseInfoState extends State<CourseInfo> {
   @override
   Widget build(BuildContext context) {
     print(t_idx);
-
-    // TODO: implement Notes build
     return Scaffold(
       appBar: Functions.appBar("Information", Icons.add, popUpButton()),
 

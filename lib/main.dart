@@ -20,7 +20,9 @@ import 'package:flutter_app_ihc/notes/notes_tab_controller.dart';
 import 'package:flutter_app_ihc/calendar/calendar.dart';
 import 'package:flutter_app_ihc/calendar/event_info.dart';
 import 'package:flutter_app_ihc/settings/settings.dart';
-
+import 'package:flutter_app_ihc/share/share.dart';
+import 'package:flutter_app_ihc/share/shared_docs.dart';
+import 'package:flutter_app_ihc/calendar/week_schedule.dart';
 
 void main() {
   runApp(SchoolManager());
@@ -62,6 +64,11 @@ class SchoolManager extends StatelessWidget {
         '/calendar': (BuildContext context) => new Calendar(),
         '/settings': (BuildContext context) => new Settings(),
         '/event_info': (BuildContext context) => new EventInfo(),
+
+
+        '/share': (BuildContext context) => new Share(),
+        '/week_schedule': (BuildContext context) => new WeekSchedule(),
+        '/shared_docs': (BuildContext context) => new SharedDocs(),
 
       },
       home: Login(),

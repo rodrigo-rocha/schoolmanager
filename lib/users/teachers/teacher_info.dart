@@ -3,17 +3,23 @@ import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+TextEditingController subjectController = new TextEditingController();
+TextEditingController bodyController = new TextEditingController();
+
 class TeacherInfo extends StatefulWidget {
 
   @override
   TeacherInfoState createState() => TeacherInfoState();
 }
 
+int edit_cont;
+
 class TeacherInfoState extends State<TeacherInfo> {
 
   void choiceActions(String choice) {
     if(choice == 'Edit') {
-      Navigator.pushNamed(context, '/teacher_edit');
+      edit_cont = t_idx;
+      Navigator.pushReplacementNamed(context, '/teacher_edit');
     } else if(choice == 'Delete') {
       _showDialog();
     }
@@ -35,8 +41,6 @@ class TeacherInfoState extends State<TeacherInfo> {
 
   @override
   Widget build(BuildContext context) {
-
-    // TODO: implement Notes build
     return Scaffold(
       appBar: Functions.appBar("Information", Icons.add, popUpButton()),
       body: ListView(
@@ -57,18 +61,39 @@ class TeacherInfoState extends State<TeacherInfo> {
                 children: <Widget>[
                   Text(teachersList[t_idx].name, textAlign: TextAlign.left,style: TextStyle(fontSize: 25)),
                   Text(teachersList[t_idx].email),
+
                 ],
               )
             ],
           ),
-          _infoT(teachersList[t_idx].email, 'E-Mail', traillingAction(Icons.mail_outline, "Send Email", () { _openWith('mailto:<${teachersList[t_idx].email}>'); } )),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              miniIcons("Schedule", Icons.calendar_today, () => Navigator.of(context).pushNamed('/week_schedule')),
+              miniIcons("Shared Docs", Icons.folder_shared, () => Navigator.of(context).pushNamed('/shared_docs')),
+              miniIcons("Share My Schedule", Icons.share, () => Functions.showShareDialog(context)),
+            ],
+          ),
+          _infoT(teachersList[t_idx].email, 'E-Mail', traillingAction(Icons.mail_outline, "Send Email", () { _showMailDialogue(); } )),
           _infoT(teachersList[t_idx].phone, 'Phone', traillingAction(Icons.phone, "Call", () { _openWith('tel:${teachersList[t_idx].phone}'); })),
           _infoT(teachersList[t_idx].courses, 'Courses', traillingAction(Icons.description, "Information", () { _googleSearch(teachersList[t_idx].courses); })),
-          _infoT(teachersList[t_idx].department, 'Department', traillingAction(Icons.place, "Locate", () { Functions.showLocation(context); })),
-          _infoT(teachersList[t_idx].office, 'Office', traillingAction(Icons.place, "Locate", () { Functions.showLocation(context); } )),
+          _infoT(teachersList[t_idx].department, 'Department', traillingAction(Icons.place, "Locate", () { Functions.showLocation(context,'assets/images/dept_location.png'); })),
+          _infoT(teachersList[t_idx].office, 'Office', traillingAction(Icons.place, "Locate", () { Functions.showLocation(context,'assets/images/location.png'); } )),
         ],
       ),
 
+    );
+  }
+
+  Widget miniIcons(String label, IconData icon, action()) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        IconButton(icon: Icon(icon), color: Colors.blue, onPressed: () { action(); },),
+        Text(label, style: TextStyle(color: Colors.blue),),
+      ],
     );
   }
 
@@ -106,6 +131,8 @@ class TeacherInfoState extends State<TeacherInfo> {
     );
   }
 
+
+
   void _showDialog() {
     showDialog(
       context: context,
@@ -124,11 +151,84 @@ class TeacherInfoState extends State<TeacherInfo> {
               },
             ),
             new FlatButton(
-              child: new Text("Go Back", style: TextStyle(fontSize: 17)),
+              child: new Text("Close", style: TextStyle(fontSize: 17)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
+          ],
+        );
+      },
+    );
+  }
+
+  void confirmationEmail() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Email sent"),
+          content: new Text("Email send to ${teachersList[t_idx].email}."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showMailDialogue() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return ListView(
+          children: <Widget>[
+            AlertDialog(
+              title: Column(children: <Widget>[Text("Destination: ", style: TextStyle(fontWeight: FontWeight.bold)), new Text("${teachersList[t_idx].email}"),],),
+              content: Column(
+              children: <Widget>[
+                TextField(
+                  controller: subjectController,
+                  decoration: InputDecoration(
+                    hintText: "Subject",
+                  ),
+                ),
+                TextField(
+                  controller: bodyController,
+                  maxLines: 15,
+                  decoration: InputDecoration(
+                    hintText: "Message",
+                  ),
+                ),
+              ],
+            ),
+
+            //new Text("Are you sure you want to delete ${teachersList[t_idx].name}?"),
+            actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text("Close", style: TextStyle(fontSize: 17)),
+                onPressed: () {
+                //teachersList.removeAt(t_idx);
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text("Send", style: TextStyle(color: Colors.green, fontSize: 17)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  confirmationEmail();
+                  },
+                ),
+              ],
+            )
           ],
         );
       },
