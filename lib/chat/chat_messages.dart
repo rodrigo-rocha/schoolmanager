@@ -3,6 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 
+import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
+import 'package:flutter_app_ihc/users/teachers/teacher_info.dart';
+//import 'package:flutter_app_ihc/users/students/student_list.dart';
+
 import 'package:flutter_app_ihc/chat/chat_list.dart';
 import 'package:flutter_app_ihc/chat/chat_vars.dart';
 
@@ -56,8 +60,17 @@ class ChatMessageState extends State<ChatMessage> {
                         color: Colors.transparent,
                         child: ListTile(
                           title: Text(ChatVars.chatList[chat_idx].messages[index].message),
-                          leading: CircleAvatar(
-                            backgroundImage: NetworkImage(ChatVars.chatList[chat_idx].person.photo)
+                          leading: GestureDetector(
+                            child: CircleAvatar(
+                              backgroundImage: NetworkImage(ChatVars.chatList[chat_idx].person.photo),
+                            ),
+                            onTap: () {
+                              for(int x = 0; x < teachersList.length; x++) {
+                                if(teachersList[x].name == ChatVars.chatList[chat_idx].person.name) {
+                                  print(x);
+                                }
+                              }
+                            },
                           ),
                           subtitle: Text(ChatVars.chatList[chat_idx].messages[index].date)
                         ),
@@ -111,8 +124,20 @@ class ChatMessageState extends State<ChatMessage> {
                     color: Colors.transparent,
                     child: ListTile(
                       title: Text(ChatVars.chatList[chat_idx].messages[index].message),
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(ChatVars.chatList[chat_idx].person.photo),
+                      leading: GestureDetector(
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(ChatVars.chatList[chat_idx].person.photo),
+                        ),
+                        onTap: () {
+                          for(int x = 0; x < teachersList.length; x++) {
+                            if(teachersList[x].name == ChatVars.chatList[chat_idx].person.name) {
+                              t_idx = x;
+                              Navigator.push(context, new MaterialPageRoute(
+                                  builder: (context) => new TeacherInfo())
+                              );
+                            }
+                          }
+                        },
                       ),
                       subtitle: Text(ChatVars.chatList[chat_idx].messages[index].date),
                     ),
