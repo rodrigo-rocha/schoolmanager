@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 
 class Timeline extends StatefulWidget {
@@ -16,18 +17,11 @@ class TimelineState extends State<Timeline> {
       drawer: Functions.sideBar(context),
       body: new ListView(
         children: <Widget>[
-          _event("Aniversário da Susana", "25/02/2019", Icons.cake),
-          _event("Apresentação de IHC", "12/05/2019", Icons.event_note),
-          _event("Exame Prático de  IHC", "12/05/2019", Icons.shopping_cart),
-          _event("", "12/05/2019", Icons.today),
-          _event("", "12/05/2019", Icons.today),
-          _event("", "12/05/2019", Icons.today),
-          _event("", "12/05/2019", Icons.today),
-          _event("", "12/05/2019", Icons.today),
-          _event("", "12/05/2019", Icons.today),
-          _event("", "12/05/2019", Icons.today),
-          _event("", "", Icons.today),
-
+//          _event("Aniversário da Susana", "25-02-2019", Icons.cake),
+//          _event("", "", Icons.today),
+          _event("IHC Presentation", DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 0))).toString(), Icons.event_note),
+          _event("PEI MileStone", DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 7))).toString(), Icons.shopping_cart),
+          _event("AR exam", DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 7))).toString(), Icons.today),
         ],
       ),
     );

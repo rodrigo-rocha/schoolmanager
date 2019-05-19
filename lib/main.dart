@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/login/login.dart';
+import 'package:flutter_app_ihc/login/forget_password.dart';
+import 'package:flutter_app_ihc/login/signup.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_add.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_edit.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_info.dart';
@@ -43,7 +45,8 @@ class SchoolManager extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
         '/login' : (BuildContext context) => new Login(),
-        '/forget_password' : (BuildContext context) => new Login(),
+        '/forget_password' : (BuildContext context) => new ForgetPassword(),
+        '/signup' : (BuildContext context) => new Signup(),
         '/menu' : (BuildContext context) => new Menu(),
         '/teacher_list': (BuildContext context) => new TeacherList(),
         '/teacher_add': (BuildContext context) => new TeachersAdd(),

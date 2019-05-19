@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -121,7 +122,11 @@ class MenuState extends State<Menu> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title, style: TextStyle(color: Colors.black, fontSize: 15.0))
+              AutoSizeText(
+                title,
+                style: TextStyle(color: Colors.black, fontSize: 15.0),
+                maxLines: 1,
+              ),
             ],
           ),
         ]
