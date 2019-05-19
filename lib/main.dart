@@ -23,6 +23,7 @@ import 'package:flutter_app_ihc/settings/settings.dart';
 import 'package:flutter_app_ihc/share/share.dart';
 import 'package:flutter_app_ihc/share/shared_docs.dart';
 import 'package:flutter_app_ihc/calendar/week_schedule.dart';
+import 'package:flutter_app_ihc/chat/chat_list.dart';
 
 void main() {
   runApp(SchoolManager());
@@ -69,6 +70,7 @@ class SchoolManager extends StatelessWidget {
         '/share': (BuildContext context) => new Share(),
         '/week_schedule': (BuildContext context) => new WeekSchedule(),
         '/shared_docs': (BuildContext context) => new SharedDocs(),
+        '/chat_list': (BuildContext context) => new ChatList(),
 
       },
       home: Login(),

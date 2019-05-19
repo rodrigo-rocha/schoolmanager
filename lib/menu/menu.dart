@@ -46,17 +46,14 @@ class MenuState extends State<Menu> {
           children: <Widget>[
 
             Functions.showLogo(),
-            _buildTileIcon('Calendar', Icons.today, () => Navigator.of(context).pushNamed('/calendar')),
             _buildTileIcon('Users', Icons.supervised_user_circle, () => Navigator.of(context).pushNamed('/user_tab_controller')),
             _buildTileIcon('Courses', Icons.book, () => Navigator.of(context).pushNamed('/courses_tab_controller')),
             _buildTileIcon('Notes', Icons.note, () => Navigator.of(context).pushNamed('/notes_tab_controller')),
+            _buildTileIcon('Chat', Icons.chat, () => Navigator.of(context).pushNamed('/chat_list')),
+            _buildTileIcon('Calendar', Icons.today, () => Navigator.of(context).pushNamed('/calendar')),
             _buildTileIcon('Timeline', Icons.timeline, () => Navigator.of(context).pushNamed('/timeline')),
-            _buildTileIcon('Settings', Icons.settings, () => Navigator.of(context).pushNamed('/settings')),
             _buildTileIcon('Share', Icons.share, () => Navigator.of(context).pushNamed('/share')),
-            _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
-            _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
-            _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
-            _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
+            _buildTileIcon('Settings', Icons.settings, () => Navigator.of(context).pushNamed('/settings')),
             _buildTileIcon('Add here', Icons.landscape, () => Navigator.of(context).pushNamed('/timeline')),
 
             /// ADD TODO list menu
@@ -66,9 +63,6 @@ class MenuState extends State<Menu> {
           ],
           staggeredTiles: [
             StaggeredTile.fit(3),
-            StaggeredTile.fit(1),
-            StaggeredTile.fit(1),
-            StaggeredTile.fit(1),
             StaggeredTile.fit(1),
             StaggeredTile.fit(1),
             StaggeredTile.fit(1),

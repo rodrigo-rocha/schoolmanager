@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
@@ -41,6 +43,7 @@ class TeacherInfoState extends State<TeacherInfo> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: Functions.appBar("Information", Icons.add, popUpButton()),
       body: ListView(
@@ -70,9 +73,9 @@ class TeacherInfoState extends State<TeacherInfo> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              miniIcons("Schedule", Icons.calendar_today, () => Navigator.of(context).pushNamed('/week_schedule')),
-              miniIcons("Shared Docs", Icons.folder_shared, () => Navigator.of(context).pushNamed('/shared_docs')),
-              miniIcons("Share My Schedule", Icons.share, () => Functions.showShareDialog(context)),
+              miniIcons("Schedule", Icons.calendar_today, () => Navigator.of(context).pushNamed('/week_schedule'), Colors.blue),
+              miniIcons("Shared Docs", Icons.folder_shared, () => Navigator.of(context).pushNamed('/shared_docs'), Colors.blue),
+              availIcon(new Random().nextInt(10)),
             ],
           ),
           _infoT(teachersList[t_idx].email, 'E-Mail', traillingAction(Icons.mail_outline, "Send Email", () { _showMailDialogue(); } )),
@@ -86,15 +89,38 @@ class TeacherInfoState extends State<TeacherInfo> {
     );
   }
 
-  Widget miniIcons(String label, IconData icon, action()) {
+  Widget miniIcons(String label, IconData icon, action(), Color color) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        IconButton(icon: Icon(icon), color: Colors.blue, onPressed: () { action(); },),
-        Text(label, style: TextStyle(color: Colors.blue),),
+        IconButton(icon: Icon(icon), color: color, onPressed: () { action(); },),
+        Text(label, style: TextStyle(color: color),),
       ],
     );
+  }
+
+  Widget availIcon(int avail) {
+    if(avail%2 == 0) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Icon(Icons.fiber_smart_record, color: Colors.green),
+          Text("Not at class", style: TextStyle(color: Colors.green),),
+        ],
+      );
+    } else {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Icon(Icons.fiber_smart_record, color: Colors.red),
+          Text("At class", style: TextStyle(color: Colors.red),),
+        ],
+      );
+    }
+
   }
 
   Widget _infoT(String title, String sub, Widget traillingAction) {
