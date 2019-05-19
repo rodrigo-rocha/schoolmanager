@@ -20,7 +20,7 @@ import 'package:flutter_app_ihc/courses/finished_course_add.dart';
 import 'package:flutter_app_ihc/timeline/timeline.dart';
 import 'package:flutter_app_ihc/notes/notes_tab_controller.dart';
 import 'package:flutter_app_ihc/calendar/calendar.dart';
-import 'package:flutter_app_ihc/calendar/event_info.dart';
+import 'package:flutter_app_ihc/calendar/event.dart';
 import 'package:flutter_app_ihc/settings/settings.dart';
 import 'package:flutter_app_ihc/share/share.dart';
 import 'package:flutter_app_ihc/share/shared_docs.dart';
@@ -69,7 +69,7 @@ class SchoolManager extends StatelessWidget {
         '/timeline': (BuildContext context) => new Timeline(),
         '/calendar': (BuildContext context) => new Calendar(),
         '/settings': (BuildContext context) => new Settings(),
-        '/event_info': (BuildContext context) => new EventInfo(),
+        '/event_info': (BuildContext context) => new Event(),
 
 
         '/share': (BuildContext context) => new Share(),

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 // import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
+import 'package:flutter_app_ihc/calendar/eventInfo.dart';
+import 'package:flutter_app_ihc/calendar/event.dart';
+import 'package:intl/intl.dart';
 
 
 class Calendar extends StatefulWidget {
@@ -27,9 +30,9 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
 //      selDay: ['Aniversário'],
 //      _selectedDay.subtract(Duration(days: 2)): ['Event A6', 'Event B6'],
 //      _selectedDay.add(Duration(days: 3)): Set.from(['Event A9', 'Event A9', 'Event B9']).toList(),
-      _selectedDay: ['IHC Presentation'],
-      _selectedDay.add(Duration(days: 7)): ['PEI MileStone'],
-      _selectedDay.add(Duration(days: 8)): [ 'AR exam'],
+      _selectedDay: [eventInfo('IHC Presentation', DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 0))).toString(), '20%')],
+      _selectedDay.add(Duration(days: 7)): [eventInfo('PEI MileStone', DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 7))).toString(), '15%')],
+      _selectedDay.add(Duration(days: 8)): [eventInfo('AR exam', DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 8))).toString(), '25%')],
     };
     _selectedEvents = _events[_selectedDay] ?? [];
     _visibleEvents = _events;
@@ -227,8 +230,13 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
         ),
         margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         child: ListTile(
-          title: Text(event.toString()),
-          onTap: () => Navigator.of(context).pushNamed('/event_info'),
+          title: Text(event.TITLE),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Event(data: event),
+            ),
+          ),
         ),
       ))
           .toList(),

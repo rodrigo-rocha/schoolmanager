@@ -2,15 +2,18 @@ import 'package:date_utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_app_ihc/calendar/eventInfo.dart';
 
-
-class EventInfo extends StatefulWidget {
+class Event extends StatefulWidget {
+  final eventInfo data;
+  Event({this.data});
 
   @override
-  EventInfoState createState() => EventInfoState();
+  EventState createState() => EventState();
 }
 
-class EventInfoState extends State<EventInfo> {
+class EventState extends State<Event> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +26,8 @@ class EventInfoState extends State<EventInfo> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text("Teste de IHC", textAlign: TextAlign.left,style: TextStyle(fontSize: 25)),
-              Text("12/9/2019"),
+              Text(widget.data.TITLE, textAlign: TextAlign.left,style: TextStyle(fontSize: 25)),
+              Text(widget.data.DATE),
             ],
           ),
           Card(
@@ -35,7 +38,7 @@ class EventInfoState extends State<EventInfo> {
                   color: Colors.grey,
                 )),
             child: ListTile(
-              title: Text("19 May 2019"),
+              title: Text(widget.data.DATE),
               subtitle: Text("Date"),
               trailing: Icon(Icons.accessible_forward),
             ),
@@ -49,7 +52,7 @@ class EventInfoState extends State<EventInfo> {
                   color: Colors.grey,
                 )),
             child: ListTile(
-              title: Text("30%"),
+              title: Text(widget.data.PERCENTAGE),
               subtitle: Text("Percentage"),
               trailing: Icon(Icons.accessible_forward),
             ),
