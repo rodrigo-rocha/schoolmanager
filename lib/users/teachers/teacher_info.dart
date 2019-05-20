@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 TextEditingController subjectController = new TextEditingController();
 TextEditingController bodyController = new TextEditingController();
@@ -161,7 +162,11 @@ class TeacherInfoState extends State<TeacherInfo> {
         child: Column(
             children: <Widget>[
               Icon(icon, color: Colors.blue,),
-              Text(text, style: TextStyle(color: Colors.blue),),
+              AutoSizeText(
+                text,
+                style: TextStyle(color: Colors.blue, fontSize: 15.0),
+                maxLines: 1,
+              ),
             ]
         ),
       ),

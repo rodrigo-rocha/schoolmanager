@@ -112,7 +112,9 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
         tooltip: 'Add Event',
         backgroundColor: Colors.white,
         child: Icon(Icons.add, color: Colors.blue),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed("/add_event");
+        },
       ),
     );
   }
