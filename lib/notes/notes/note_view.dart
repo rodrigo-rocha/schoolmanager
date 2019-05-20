@@ -87,7 +87,6 @@ class NoteViewState extends State<NoteView> {
           title: new Text("Delete Note"),
           content: new Text("Are you sure you want to delete this note?"),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Delete", style: TextStyle(color: Colors.red, fontSize: 17)),
               onPressed: () {

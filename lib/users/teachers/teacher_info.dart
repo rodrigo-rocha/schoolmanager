@@ -8,6 +8,8 @@ import 'package:url_launcher/url_launcher.dart';
 TextEditingController subjectController = new TextEditingController();
 TextEditingController bodyController = new TextEditingController();
 
+TextEditingController meetingController = new TextEditingController();
+
 class TeacherInfo extends StatefulWidget {
 
   @override
@@ -38,6 +40,17 @@ class TeacherInfoState extends State<TeacherInfo> {
           );
         }).toList();
       },
+    );
+  }
+
+  Widget _scheduleMeeting(String name, Widget traillingAction) {
+    return Card(
+      color: Colors.transparent,
+      child: ListTile(
+        title: Text(name),
+        trailing: traillingAction,
+      ),
+      elevation: 0.0,
     );
   }
 
@@ -78,6 +91,7 @@ class TeacherInfoState extends State<TeacherInfo> {
               availIcon(new Random().nextInt(10)),
             ],
           ),
+          _scheduleMeeting('Schedule Meeting', traillingAction(Icons.keyboard_arrow_right, "Schedule Meeting", () { _showScheduleDialog(); } )),
           _infoT(teachersList[t_idx].email, 'E-Mail', traillingAction(Icons.mail_outline, "Send Email", () { _showMailDialogue(); } )),
           _infoT(teachersList[t_idx].phone, 'Phone', traillingAction(Icons.phone, "Call", () { _openWith('tel:${teachersList[t_idx].phone}'); })),
           _infoT(teachersList[t_idx].courses, 'Courses', traillingAction(Icons.description, "Information", () { _googleSearch(teachersList[t_idx].courses); })),
@@ -266,6 +280,87 @@ class TeacherInfoState extends State<TeacherInfo> {
                 ),
               ],
             )
+          ],
+        );
+      },
+    );
+  }
+
+  List<String> dates = ['Monday 14-15h', 'Monday 15-16h', 'Thusday 16-17h', 'Wednesday 16-17h', 'Wednesday 17-18h', 'Thurday 10-11h', 'Thurday 11-12h'];
+
+  Widget gradeActions(){
+    return PopupMenuButton<String> (
+      icon: Icon(Icons.add_circle),
+      onSelected: choiceActions,
+      itemBuilder: (BuildContext context) {
+        return dates.map((String choice) {
+          return PopupMenuItem<String>(
+            value: choice,
+            child: Text(choice),
+          );
+        }).toList();
+      },
+    );
+  }
+
+  Widget dropdownField(String hint, TextEditingController cont, var items) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 18.0, left: 18.0),
+      child: new Row(
+        children: <Widget>[
+          new Expanded(
+            child: new TextField(
+              controller: cont,
+              decoration: InputDecoration(hintText: hint),
+            ),
+          ),
+          new PopupMenuButton<String>(
+            elevation: 5,
+
+            icon: const Icon(Icons.arrow_drop_down),
+
+            onSelected: (String value) {
+              cont.text = value;
+            },
+            itemBuilder: (BuildContext context) {
+              return items.map<PopupMenuItem<String>>((String value) {
+                return new PopupMenuItem(
+                  child: new Text(value),
+                  value: value,
+                );
+              }).toList();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showScheduleDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Please choose the day and time of the meeting."),
+          content: dropdownField("Day and time of meeting", meetingController, dates),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Go Back", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Schedule Meeting", style: TextStyle(color: Colors.green, fontSize: 17)),
+              onPressed: () {
+                //finishedCoursesList.add(new Course(courseList[t_idx].name, courseList[t_idx].code, courseList[t_idx].department, courseList[t_idx].coordinator,  gradeController.text, []));
+                //courseList.removeAt(t_idx);
+                Navigator.of(context).pop();
+                //Navigator.of(context).pushReplacementNamed('/courses_tab_controller');
+              },
+            ),
           ],
         );
       },

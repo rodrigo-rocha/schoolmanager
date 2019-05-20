@@ -3,6 +3,7 @@ import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:flutter_app_ihc/courses/finished/finished_courses.dart';
 
 class Reports extends StatefulWidget {
 
@@ -12,9 +13,11 @@ class Reports extends StatefulWidget {
 
 Map<String, double> dataMap = new Map();
 
-
+double mean;
 
 class ReportsState extends State<Reports> {
+
+
 
   @override
   void initState() {
@@ -26,6 +29,15 @@ class ReportsState extends State<Reports> {
 
   @override
   Widget build(BuildContext context) {
+
+    int sum = 0;
+
+    for(int i = 0; i < finishedCoursesList.length; i++) {
+      sum += int.parse(finishedCoursesList[i].grade);
+    }
+
+    mean = sum/finishedCoursesList.length;
+
     // TODO: implement build
     return Scaffold(
       appBar: Functions.appBar("Reports", null, null),
@@ -92,7 +104,7 @@ class ReportsState extends State<Reports> {
               margin: EdgeInsets.only(left: 10.0, right: 10.0),
               child: ListTile(
                 trailing: Icon(Icons.import_contacts, color: Colors.blue,),
-                title: Text("14"),
+                title: Text(mean.toString()),
                 subtitle: Text("Mean"),
               ),
             ),
@@ -112,9 +124,6 @@ class ReportsState extends State<Reports> {
                 subtitle: Text("Avergare hours of study per week"),
               ),
             )
-
-
-
           ],
           staggeredTiles: [
             StaggeredTile.fit(2),
