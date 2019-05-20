@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 
@@ -142,6 +144,44 @@ class SettingsState extends State<Settings> {
                     onTap: () {
                       _showDialog();
                     }),
+                elevation: 0.0,
+              ),
+
+              Card(
+                color: Colors.transparent,
+                shape: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 0.5,
+                      color: Colors.grey,
+                    )),
+                child: ListTile(
+                    title: Text("Log Out"),
+                    leading: Icon(
+                      Icons.exit_to_app,
+                    ),
+                    onTap: () {
+                      //Navigator.popUntil(context, ModalRoute.withName('/login'));
+                      Navigator.pushNamed(context, '/');
+                    }),
+                elevation: 0.0,
+              ),
+
+              Card(
+                color: Colors.transparent,
+                shape: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 0.5,
+                    color: Colors.grey,
+                  )),
+                child: ListTile(
+                  title: Text("Exit application"),
+                  leading: Icon(
+                    Icons.clear,
+                  ),
+                  onTap: () {
+                    //Navigator.popUntil(context, ModalRoute.withName('/login'));
+                    exit(0);
+                  }),
                 elevation: 0.0,
               ),
             ],
