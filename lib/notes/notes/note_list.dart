@@ -43,6 +43,12 @@ class NoteListState extends State<NoteList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.pushNamed(context, '/note_add'),
+        tooltip: 'Add new list',
+        backgroundColor: Colors.white,
+        child: Icon(Icons.add, color: Colors.blue),
+      ),
       //appBar: Functions.appBar("Notes", Icons.speaker_notes, popUpButton()),
       body: ListView.builder(
         itemCount: noteList.length,

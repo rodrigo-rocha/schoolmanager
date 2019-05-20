@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/classes/Notes.dart';
 import 'package:flutter_app_ihc/classes/DateFormat.dart';
+import 'package:flutter_app_ihc/notes/important_notes/important_note_view.dart';
 
 List<Note> importantNoteList = [
   new Note("Check this stuff A", "Amazing A stuff to be checked",DateTime.now()),
@@ -9,6 +10,8 @@ List<Note> importantNoteList = [
   new Note("Check this stuff C", "Amazing C stuff to be checked",DateTime.now()),
   new Note("Repository Github A", "Check repository schoolmanager2.0 A",DateTime.now()),
 ];
+
+int inote_idx;
 
 class ImportantNoteList extends StatefulWidget {
 
@@ -18,31 +21,17 @@ class ImportantNoteList extends StatefulWidget {
 
 class ImportantNoteListState extends State<ImportantNoteList> {
 
-  void choiceActions(String choice) {
-    if(choice == 'Add course') {
-      Navigator.of(context).pushNamed('/course_add');
-    }
-  }
-
-  Widget popUpButton(){
-    return PopupMenuButton<String> (
-      onSelected: choiceActions,
-      itemBuilder: (BuildContext context) {
-        return ['Add course', 'Delete course'].map((String choice) {
-          return PopupMenuItem<String>(
-            value: choice,
-            child: Text(choice),
-          );
-        }).toList();
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: Functions.appBar("Notes", Icons.speaker_notes, popUpButton()),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.pushNamed(context, '/important_note_add'),
+        tooltip: 'Add new list',
+        backgroundColor: Colors.white,
+        child: Icon(Icons.add, color: Colors.blue),
+      ),
       body: ListView.builder(
+        physics: ScrollPhysics(parent: BouncingScrollPhysics()),
         itemCount: importantNoteList.length,
         itemBuilder: (BuildContext context, int index) {
           return Card(
@@ -64,10 +53,10 @@ class ImportantNoteListState extends State<ImportantNoteList> {
 
                 leading: Icon(Icons.warning, color: Colors.blue,),
                 onTap: () {
-                  //t_idx = index;
-                  //Navigator.push(context, new MaterialPageRoute(
-                  //    builder: (context) => new CourseInfo())
-                  //);
+                  inote_idx = index;
+                  Navigator.push(context, new MaterialPageRoute(
+                      builder: (context) => new ImportantNoteView())
+                  );
                 }
             ),
             elevation: 0.0,

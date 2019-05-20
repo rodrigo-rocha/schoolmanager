@@ -38,6 +38,7 @@ dependencies:
   pie_chart: ^0.9.0
   flutter_circular_chart:
   image_picker:
+  flutter_datetime_picker:
 
 
 

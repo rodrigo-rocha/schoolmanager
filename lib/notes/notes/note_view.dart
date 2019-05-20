@@ -20,9 +20,9 @@ class NoteViewState extends State<NoteView> {
 
   void choiceActions(String choice) {
     if(choice == 'Edit') {
-      print("Edit note");
+      Navigator.pushNamed(context, '/note_edit');
     } else if(choice == 'Delete') {
-      print("delete note");
+      _showDialog();
     }
   }
 
@@ -77,4 +77,35 @@ class NoteViewState extends State<NoteView> {
       child: Text(noteList[note_idx].body, style: TextStyle(fontSize: 15),)
     );
   }
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Delete Note"),
+          content: new Text("Are you sure you want to delete this note?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Delete", style: TextStyle(color: Colors.red, fontSize: 17)),
+              onPressed: () {
+                noteList.removeAt(note_idx);
+                Navigator.of(context).pop();
+                Navigator.pushReplacementNamed(context, '/notes_tab_controller');
+              },
+            ),
+            new FlatButton(
+              child: new Text("Close", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }

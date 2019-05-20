@@ -23,6 +23,12 @@ import 'package:flutter_app_ihc/courses/finished/finished_courses_info.dart';
 import 'package:flutter_app_ihc/courses/finished_course_add.dart';
 import 'package:flutter_app_ihc/timeline/timeline.dart';
 import 'package:flutter_app_ihc/notes/notes_tab_controller.dart';
+import 'package:flutter_app_ihc/notes/important_notes/important_note_view.dart';
+import 'package:flutter_app_ihc/notes/important_notes/important_note_add.dart';
+import 'package:flutter_app_ihc/notes/important_notes/important_note_edit.dart';
+import 'package:flutter_app_ihc/notes/notes/note_view.dart';
+import 'package:flutter_app_ihc/notes/notes/note_edit.dart';
+import 'package:flutter_app_ihc/notes/notes/note_add.dart';
 import 'package:flutter_app_ihc/calendar/calendar.dart';
 import 'package:flutter_app_ihc/calendar/event.dart';
 import 'package:flutter_app_ihc/settings/settings.dart';
@@ -36,8 +42,6 @@ import 'package:flutter_app_ihc/courses/comunity_documents.dart';
 void main() {
   runApp(SchoolManager());
 }
-
-/// TODO: Add Scroll Physics to All ListViews!
 
 class SchoolManager extends StatelessWidget {
 
@@ -76,6 +80,12 @@ class SchoolManager extends StatelessWidget {
         '/course_details': (BuildContext context) => new CourseExams(),
 
         '/notes_tab_controller': (BuildContext context) => new NotesTabController(),
+        '/important_note_view' : (BuildContext context) => new ImportantNoteView(),
+        '/important_note_add' : (BuildContext context) => new ImportantNoteAdd(),
+        '/important_note_edit' : (BuildContext context) => new ImportantNoteEdit(),
+        '/note_view' : (BuildContext context) => new NoteView(),
+        '/note_add' : (BuildContext context) => new NoteAdd(),
+        '/note_edit' : (BuildContext context) => new NoteEdit(),
 
         '/user_tab_controller': (BuildContext context) => new UserTabController(),
         '/courses_tab_controller': (BuildContext context) => new CoursesTabController(),
