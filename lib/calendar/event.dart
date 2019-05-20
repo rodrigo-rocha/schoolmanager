@@ -1,7 +1,6 @@
 import 'package:date_utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_app_ihc/calendar/eventInfo.dart';
 
 class Event extends StatefulWidget {
@@ -64,16 +63,4 @@ class EventState extends State<Event> {
       ),
     );
   }
-
-  _onTap() async{
-    const url = 'https://www.instagram.com/__rodrigorocha__/';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-
-
 }

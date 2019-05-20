@@ -1,5 +1,6 @@
 import 'package:date_utils/date_utils.dart';
 import 'package:flutter/material.dart';
+
 // import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
@@ -7,9 +8,7 @@ import 'package:flutter_app_ihc/calendar/eventInfo.dart';
 import 'package:flutter_app_ihc/calendar/event.dart';
 import 'package:intl/intl.dart';
 
-
 class Calendar extends StatefulWidget {
-
   @override
   CalendarState createState() => CalendarState();
 }
@@ -30,9 +29,30 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
 //      selDay: ['Aniversário'],
 //      _selectedDay.subtract(Duration(days: 2)): ['Event A6', 'Event B6'],
 //      _selectedDay.add(Duration(days: 3)): Set.from(['Event A9', 'Event A9', 'Event B9']).toList(),
-      _selectedDay: [eventInfo('IHC Presentation', DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 0))).toString(), '20%')],
-      _selectedDay.add(Duration(days: 7)): [eventInfo('PEI MileStone', DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 7))).toString(), '15%')],
-      _selectedDay.add(Duration(days: 8)): [eventInfo('AR exam', DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 8))).toString(), '25%')],
+      _selectedDay: [
+        eventInfo(
+            'IHC Presentation',
+            DateFormat('dd-MM-yyyy')
+                .format(DateTime.now().add(Duration(days: 0)))
+                .toString(),
+            '20%')
+      ],
+      _selectedDay.add(Duration(days: 7)): [
+        eventInfo(
+            'PEI MileStone',
+            DateFormat('dd-MM-yyyy')
+                .format(DateTime.now().add(Duration(days: 7)))
+                .toString(),
+            '15%')
+      ],
+      _selectedDay.add(Duration(days: 8)): [
+        eventInfo(
+            'AR exam',
+            DateFormat('dd-MM-yyyy')
+                .format(DateTime.now().add(Duration(days: 8)))
+                .toString(),
+            '25%')
+      ],
     };
     _selectedEvents = _events[_selectedDay] ?? [];
     _visibleEvents = _events;
@@ -54,12 +74,13 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
     print('Selected day: $day');
   }
 
-  void _onVisibleDaysChanged(DateTime first, DateTime last, CalendarFormat format) {
+  void _onVisibleDaysChanged(
+      DateTime first, DateTime last, CalendarFormat format) {
     setState(() {
       _visibleEvents = Map.fromEntries(
         _events.entries.where(
-              (entry) =>
-          entry.key.isAfter(first.subtract(const Duration(days: 1))) &&
+          (entry) =>
+              entry.key.isAfter(first.subtract(const Duration(days: 1))) &&
               entry.key.isBefore(last.add(const Duration(days: 1))),
         ),
       );
@@ -91,8 +112,7 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
         tooltip: 'Add Event',
         backgroundColor: Colors.white,
         child: Icon(Icons.add, color: Colors.blue),
-        onPressed: () {
-        },
+        onPressed: () {},
       ),
     );
   }
@@ -105,21 +125,27 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
       initialCalendarFormat: CalendarFormat.month,
       formatAnimation: FormatAnimation.slide,
       startingDayOfWeek: StartingDayOfWeek.monday,
-      availableGestures: AvailableGestures.all,   // para Meter Gesture: horizontal ou vertical
+      daysOfWeekStyle: DaysOfWeekStyle(
+          weekendStyle: TextStyle(color: Colors.blue[400])),
+      availableGestures: AvailableGestures.all,
+      // para Meter Gesture: horizontal ou vertical
       availableCalendarFormats: const {
         CalendarFormat.month: 'Month',
-        CalendarFormat.twoWeeks: '2 weeks',       // para mostrar apenas 2 semanas
+        CalendarFormat.twoWeeks: '2 weeks', // para mostrar apenas 2 semanas
         CalendarFormat.week: 'Week',
       },
       calendarStyle: CalendarStyle(
-        selectedColor: Colors.deepOrange[400],
-        todayColor: Colors.deepOrange[100],
+        selectedColor: Colors.blue[400],
+        todayColor: Colors.blue[100],
         markersColor: Colors.brown[700],
+        weekendStyle: TextStyle(color: Colors.blue[400]),
+        outsideWeekendStyle: TextStyle(color: Colors.blue[100]),
       ),
       headerStyle: HeaderStyle(
-        formatButtonTextStyle: TextStyle().copyWith(color: Colors.white, fontSize: 15.0),
+        formatButtonTextStyle:
+            TextStyle().copyWith(color: Colors.white, fontSize: 15.0),
         formatButtonDecoration: BoxDecoration(
-          color: Colors.deepOrange[400],
+          color: Colors.blue[400],
           borderRadius: BorderRadius.circular(16.0),
         ),
       ),
@@ -144,10 +170,10 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
       calendarStyle: CalendarStyle(
         outsideDaysVisible: false,
         weekendStyle: TextStyle().copyWith(color: Colors.blue[800]),
-        outsideWeekendStyle: TextStyle().copyWith(color: Colors.blue[800].withAlpha(127)),
+        outsideWeekendStyle:
+            TextStyle().copyWith(color: Colors.blue[800].withAlpha(127)),
       ),
       daysOfWeekStyle: DaysOfWeekStyle(
-
         weekendStyle: TextStyle().copyWith(color: Colors.blue[600]),
       ),
       headerStyle: HeaderStyle(
@@ -161,12 +187,13 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
             child: Container(
               margin: const EdgeInsets.all(4.0),
               padding: const EdgeInsets.only(top: 5.0, left: 6.0),
-              color: Colors.deepOrange[300],
+              color: Colors.blue[300],
               width: 100,
               height: 100,
               child: Text(
                 '${date.day}',
-                style: TextStyle().copyWith(fontSize: 16.0),
+                style: TextStyle()
+                    .copyWith(fontSize: 16.0, color: Colors.blue[400]),
               ),
             ),
           );
@@ -184,7 +211,6 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
             ),
           );
         },
-
         singleMarkerBuilder: (context, date, events) {
           return Positioned(
             right: 1,
@@ -195,7 +221,9 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
                 shape: BoxShape.rectangle,
                 color: Utils.isSameDay(date, _selectedDay)
                     ? Colors.brown[400]
-                    : Utils.isSameDay(date, DateTime.now()) ? Colors.brown[300] : Colors.blue[400],
+                    : Utils.isSameDay(date, DateTime.now())
+                        ? Colors.brown[300]
+                        : Colors.blue[400],
               ),
               width: 16.0,
               height: 16.0,
@@ -224,21 +252,22 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
     return ListView(
       children: _selectedEvents
           .map((event) => Container(
-        decoration: BoxDecoration(
-          border: Border.all(width: 0.8),
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-        child: ListTile(
-          title: Text(event.TITLE),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Event(data: event),
-            ),
-          ),
-        ),
-      ))
+                decoration: BoxDecoration(
+                  border: Border.all(width: 0.8),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                child: ListTile(
+                  title: Text(event.TITLE),
+                  onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Event(data: event),
+                        ),
+                      ),
+                ),
+              ))
           .toList(),
     );
   }
