@@ -106,7 +106,7 @@ class TeacherInfoState extends State<TeacherInfo> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Icon(Icons.fiber_smart_record, color: Colors.green),
+          IconButton(icon: Icon(Icons.fiber_smart_record), color: Colors.green, onPressed: () {Functions.showSimpleDialog(context, "Not Available", classInfo(true));}),
           Text("Not at class", style: TextStyle(color: Colors.green),),
         ],
       );
@@ -115,7 +115,7 @@ class TeacherInfoState extends State<TeacherInfo> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Icon(Icons.fiber_smart_record, color: Colors.red),
+          IconButton(icon: Icon(Icons.fiber_smart_record), color: Colors.red, onPressed: () {Functions.showSimpleDialog(context, "Available", classInfo(false));}),
           Text("At class", style: TextStyle(color: Colors.red),),
         ],
       );
@@ -157,6 +157,38 @@ class TeacherInfoState extends State<TeacherInfo> {
     );
   }
 
+  Widget classInfo(avail) {
+    if(avail) {
+       return Text("Currently Not at class.", style: TextStyle(color: Colors.green),);
+    } else {
+      return Container(
+        height: 55,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text("Currently at class.", style: TextStyle(color: Colors.red),),
+            SizedBox(height: 5),
+            Row(
+              children: <Widget>[
+                Text("Class: ", style: TextStyle(fontWeight: FontWeight.bold,)),
+                Text(teachersList[t_idx].courses),
+              ],
+            ),
+            SizedBox(height: 5),
+            Row(
+              children: <Widget>[
+                Text("Room: ", style: TextStyle(fontWeight: FontWeight.bold,)),
+                Text("4.1.15"),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
+
+
+  }
 
 
   void _showDialog() {

@@ -26,7 +26,25 @@ class ChatMessageState extends State<ChatMessage> {
 
     // TODO: implement build
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () => _showMailDialogue(), child: Icon(Icons.add)),
+      /*bottomSheet: Container(
+        margin: EdgeInsets.only(bottom: 0.0, right: 10.0, left: 10.0),
+        child: Row(
+          children: <Widget>[
+            new Flexible(
+              child: new TextField(
+                decoration: new InputDecoration.collapsed(
+                    hintText: "send message"),
+              ),
+            ),
+            new Container(
+              child: new IconButton(
+                  icon: new Icon(Icons.send, color: Colors.blue,),
+                  onPressed: () {}),
+            ),
+          ],
+        ),
+      ), */
+      floatingActionButton: FloatingActionButton(onPressed: () => _showMailDialogue(), child: Icon(Icons.add))  ,
       appBar: Functions.appBar("Messages", Icons.add,null),
         body: new ListView.builder
           (
@@ -161,6 +179,7 @@ class ChatMessageState extends State<ChatMessage> {
                     ),
                   );
                 }
+
               }
             }
         )
@@ -173,41 +192,56 @@ class ChatMessageState extends State<ChatMessage> {
       context: context,
       builder: (BuildContext context) {
         // return object of type Dialog
-        return Center(
-          child: ListView(
-            children: <Widget>[
-              AlertDialog(
-                content:
-                    TextField(
-                      //controller: msgCont,
-                      maxLines: 5,
-                      decoration: InputDecoration(
-                        hintText: "Message",
-                      ),
-                    ),
-                //new Text("Are you sure you want to delete ${teachersList[t_idx].name}?"),
-                actions: <Widget>[
-                  // usually buttons at the bottom of the dialog
-                  new FlatButton(
-                    child: new Text("Close", style: TextStyle(fontSize: 17)),
-                    onPressed: () {
-                      //teachersList.removeAt(t_idx);
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  new FlatButton(
-                    child: new Text("Send", style: TextStyle(color: Colors.green, fontSize: 17)),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      //confirmationEmail();
-                    },
-                  ),
-                ],
-              )
-            ],
-          ),
+        return AlertDialog(
+          content:
+            TextField(
+              //controller: msgCont,
+              maxLines: 5,
+              decoration: InputDecoration(
+                hintText: "Message",
+              ),
+            ),
+          //new Text("Are you sure you want to delete ${teachersList[t_idx].name}?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                //teachersList.removeAt(t_idx);
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Send", style: TextStyle(color: Colors.green, fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+                //confirmationEmail();
+              },
+            ),
+          ],
         );
       },
+    );
+  }
+
+  Widget msgBox() {
+    return new Container(
+      margin: EdgeInsets.only(bottom: 20.0, right: 10.0, left: 10.0),
+      child: Row(
+        children: <Widget>[
+          new Flexible(
+            child: new TextField(
+              decoration: new InputDecoration.collapsed(
+                  hintText: "send message"),
+            ),
+          ),
+          new Container(
+            child: new IconButton(
+                icon: new Icon(Icons.send, color: Colors.blue,),
+                onPressed: () {}),
+          ),
+        ],
+      ),
     );
   }
 }

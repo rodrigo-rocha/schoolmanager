@@ -1,0 +1,128 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_app_ihc/functions/functions.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_sparkline/flutter_sparkline.dart';
+import 'package:pie_chart/pie_chart.dart';
+
+class Reports extends StatefulWidget {
+
+  @override
+  ReportsState createState() => ReportsState();
+}
+
+Map<String, double> dataMap = new Map();
+
+
+
+class ReportsState extends State<Reports> {
+
+  @override
+  void initState() {
+    dataMap.putIfAbsent("Network Architecture", () => 5);
+    dataMap.putIfAbsent("Human-Computer Interaction", () => 3);
+    dataMap.putIfAbsent("Databases", () => 2);
+    dataMap.putIfAbsent("PEI", () => 2);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: Functions.appBar("Reports", null, null),
+      body: Container(
+        child: StaggeredGridView.count(
+          physics: ScrollPhysics(parent: BouncingScrollPhysics()),
+          crossAxisCount: 2,
+          crossAxisSpacing: 12.0,
+          mainAxisSpacing: 12.0,
+
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 20.0, right: 20.0),
+              child: Column(
+                children: <Widget>[
+                  new Text("Monthly Hours of study"),
+                  SizedBox(height: 5.0,),
+                  new Sparkline(
+                    data: [3, 5, 4, 6, 6, 8, 4, 5, 3],
+                    lineColor: Colors.blue,
+                    pointsMode: PointsMode.all,
+                    pointColor: Colors.green,
+                  ),
+                ],
+              ),
+            ),
+
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: <Widget>[
+                  new Text("Weekly Current Courses Hours"),
+                  SizedBox(height: 5.0,),
+                  PieChart(
+                    dataMap: dataMap,
+                    legendFontColor: Colors.blueGrey[900],
+                    legendFontSize: 14.0,
+                    legendFontWeight: FontWeight.w500,
+                    animationDuration: Duration(milliseconds: 800),
+                    chartLegendSpacing: 32.0,
+                    chartRadius: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 2.7,
+                    showChartValuesInPercentage: true,
+                    showChartValues: true,
+                    chartValuesColor: Colors.blueGrey[900].withOpacity(0.9),
+                  )
+                ],
+              ),
+            ),
+
+            Card(
+              elevation: 0.0,
+              color: Colors.transparent,
+              shape: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  width: 0.5
+                )
+              ),
+              margin: EdgeInsets.only(left: 10.0, right: 10.0),
+              child: ListTile(
+                trailing: Icon(Icons.import_contacts),
+                title: Text("14"),
+                subtitle: Text("Mean"),
+              ),
+            ),
+
+            Card(
+              elevation: 0.0,
+              color: Colors.transparent,
+              shape: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                      width: 0.5
+                  )
+              ),
+              margin: EdgeInsets.only(left: 10.0, right: 10.0),
+              child: ListTile(
+                trailing: Icon(Icons.watch_later),
+                title: Text("15.4"),
+                subtitle: Text("Avergare hours of study per week"),
+              ),
+            )
+
+
+
+          ],
+          staggeredTiles: [
+            StaggeredTile.fit(2),
+            StaggeredTile.fit(2),
+            StaggeredTile.fit(2),
+            StaggeredTile.fit(2),
+          ],
+        ),
+      )
+    );
+  }
+
+}

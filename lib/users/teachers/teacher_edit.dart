@@ -1,16 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
-import 'package:flutter_app_ihc/users/teachers/teacher_info.dart';
 import 'package:flutter_app_ihc/users/tab_controller.dart';
 import 'package:flutter_app_ihc/classes/Teacher.dart';
+import 'package:image_picker/image_picker.dart';
 
-TextEditingController nameController = new TextEditingController(text: teachersList[t_idx].name);
-TextEditingController emailController = new TextEditingController(text: teachersList[t_idx].email);
-TextEditingController officeController = new TextEditingController(text: teachersList[t_idx].office);
-TextEditingController phoneController = new TextEditingController(text: teachersList[t_idx].phone);
-TextEditingController deptController = new TextEditingController(text: teachersList[t_idx].department);
-TextEditingController coursesController = new TextEditingController(text: teachersList[t_idx].courses);
+TextEditingController nameController = new TextEditingController();
+TextEditingController emailController = new TextEditingController();
+TextEditingController officeController = new TextEditingController();
+TextEditingController phoneController = new TextEditingController();
+TextEditingController deptController = new TextEditingController();
+TextEditingController coursesController = new TextEditingController();
+
+File galleryFile;
 
 var coursesItems = ['Interação Humano-Computador', 'Arquitetura de Redes', 'Projeto em Engenharia Informatica', 'Bases de Dados'];
 var deptItems = ['DETI', 'Biology', 'Physics', 'ISCAA', 'Mathematics'];
@@ -23,19 +27,21 @@ class TeachersEdit extends StatefulWidget {
 
 class TeachersEditState extends State<TeachersEdit> {
 
+  @override
+  void initState() {
+    nameController.text = teachersList[t_idx].name;
+    emailController.text = teachersList[t_idx].email;
+    officeController.text = teachersList[t_idx].office;
+    phoneController.text = teachersList[t_idx].phone;
+    deptController.text = teachersList[t_idx].department;
+    coursesController.text = teachersList[t_idx].courses;
+  }
+
   void addTeacherAction() {
     String photo = teachersList[t_idx].photo;
     teachersList.removeAt(t_idx);
     teachersList.add(new Teacher(nameController.text, emailController.text, officeController.text, phoneController.text, deptController.text, coursesController.text, photo));
 
-    /*
-    nameController.text = "";
-    emailController.text = "";
-    officeController.text = "";
-    phoneController.text = "";
-    deptController.text = "";
-    coursesController.text = "";
-    */
 
     Navigator.pushReplacement(
         context,
@@ -46,7 +52,6 @@ class TeachersEditState extends State<TeachersEdit> {
 
   @override
   Widget build(BuildContext context) {
-
 
     return Scaffold(
       appBar: Functions.createBar("Edit Teacher", () => addTeacherAction(), () => Navigator.pop(context)),
@@ -100,11 +105,11 @@ class TeachersEditState extends State<TeachersEdit> {
           GestureDetector(
             child: Row(
               children: <Widget>[
-                IconButton(icon: Icon(Icons.image), onPressed: () => print("pressed"),),
+                IconButton(icon: Icon(Icons.image, color: Colors.black), onPressed: null,),
                 Text("Add Picture", style: TextStyle(fontSize: 16.0)),
               ],
             ),
-            onTap: () => print("Add pic"),
+            onTap: imageSelectorGallery,
           ),
           reqFieldInfo(),
         ],
@@ -158,6 +163,12 @@ class TeachersEditState extends State<TeachersEdit> {
           ),
         ],
       ),
+    );
+  }
+
+  imageSelectorGallery() async {
+    galleryFile = await ImagePicker.pickImage(
+      source: ImageSource.gallery,
     );
   }
 }

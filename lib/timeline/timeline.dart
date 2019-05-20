@@ -16,12 +16,20 @@ class TimelineState extends State<Timeline> {
       appBar: Functions.appBar("Timeline", Icons.add, null),
       drawer: Functions.sideBar(context),
       body: new ListView(
+        physics: ScrollPhysics(parent: BouncingScrollPhysics()),
         children: <Widget>[
 //          _event("Aniversário da Susana", "25-02-2019", Icons.cake),
 //          _event("", "", Icons.today),
           _event("IHC Presentation", DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 0))).toString(), Icons.event_note),
-          _event("PEI MileStone", DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 7))).toString(), Icons.shopping_cart),
+          _event("PEI MileStone", DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 7))).toString(), Icons.event),
           _event("AR exam", DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 7))).toString(), Icons.today),
+          _event("Reunion with Prof. Ana", DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 7))).toString(), Icons.perm_contact_calendar),
+          _event("PEI Metting", DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 7))).toString(), Icons.today),
+          _event("PEI Presentation", DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 7))).toString(), Icons.today),
+          _event("Databases Project Delivery", DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 7))).toString(), Icons.today),
+          _event("PEI Meeting", DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 7))).toString(), Icons.today),
+          _event("Databases Exam Review", DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 7))).toString(), Icons.today),
+          _event("IHC Exam Review", DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 7))).toString(), Icons.today),
         ],
       ),
     );

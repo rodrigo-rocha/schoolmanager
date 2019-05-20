@@ -40,6 +40,7 @@ class TeacherListState extends State<TeacherList> {
       body: new Container(
         child: new Center(
           child: ListView.builder(
+            physics: ScrollPhysics(parent: BouncingScrollPhysics()),
             itemCount: teachersList.length,
             itemBuilder: (context, index) {
               //return _teacher(teachersList[index].name, teachersList[index].email, teachersList[index].photo);

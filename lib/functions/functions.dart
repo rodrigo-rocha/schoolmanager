@@ -283,4 +283,28 @@ class Functions {
       },
     );
   }
+
+  static void showSimpleDialog(BuildContext context, String title, Widget content) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return Center(
+          child: AlertDialog(
+            title: new Text(title),
+            content: content,
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Close", style: TextStyle(fontSize: 17)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
 }

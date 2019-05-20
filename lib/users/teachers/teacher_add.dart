@@ -1,10 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
 import 'package:flutter_app_ihc/users/tab_controller.dart';
 import 'package:flutter_app_ihc/classes/Teacher.dart';
-
-
+import 'package:image_picker/image_picker.dart';
 
 TextEditingController nameController = new TextEditingController();
 TextEditingController emailController = new TextEditingController();
@@ -12,6 +13,8 @@ TextEditingController officeController = new TextEditingController();
 TextEditingController phoneController = new TextEditingController();
 TextEditingController deptController = new TextEditingController();
 TextEditingController coursesController = new TextEditingController();
+
+File galleryFile;
 
 var coursesItems = ['Interação Humano-Computador', 'Arquitetura de Redes', 'Projeto em Engenharia Informatica', 'Bases de Dados'];
 var deptItems = ['DETI', 'Biology', 'Physics', 'ISCAA', 'Mathematics'];
@@ -102,7 +105,7 @@ class TeachersAddState extends State<TeachersAdd> {
                 Text("Add Picture", style: TextStyle(fontSize: 16.0)),
               ],
             ),
-            onTap: () => print("Add pic"),
+            onTap: imageSelectorGallery,
           ),
           reqFieldInfo(),
         ],
@@ -156,6 +159,12 @@ class TeachersAddState extends State<TeachersAdd> {
           ),
         ],
       ),
+    );
+  }
+
+  imageSelectorGallery() async {
+    galleryFile = await ImagePicker.pickImage(
+      source: ImageSource.gallery,
     );
   }
 }

@@ -34,6 +34,11 @@ dependencies:
   auto_size_text: ^1.1.2
   rflutter_alert: ^1.0.2
 
+  flutter_sparkline: ^0.1.0
+  pie_chart: ^0.9.0
+  flutter_circular_chart:
+  image_picker:
+
 
 
 dev_dependencies:
