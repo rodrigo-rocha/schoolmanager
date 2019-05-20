@@ -30,7 +30,6 @@ class CoursesListState extends State<CoursesList> {
             physics: ScrollPhysics(parent: BouncingScrollPhysics()),
             itemCount: courseList.length,
             itemBuilder: (context, index) {
-              //return _teacher(teachersList[index].name, teachersList[index].email, teachersList[index].photo);
               return Card(
                 color: Colors.transparent,
                 shape: UnderlineInputBorder(
@@ -46,7 +45,8 @@ class CoursesListState extends State<CoursesList> {
                   onTap: () {
                     t_idx = index;
                     Navigator.push(context, new MaterialPageRoute(
-                        builder: (context) => new CourseInfo())
+                        builder: (context) => new CourseInfo()
+                      )
                     );
                   }
                 ),

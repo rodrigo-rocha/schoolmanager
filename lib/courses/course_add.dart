@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/courses/current/current_courses.dart';
-import 'package:flutter_app_ihc/users/tab_controller.dart';
+import 'package:flutter_app_ihc/courses/courses_tab_controller.dart';
 import 'package:flutter_app_ihc/classes/Course.dart';
 import 'package:flutter_app_ihc/classes/Teacher.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
@@ -32,7 +32,7 @@ class CourseAddState extends State<CourseAdd> {
 
     Navigator.push(
       context,
-      new MaterialPageRoute(builder: (context) => UserTabController()
+      new MaterialPageRoute(builder: (context) => CoursesTabController()
     ));
   }
 
@@ -109,10 +109,6 @@ class CourseAddState extends State<CourseAdd> {
       child: TextFormField(
         controller: cont,
         decoration: InputDecoration(
-          //border: UnderlineInputBorder(
-            //borderSide: BorderSide(color: Colors.red, width: 110.1)
-            //borderSide: BorderSide(width: 0.5, color: Colors.blue)
-          //),
           hintText: hint,
         ),
       ),

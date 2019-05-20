@@ -19,7 +19,7 @@ class CourseInfoState extends State<CourseInfo> {
       Navigator.of(context).pushNamed('/course_edit');
     } else if(choice == 'Delete') {
       courseList.removeAt(t_idx);
-      Navigator.of(context).pushNamed('/courses_tab_controller');
+      Navigator.of(context).pushReplacementNamed('/courses_tab_controller');
     } else {
       _showDialog();
     }
@@ -41,13 +41,13 @@ class CourseInfoState extends State<CourseInfo> {
 
   @override
   Widget build(BuildContext context) {
-    print(t_idx);
     return Scaffold(
       appBar: Functions.appBar("Information", Icons.add, popUpButton()),
 
       body: ListView(
         children: <Widget>[
-          _infoExams(traillingAction(Icons.keyboard_arrow_right, "Exams information", () { Navigator.of(context).pushNamed('/course_exams'); } )),
+          _infoExams('Exams information', traillingAction(Icons.keyboard_arrow_right, "Exams information", () { Navigator.of(context).pushNamed('/course_exams'); } )),
+          _infoExams('Comunity Documents', traillingAction(Icons.keyboard_arrow_right, "Comunity Documents", () { Navigator.of(context).pushNamed('/comunity_docs'); } )),
           Container(height: 10, color: Colors.grey[200]),
           _infoT(courseList[t_idx].name, 'Name', traillingAction(Icons.text_fields, "Send Email", () {print("this");} )),
           _infoT(courseList[t_idx].code, 'Code', traillingAction(Icons.code, "Call", () {print("this");})),
@@ -59,11 +59,11 @@ class CourseInfoState extends State<CourseInfo> {
     );
   }
 
-  Widget _infoExams(Widget traillingAction) {
+  Widget _infoExams(String name, Widget traillingAction) {
     return Card(
       color: Colors.transparent,
       child: ListTile(
-        title: Text('Exam Information'),
+        title: Text(name),
         trailing: traillingAction,
       ),
       elevation: 0.0,
@@ -90,10 +90,13 @@ class CourseInfoState extends State<CourseInfo> {
   Widget traillingAction(IconData icon, String text, actions()) {
     return GestureDetector(
       child: Container(
-        width: 100,
+        width: 130,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               Icon(icon, color: Colors.blue,),
+              SizedBox(height: 2,),
               Text(text, style: TextStyle(color: Colors.blue),),
             ]
         ),
@@ -125,7 +128,8 @@ class CourseInfoState extends State<CourseInfo> {
               onPressed: () {
                 finishedCoursesList.add(new Course(courseList[t_idx].name, courseList[t_idx].code, courseList[t_idx].department, courseList[t_idx].coordinator,  gradeController.text, []));
                 courseList.removeAt(t_idx);
-                Navigator.of(context).pushNamed('/courses_tab_controller');
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed('/courses_tab_controller');
               },
             ),
           ],

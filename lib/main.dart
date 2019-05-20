@@ -31,6 +31,7 @@ import 'package:flutter_app_ihc/share/shared_docs.dart';
 import 'package:flutter_app_ihc/calendar/week_schedule.dart';
 import 'package:flutter_app_ihc/chat/chat_list.dart';
 import 'package:flutter_app_ihc/reports/reports.dart';
+import 'package:flutter_app_ihc/courses/comunity_documents.dart';
 
 void main() {
   runApp(SchoolManager());
@@ -72,6 +73,8 @@ class SchoolManager extends StatelessWidget {
         '/finished_course_list': (BuildContext context) => new FinishedCoursesList(),
         '/finished_course_add': (BuildContext context) => new FinishedCourseAdd(),
 
+        '/course_details': (BuildContext context) => new CourseExams(),
+
         '/notes_tab_controller': (BuildContext context) => new NotesTabController(),
 
         '/user_tab_controller': (BuildContext context) => new UserTabController(),
@@ -85,6 +88,7 @@ class SchoolManager extends StatelessWidget {
         '/share': (BuildContext context) => new Share(),
         '/week_schedule': (BuildContext context) => new WeekSchedule(),
         '/shared_docs': (BuildContext context) => new SharedDocs(),
+        '/comunity_docs': (BuildContext context) => new ComunityDocs(),
         '/chat_list': (BuildContext context) => new ChatList(),
         '/reports': (BuildContext context) => new Reports(),
 

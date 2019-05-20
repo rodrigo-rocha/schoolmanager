@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/classes/Notes.dart';
+import 'package:flutter_app_ihc/classes/DateFormat.dart';
 
 List<Note> importantNoteList = [
-  new Note("Check this stuff A", "Amazing A stuff to be checked"),
-  new Note("Check this stuff B", "Amazing B stuff to be checked"),
-  new Note("Check this stuff C", "Amazing C stuff to be checked"),
-  new Note("Repository Github A", "Check repository schoolmanager2.0 A"),
+  new Note("Check this stuff A", "Amazing A stuff to be checked",DateTime.now()),
+  new Note("Check this stuff B", "Amazing B stuff to be checked",DateTime.now()),
+  new Note("Check this stuff C", "Amazing C stuff to be checked",DateTime.now()),
+  new Note("Repository Github A", "Check repository schoolmanager2.0 A",DateTime.now()),
 ];
 
 class ImportantNoteList extends StatefulWidget {
@@ -53,9 +54,15 @@ class ImportantNoteListState extends State<ImportantNoteList> {
                 )),
             child: ListTile(
                 title: Text(importantNoteList[index].title, style: TextStyle(fontSize: 20)),
-                subtitle: Text(importantNoteList[index].body),
+                subtitle: Row(
+                  children: <Widget>[
+                    Text("Limit: ", style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(DateReformat.reformat(importantNoteList[index].alarm.toString()), style: TextStyle(color: Colors.red)),
+                  ],
+                ),
+
+
                 leading: Icon(Icons.warning, color: Colors.blue,),
-                //leading: Icon(Icons.category, color: Colors.blue),
                 onTap: () {
                   //t_idx = index;
                   //Navigator.push(context, new MaterialPageRoute(

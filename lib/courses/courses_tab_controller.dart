@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/courses/current/current_courses.dart';
 import 'package:flutter_app_ihc/courses/finished/finished_courses.dart';
 import 'package:flutter_app_ihc/main.dart';
+import 'package:flutter_app_ihc/courses/course_details.dart';
 
 class CoursesTabController extends StatefulWidget {
   @override
@@ -35,7 +36,7 @@ class CoursesTabControllerState extends State<CoursesTabController> {
   @override
   Widget build(BuildContext context) {
     return new DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           actions: <Widget>[
@@ -48,7 +49,7 @@ class CoursesTabControllerState extends State<CoursesTabController> {
               color: Colors.blue,
             ),
           ),
-          elevation: 0.5, // 2
+          elevation: 0.5,
           leading: IconButton(icon:Icon(Icons.arrow_back),
             onPressed:() => Navigator.pop(context, false),
           ),
@@ -60,8 +61,9 @@ class CoursesTabControllerState extends State<CoursesTabController> {
             indicatorColor: Colors.blue,
             labelColor: Colors.blue,
             tabs: [
-              Tab(child: Text("Current Courses", style: TextStyle(fontSize: 22.0, color: Colors.blue))),
-              Tab(child: Text("Finished Courses", style: TextStyle(fontSize: 22.0, color: Colors.blue))),
+              Tab(child: Text("Current", style: TextStyle(fontSize: 21.0, color: Colors.blue))),
+              Tab(child: Text("Finished", style: TextStyle(fontSize: 21.0, color: Colors.blue))),
+              Tab(child: Text("Info", style: TextStyle(fontSize: 21.0, color: Colors.blue))),
             ],
           ),
           //title: Text('Notes'),
@@ -70,6 +72,7 @@ class CoursesTabControllerState extends State<CoursesTabController> {
           children: [
             new CoursesList(),
             new FinishedCoursesList(),
+            new CourseDetails(),
           ],
         ),
       ),
