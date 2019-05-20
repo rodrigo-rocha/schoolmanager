@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/users/students/student_list.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+TextEditingController subjectController = new TextEditingController();
+TextEditingController bodyController = new TextEditingController();
+
 
 class StudentInfo extends StatefulWidget {
 
@@ -12,7 +17,7 @@ class StudentInfoState extends State<StudentInfo> {
 
   void choiceActions(String choice) {
     if(choice == 'Edit') {
-      Navigator.pushNamed(context, '/teacher_edit');
+      Navigator.pushReplacementNamed(context, '/student_edit');
     } else if(choice == 'Delete') {
       _showDialog();
     }
@@ -45,7 +50,7 @@ class StudentInfoState extends State<StudentInfo> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               CircleAvatar(
-                backgroundImage: NetworkImage(studentList[t_idx].photo),
+                backgroundImage: NetworkImage(studentList[s_idx].photo),
                 radius: 70.0,
               ),
               SizedBox(width: 30),
@@ -53,16 +58,16 @@ class StudentInfoState extends State<StudentInfo> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(studentList[t_idx].name, textAlign: TextAlign.left,style: TextStyle(fontSize: 25)),
-                  Text(studentList[t_idx].email),
+                  Text(studentList[s_idx].name, textAlign: TextAlign.left,style: TextStyle(fontSize: 25)),
+                  Text(studentList[s_idx].email),
                 ],
               )
             ],
           ),
-          _infoT(studentList[t_idx].email, 'E-Mail', traillingAction(Icons.mail_outline, "Send Email", () {print("this");} )),
-          _infoT(studentList[t_idx].phone, 'Phone', traillingAction(Icons.phone, "Call", () {print("this");})),
-          _infoT(studentList[t_idx].department, 'Department', traillingAction(Icons.place, "Locate", () {print("this");})),
-          _infoT(studentList[t_idx].degree, 'Degree', traillingAction(Icons.help_outline, "Learn More", () {print("this");})),
+          _infoT(studentList[s_idx].email, 'E-Mail', traillingAction(Icons.mail_outline, "Send Email", () { _showMailDialogue(); } )),
+          _infoT(studentList[s_idx].phone, 'Phone', traillingAction(Icons.phone, "Call", () { _openWith('tel:${studentList[s_idx].phone}'); })),
+          _infoT(studentList[s_idx].department, 'Department', traillingAction(Icons.place, "Locate", () {Functions.showLocation(context,'assets/images/dept_location.png');})),
+          _infoT(studentList[s_idx].degree, 'Degree', traillingAction(Icons.help_outline, "Learn More", () { _googleSearch(studentList[s_idx].degree);})),
         ],
       ),
 
@@ -109,14 +114,14 @@ class StudentInfoState extends State<StudentInfo> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Delete ${studentList[t_idx].name}"),
-          content: new Text("Are you sure you want to delete ${studentList[t_idx].name}?"),
+          title: new Text("Delete ${studentList[s_idx].name}"),
+          content: new Text("Are you sure you want to delete ${studentList[s_idx].name}?"),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Delete", style: TextStyle(color: Colors.red, fontSize: 17)),
               onPressed: () {
-                studentList.removeAt(t_idx);
+                studentList.removeAt(s_idx);
                 Navigator.pushNamed(context, '/user_tab_controller');
               },
             ),
@@ -126,6 +131,76 @@ class StudentInfoState extends State<StudentInfo> {
                 Navigator.of(context).pop();
               },
             ),
+          ],
+        );
+      },
+    );
+  }
+
+  _openWith(String url) async{
+    //const url = urlProp;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _googleSearch(String query) async {
+    String url = 'https://www.google.com/search?q=$query';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  void _showMailDialogue() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return ListView(
+          children: <Widget>[
+            AlertDialog(
+              title: Column(children: <Widget>[Text("Destination: ", style: TextStyle(fontWeight: FontWeight.bold)), new Text("${studentList[s_idx].email}"),],),
+              content: Column(
+                children: <Widget>[
+                  TextField(
+                    controller: subjectController,
+                    decoration: InputDecoration(
+                      hintText: "Subject",
+                    ),
+                  ),
+                  TextField(
+                    controller: bodyController,
+                    maxLines: 15,
+                    decoration: InputDecoration(
+                      hintText: "Message",
+                    ),
+                  ),
+                ],
+              ),
+
+              //new Text("Are you sure you want to delete ${teachersList[t_idx].name}?"),
+              actions: <Widget>[
+                // usually buttons at the bottom of the dialog
+                new FlatButton(
+                  child: new Text("Close", style: TextStyle(fontSize: 17)),
+                  onPressed: () {
+                    //teachersList.removeAt(t_idx);
+                    Navigator.of(context).pop();
+                  },
+                ),
+                new FlatButton(
+                  child: new Text("Send", style: TextStyle(color: Colors.green, fontSize: 17)),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Functions.confirmationEmail(context, studentList[s_idx].email);
+                  },
+                ),
+              ],
+            )
           ],
         );
       },

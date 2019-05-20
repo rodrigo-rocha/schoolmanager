@@ -307,4 +307,25 @@ class Functions {
     );
   }
 
+  static void confirmationEmail(BuildContext context, String email) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Email sent"),
+          content: new Text("Email send to ${email}."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }

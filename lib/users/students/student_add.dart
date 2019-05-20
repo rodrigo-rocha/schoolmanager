@@ -3,6 +3,8 @@ import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/users/students/student_list.dart';
 import 'package:flutter_app_ihc/users/tab_controller.dart';
 import 'package:flutter_app_ihc/classes/Student.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 TextEditingController nameController = new TextEditingController();
 TextEditingController emailController = new TextEditingController();
@@ -10,6 +12,8 @@ TextEditingController degreeController = new TextEditingController();
 TextEditingController phoneController = new TextEditingController();
 TextEditingController deptController = new TextEditingController();
 TextEditingController coursesController = new TextEditingController();
+
+File galleryFile;
 
 var deptItems = ['DETI', 'Biology', 'Physics', 'ISCAA', 'Mathematics'];
 
@@ -34,12 +38,11 @@ class TeachersAddState extends State<StudentAdd> {
     deptController.text = "";
     coursesController.text = "";
 
-    Navigator.push(
-        context,
-        new MaterialPageRoute(builder: (context) => UserTabController()
-        ));
+    Navigator.pushReplacement(
+      context,
+      new MaterialPageRoute(builder: (context) => UserTabController()
+    ));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -100,12 +103,11 @@ class TeachersAddState extends State<StudentAdd> {
           GestureDetector(
             child: Row(
               children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.image), onPressed: () => print("pressed"),),
+                IconButton(icon: Icon(Icons.image, color: Colors.black), onPressed: null),
                 Text("Add Picture", style: TextStyle(fontSize: 16.0)),
               ],
             ),
-            onTap: () => print("Add pic"),
+            onTap: imageSelectorGallery,
           ),
           reqFieldInfo(),
         ],
@@ -159,6 +161,12 @@ class TeachersAddState extends State<StudentAdd> {
           ),
         ],
       ),
+    );
+  }
+
+  imageSelectorGallery() async {
+    galleryFile = await ImagePicker.pickImage(
+      source: ImageSource.gallery,
     );
   }
 }

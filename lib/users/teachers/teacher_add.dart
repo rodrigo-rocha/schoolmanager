@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
@@ -37,7 +36,7 @@ class TeachersAddState extends State<TeachersAdd> {
     deptController.text = "";
     coursesController.text = "";
 
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       new MaterialPageRoute(builder: (context) => UserTabController()
     ));
@@ -101,7 +100,7 @@ class TeachersAddState extends State<TeachersAdd> {
           GestureDetector(
             child: Row(
               children: <Widget>[
-                IconButton(icon: Icon(Icons.image), onPressed: () => print("pressed"),),
+                IconButton(icon: Icon(Icons.image, color: Colors.black), onPressed: null),
                 Text("Add Picture", style: TextStyle(fontSize: 16.0)),
               ],
             ),

@@ -1,14 +1,19 @@
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/users/students/student_list.dart';
 import 'package:flutter_app_ihc/classes/Student.dart';
 import 'package:flutter_app_ihc/users/tab_controller.dart';
 
-TextEditingController nameController = new TextEditingController(text: studentList[t_idx].name);
-TextEditingController emailController = new TextEditingController(text: studentList[t_idx].email);
-TextEditingController degreeController = new TextEditingController(text: studentList[t_idx].degree);
-TextEditingController phoneController = new TextEditingController(text: studentList[t_idx].phone);
-TextEditingController deptController = new TextEditingController(text: studentList[t_idx].department);
+TextEditingController nameController = new TextEditingController();
+TextEditingController emailController = new TextEditingController();
+TextEditingController degreeController = new TextEditingController();
+TextEditingController phoneController = new TextEditingController();
+TextEditingController deptController = new TextEditingController();
+
+File galleryFile;
 
 var coursesItems = ['Interação Humano-Computador', 'Arquitetura de Redes', 'Projeto em Engenharia Informatica', 'Bases de Dados'];
 var deptItems = ['DETI', 'Biology', 'Physics', 'ISCAA', 'Mathematics'];
@@ -21,34 +26,33 @@ class StudentEdit extends StatefulWidget {
 class StudentEditState extends State<StudentEdit> {
 
 
-  void addTeacherAction() {
-    String photo = studentList[t_idx].photo;
-    studentList.removeAt(t_idx);
+  @override
+  void initState() {
+    nameController.text = studentList[s_idx].name;
+    emailController.text = studentList[s_idx].email;
+    degreeController.text = studentList[s_idx].degree;
+    phoneController.text = studentList[s_idx].name;
+    deptController.text = studentList[s_idx].department;
+  }
+
+  void addStudentAction() {
+    String photo = studentList[s_idx].photo;
+    studentList.removeAt(s_idx);
     studentList.add(new Student(nameController.text, emailController.text, degreeController.text, phoneController.text, deptController.text, photo));
 
-    /*
-    nameController.text = "";
-    emailController.text = "";
-    officeController.text = "";
-    phoneController.text = "";
-    deptController.text = "";
-    coursesController.text = "";
-    */
-
-    Navigator.push(
+    Navigator.pushReplacement(
         context,
         new MaterialPageRoute(builder: (context) => UserTabController()
         ));
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Functions.createBar(
-          "Edit Teacher", () => addTeacherAction(), () =>
-          Navigator.pop(context)),
+          "Edit Teacher", () => addStudentAction(), () =>
+          Navigator.pop(context)
+      ),
       body:
       ListView(
         children: <Widget>[
@@ -100,12 +104,11 @@ class StudentEditState extends State<StudentEdit> {
           GestureDetector(
             child: Row(
               children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.image), onPressed: () => print("pressed"),),
+                IconButton(icon: Icon(Icons.image, color: Colors.black), onPressed: null),
                 Text("Add Picture", style: TextStyle(fontSize: 16.0)),
               ],
             ),
-            onTap: () => print("Add pic"),
+            onTap: imageSelectorGallery,
           ),
           reqFieldInfo(),
         ],
@@ -159,6 +162,12 @@ class StudentEditState extends State<StudentEdit> {
           ),
         ],
       ),
+    );
+  }
+
+  imageSelectorGallery() async {
+    galleryFile = await ImagePicker.pickImage(
+      source: ImageSource.gallery,
     );
   }
 }

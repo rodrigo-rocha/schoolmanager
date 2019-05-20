@@ -205,30 +205,9 @@ class TeacherInfoState extends State<TeacherInfo> {
               child: new Text("Delete", style: TextStyle(color: Colors.red, fontSize: 17)),
               onPressed: () {
                 teachersList.removeAt(t_idx);
-                Navigator.pushNamed(context, '/user_tab_controller');
+                Navigator.pushReplacementNamed(context, '/user_tab_controller');
               },
             ),
-            new FlatButton(
-              child: new Text("Close", style: TextStyle(fontSize: 17)),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void confirmationEmail() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Email sent"),
-          content: new Text("Email send to ${teachersList[t_idx].email}."),
-          actions: <Widget>[
             new FlatButton(
               child: new Text("Close", style: TextStyle(fontSize: 17)),
               onPressed: () {
@@ -282,7 +261,7 @@ class TeacherInfoState extends State<TeacherInfo> {
                 child: new Text("Send", style: TextStyle(color: Colors.green, fontSize: 17)),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  confirmationEmail();
+                  Functions.confirmationEmail(context, teachersList[t_idx].email);
                   },
                 ),
               ],

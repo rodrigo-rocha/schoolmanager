@@ -105,7 +105,7 @@ class TeachersEditState extends State<TeachersEdit> {
           GestureDetector(
             child: Row(
               children: <Widget>[
-                IconButton(icon: Icon(Icons.image, color: Colors.black), onPressed: null,),
+                IconButton(icon: Icon(Icons.image, color: Colors.black), onPressed: null),
                 Text("Add Picture", style: TextStyle(fontSize: 16.0)),
               ],
             ),

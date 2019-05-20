@@ -41,8 +41,8 @@ class ReportsState extends State<Reports> {
               padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 20.0, right: 20.0),
               child: Column(
                 children: <Widget>[
-                  new Text("Monthly Hours of study"),
-                  SizedBox(height: 5.0,),
+                  new Text("Monthly Dedicated Hours", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                  SizedBox(height: 10.0),
                   new Sparkline(
                     data: [3, 5, 4, 6, 6, 8, 4, 5, 3],
                     lineColor: Colors.blue,
@@ -58,8 +58,8 @@ class ReportsState extends State<Reports> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: <Widget>[
-                  new Text("Weekly Current Courses Hours"),
-                  SizedBox(height: 5.0,),
+                  new Text("Weekly Courses Dedication", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                  SizedBox(height: 5.0),
                   PieChart(
                     dataMap: dataMap,
                     legendFontColor: Colors.blueGrey[900],
@@ -79,6 +79,8 @@ class ReportsState extends State<Reports> {
               ),
             ),
 
+            Text("Indivudual Statistics", textAlign:TextAlign.center, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+
             Card(
               elevation: 0.0,
               color: Colors.transparent,
@@ -89,7 +91,7 @@ class ReportsState extends State<Reports> {
               ),
               margin: EdgeInsets.only(left: 10.0, right: 10.0),
               child: ListTile(
-                trailing: Icon(Icons.import_contacts),
+                trailing: Icon(Icons.import_contacts, color: Colors.blue,),
                 title: Text("14"),
                 subtitle: Text("Mean"),
               ),
@@ -105,7 +107,7 @@ class ReportsState extends State<Reports> {
               ),
               margin: EdgeInsets.only(left: 10.0, right: 10.0),
               child: ListTile(
-                trailing: Icon(Icons.watch_later),
+                trailing: Icon(Icons.watch_later, color: Colors.blue,),
                 title: Text("15.4"),
                 subtitle: Text("Avergare hours of study per week"),
               ),
@@ -115,6 +117,7 @@ class ReportsState extends State<Reports> {
 
           ],
           staggeredTiles: [
+            StaggeredTile.fit(2),
             StaggeredTile.fit(2),
             StaggeredTile.fit(2),
             StaggeredTile.fit(2),

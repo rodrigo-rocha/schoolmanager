@@ -6,6 +6,10 @@ import 'package:flutter_app_ihc/users/teachers/teacher_add.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_edit.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_info.dart';
 import 'package:flutter_app_ihc/users/teachers/teacher_list.dart';
+import 'package:flutter_app_ihc/users/students/student_list.dart';
+import 'package:flutter_app_ihc/users/students/student_add.dart';
+import 'package:flutter_app_ihc/users/students/student_edit.dart';
+import 'package:flutter_app_ihc/users/students/student_info.dart';
 import 'package:flutter_app_ihc/users/tab_controller.dart';
 import 'package:flutter_app_ihc/menu/menu.dart';
 import 'package:flutter_app_ihc/courses/course_add.dart';
@@ -53,6 +57,11 @@ class SchoolManager extends StatelessWidget {
         '/teacher_add': (BuildContext context) => new TeachersAdd(),
         '/teacher_edit': (BuildContext context) => new TeachersEdit(),
         '/teacher_info': (BuildContext context) => new TeacherInfo(),
+
+        '/student_info': (BuildContext context) => new StudentInfo(),
+        '/student_list': (BuildContext context) => new StudentList(),
+        '/student_add': (BuildContext context) => new StudentAdd(),
+        '/student_edit': (BuildContext context) => new StudentEdit(),
 
         '/course_info': (BuildContext context) => new CourseInfo(),
         '/course_list': (BuildContext context) => new CoursesList(),
