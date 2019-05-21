@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Share extends StatefulWidget {
 
   @override
   ShareState createState() => ShareState();
 }
+
+File cameraFile;
 
 class ShareState extends State<Share> {
 
@@ -18,10 +23,17 @@ class ShareState extends State<Share> {
         children: <Widget>[
           shareTile("Share my Schedule", Icons.calendar_today,() => Functions.showShareDialog(context)),
           shareTile("Share my Details", Icons.person_outline,() => Functions.showShareDialog(context)),
-          shareTile("Add new User", Icons.person_add, () => print("QR")),
+          shareTile("Add new User", Icons.person_add, () => imageSelectorCamera()),
+          shareTile("Get schedule from user", Icons.calendar_today, () => imageSelectorCamera()),
 
         ],
       ),
+    );
+  }
+
+  imageSelectorCamera() async {
+    cameraFile = await ImagePicker.pickImage(
+      source: ImageSource.camera,
     );
   }
 

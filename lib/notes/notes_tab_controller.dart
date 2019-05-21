@@ -34,8 +34,8 @@ class NotesTabControllerState extends State<NotesTabController> {
             indicatorColor: Colors.blue,
             labelColor: Colors.blue,
             tabs: [
-              Tab(child: Text("Important Notes", style: TextStyle(fontSize: 22.0, color: Colors.blue))),
-              Tab(child: Text("Note List", style: TextStyle(fontSize: 22.0, color: Colors.blue))),
+              Tab(child: Text("Important", style: TextStyle(fontSize: 22.0, color: Colors.blue))),
+              Tab(child: Text("Regular", style: TextStyle(fontSize: 22.0, color: Colors.blue))),
             ],
           ),
           //title: Text('Notes'),

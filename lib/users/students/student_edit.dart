@@ -122,7 +122,7 @@ class StudentEditState extends State<StudentEdit> {
       child: TextFormField(
         controller: cont,
         decoration: InputDecoration(
-          
+
           hintText: hint,
         ),
       ),
@@ -176,55 +176,56 @@ class StudentEditState extends State<StudentEdit> {
 
   Future<void> _optionsDialogBox() {
     return showDialog(context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text("Close", style: TextStyle(fontSize: 17)),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-            title: Text("Select image source."),
-            content: new SingleChildScrollView(
-              child: new ListBody(
-                children: <Widget>[
-                  GestureDetector(
-                    child: Card(
-                      shape: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 0.2
-                          )
-                      ),
-                      elevation: 0.0,
-                      child: ListTile(
-                        title: new Text('Take a picture'),
-                      ),
-                    ),
-                    onTap: imageSelectorCamera,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                  ),
-                  GestureDetector(
-                    child: Card(
-                      shape: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 0.2
-                          )
-                      ),
-                      elevation: 0.0,
-                      child: ListTile(
-                        title: new Text('Select from galery'),
-                      ),
-                    ),
-                    onTap: imageSelectorGallery,
-                  ),
-                ],
-              ),
+      builder: (BuildContext context) {
+        return AlertDialog(
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
-          );
-        });
+          ],
+          title: Text("Select image source."),
+          content: new SingleChildScrollView(
+            child: new ListBody(
+              children: <Widget>[
+                GestureDetector(
+                  child: Card(
+                    shape: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 0.2
+                        )
+                    ),
+                    elevation: 0.0,
+                    child: ListTile(
+                      title: new Text('Take a picture'),
+                    ),
+                  ),
+                  onTap: imageSelectorCamera,
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                ),
+                GestureDetector(
+                  child: Card(
+                    shape: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 0.2
+                        )
+                    ),
+                    elevation: 0.0,
+                    child: ListTile(
+                      title: new Text('Select from galery'),
+                    ),
+                  ),
+                  onTap: imageSelectorGallery,
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    );
   }
 }
