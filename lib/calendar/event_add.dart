@@ -37,8 +37,10 @@ class EventAddState extends State<EventAdd>{
             elevation: 0.0,
             child: ListTile(
               title: Text('Beginning: $endDate', textAlign: TextAlign.left),
+              subtitle: Text("Tap to select"),
               trailing: IconButton(
                 icon: Icon(Icons.keyboard_arrow_right),
+                onPressed: () {},
               ),
               onTap: () {
                 _selectTime(context);
@@ -50,19 +52,29 @@ class EventAddState extends State<EventAdd>{
             elevation: 0.0,
             child: ListTile(
               title: Text('End: $endDate', textAlign: TextAlign.left),
+              subtitle: Text("Tap to select"),
               trailing: IconButton(
                 icon: Icon(Icons.keyboard_arrow_right),
+                onPressed: () {},
               ),
               onTap: () {
                 _selectTime(context);
               },
             ),
           ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Text("Fields with * are required",
+                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red[400]),
+                ),
+              ),
+            ],
+          )
 
-          Text("Fields with * are required",
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red[400],),
-            textAlign: TextAlign.right,
-          ),
 
         ],
       ),
@@ -133,7 +145,6 @@ class EventAddState extends State<EventAdd>{
           _showDialog();
           _showDialog();
         } else {
-          //procFinishedDate = date;
           setState(() {
             finalDate = date;
             endDate = DateReformat.reformat(date.toIso8601String()).toString();

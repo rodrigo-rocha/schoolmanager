@@ -127,6 +127,7 @@ class StudentInfoState extends State<StudentInfo> {
               child: new Text("Delete", style: TextStyle(color: Colors.red, fontSize: 17)),
               onPressed: () {
                 studentList.removeAt(s_idx);
+                Navigator.pop(context);
                 Navigator.pushNamed(context, '/user_tab_controller');
               },
             ),
@@ -193,13 +194,13 @@ class StudentInfoState extends State<StudentInfo> {
                 new FlatButton(
                   child: new Text("Close", style: TextStyle(fontSize: 17)),
                   onPressed: () {
-                    //teachersList.removeAt(t_idx);
                     Navigator.of(context).pop();
                   },
                 ),
                 new FlatButton(
                   child: new Text("Send", style: TextStyle(color: Colors.green, fontSize: 17)),
                   onPressed: () {
+                    Navigator.of(context).pop();
                     Navigator.of(context).pop();
                     Functions.confirmationEmail(context, studentList[s_idx].email);
                   },

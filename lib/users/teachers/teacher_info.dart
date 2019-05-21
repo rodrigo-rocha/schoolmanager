@@ -223,6 +223,7 @@ class TeacherInfoState extends State<TeacherInfo> {
               child: new Text("Delete", style: TextStyle(color: Colors.red, fontSize: 17)),
               onPressed: () {
                 teachersList.removeAt(t_idx);
+                Navigator.of(context).pop();
                 Navigator.pushReplacementNamed(context, '/user_tab_controller');
               },
             ),
