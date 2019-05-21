@@ -29,7 +29,7 @@ class CourseDetailsState extends State<CourseDetails> {
     return Scaffold(
       body: ListView(
         children: <Widget>[
-          infoTile(mean.toStringAsFixed(2), 'Mean'),
+          infoTile(mean.toStringAsFixed(2), 'Mean of finished courses'),
           infoTile(courseList.length.toString(), 'Number of current courses'),
           infoTile(finishedCoursesList.length.toString(), 'Number of finished courses'),
         ],

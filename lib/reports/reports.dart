@@ -105,7 +105,7 @@ class ReportsState extends State<Reports> {
               child: ListTile(
                 trailing: Icon(Icons.import_contacts, color: Colors.blue,),
                 title: Text(mean.toString()),
-                subtitle: Text("Mean"),
+                subtitle: Text("Mean of finished courses"),
               ),
             ),
 

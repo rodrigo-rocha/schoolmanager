@@ -165,7 +165,6 @@ class TeacherInfoState extends State<TeacherInfo> {
               AutoSizeText(
                 text,
                 style: TextStyle(color: Colors.blue, fontSize: 15.0),
-                maxLines: 1,
               ),
             ]
         ),
