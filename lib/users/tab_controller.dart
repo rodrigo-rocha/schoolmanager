@@ -61,9 +61,6 @@ class UserTabControllerState extends State<UserTabController> {
           //  ),
           //),
           elevation: 0.5, // 2
-          leading: IconButton(icon:Icon(Icons.dehaze),
-            onPressed:() => Navigator.pop(context, false),
-          ),
           iconTheme: IconThemeData(
             color: Colors.blue,
           ),

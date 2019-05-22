@@ -14,6 +14,7 @@ import 'package:flutter_app_ihc/users/tab_controller.dart';
 import 'package:flutter_app_ihc/menu/menu.dart';
 import 'package:flutter_app_ihc/courses/course_add.dart';
 import 'package:flutter_app_ihc/courses/course_edit.dart';
+import 'package:flutter_app_ihc/courses/finished_course_edit.dart';
 import 'package:flutter_app_ihc/courses/course_exams.dart';
 import 'package:flutter_app_ihc/courses/courses_tab_controller.dart';
 import 'package:flutter_app_ihc/courses/current/course_info.dart';
@@ -74,6 +75,8 @@ class SchoolManager extends StatelessWidget {
         '/course_add': (BuildContext context) => new CourseAdd(),
         '/course_edit': (BuildContext context) => new CourseEdit(),
         '/course_exams': (BuildContext context) => new CourseExams(),
+
+        '/finished_course_edit': (BuildContext context) => new FinishedCourseEdit(),
         '/finished_course_info': (BuildContext context) => new FinishedCoursesInfo(),
         '/finished_course_list': (BuildContext context) => new FinishedCoursesList(),
         '/finished_course_add': (BuildContext context) => new FinishedCourseAdd(),

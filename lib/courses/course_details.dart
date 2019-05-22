@@ -11,6 +11,7 @@ class CourseDetails extends StatefulWidget {
 }
 
 double mean;
+String meanString = "";
 
 class CourseDetailsState extends State<CourseDetails> {
 
@@ -19,17 +20,22 @@ class CourseDetailsState extends State<CourseDetails> {
 
     int sum = 0;
 
-    for(int i = 0; i < finishedCoursesList.length; i++) {
-      sum += int.parse(finishedCoursesList[i].grade);
-    }
+    try {
+      for(int i = 0; i < finishedCoursesList.length; i++) {
+        sum += int.parse(finishedCoursesList[i].grade);
+      }
 
-    mean = sum/finishedCoursesList.length;
+      mean = sum/finishedCoursesList.length;
+      meanString = mean.toStringAsFixed(2);
+    } catch (e) {
+      meanString = "Cannot calculate mean.";
+    }
 
     // TODO: implement build
     return Scaffold(
       body: ListView(
         children: <Widget>[
-          infoTile(mean.toStringAsFixed(2), 'Mean of finished courses'),
+          infoTile(meanString, 'Mean of finished courses'),
           infoTile(courseList.length.toString(), 'Number of current courses'),
           infoTile(finishedCoursesList.length.toString(), 'Number of finished courses'),
         ],

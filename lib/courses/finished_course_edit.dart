@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
-import 'package:flutter_app_ihc/courses/current/current_courses.dart';
+import 'package:flutter_app_ihc/courses/finished/finished_courses.dart';
 import 'package:flutter_app_ihc/courses/courses_tab_controller.dart';
 import 'package:flutter_app_ihc/classes/Course.dart';
 
@@ -8,28 +8,30 @@ TextEditingController nameController = new TextEditingController();
 TextEditingController codeController = new TextEditingController();
 TextEditingController departmentController = new TextEditingController();
 TextEditingController coordinatorController = new TextEditingController();
+TextEditingController gradeController = new TextEditingController();
 
 var coursesItems = ['Interação Humano-Computador', 'Arquitetura de Redes', 'Projeto em Engenharia Informatica', 'Bases de Dados'];
 var deptItems = ['DETI', 'Biology', 'Physics', 'ISCAA', 'Mathematics'];
 
-class CourseEdit extends StatefulWidget {
+class FinishedCourseEdit extends StatefulWidget {
 
   @override
-  CourseEditState createState() => CourseEditState();
+  FinishedCourseEditState createState() => FinishedCourseEditState();
 }
 
-class CourseEditState extends State<CourseEdit> {
+class FinishedCourseEditState extends State<FinishedCourseEdit> {
 
   void addCourseAction() {
-    courseList.removeAt(t_idx);
-    courseList.add(new Course(nameController.text, codeController.text, departmentController.text, coordinatorController.text,"",[]));
+    finishedCoursesList.removeAt(finished_index);
+    finishedCoursesList.add(new Course(nameController.text, codeController.text, departmentController.text, coordinatorController.text, gradeController.text,[]));
 
     nameController.text = "";
     codeController.text = "";
     departmentController.text = "";
     coordinatorController.text = "";
+    gradeController.text = finishedCoursesList[finished_index].grade;
 
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       new MaterialPageRoute(builder: (context) => CoursesTabController()
     ));
@@ -39,10 +41,10 @@ class CourseEditState extends State<CourseEdit> {
   @override
   Widget build(BuildContext context) {
 
-    nameController.text = courseList[t_idx].name;
-    codeController.text = courseList[t_idx].code;
-    departmentController.text = courseList[t_idx].department;
-    coordinatorController.text = courseList[t_idx].coordinator;
+    nameController.text = finishedCoursesList[finished_index].name;
+    codeController.text = finishedCoursesList[finished_index].code;
+    departmentController.text = finishedCoursesList[finished_index].department;
+    coordinatorController.text = finishedCoursesList[finished_index].coordinator;
 
     return Scaffold(
       appBar: Functions.createBar("Edit Course", () => addCourseAction(), () => Navigator.pop(context)),
@@ -53,7 +55,8 @@ class CourseEditState extends State<CourseEdit> {
           textField('Name *', nameController),
           textField('Code', codeController),
           textField('Department', departmentController),
-          textField('Coordinator', coordinatorController),
+          //textField('Coordinator', coordinatorController),
+          dropdownField("Grade", gradeController, grade),
           SizedBox(height: 10),
           reqFieldInfo()
         ],
@@ -122,16 +125,21 @@ class CourseEditState extends State<CourseEdit> {
     );
   }
 
+  List<String> grade = ['10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
+
+  /// Validate
   Widget dropdownField(String hint, TextEditingController cont, var items) {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0, left: 18.0),
       child: new Row(
         children: <Widget>[
           new Expanded(
+            child: Form(
               child: new TextField(
                 controller: cont,
                 decoration: InputDecoration(hintText: hint),
               ),
+            ),
           ),
           new PopupMenuButton<String>(
             elevation: 5,

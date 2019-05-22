@@ -3,6 +3,7 @@ import 'package:flutter_app_ihc/courses/current/current_courses.dart';
 import 'package:flutter_app_ihc/courses/finished/finished_courses.dart';
 import 'package:flutter_app_ihc/main.dart';
 import 'package:flutter_app_ihc/courses/course_details.dart';
+import 'package:flutter_app_ihc/functions/functions.dart';
 
 class CoursesTabController extends StatefulWidget {
   @override
@@ -38,6 +39,7 @@ class CoursesTabControllerState extends State<CoursesTabController> {
     return new DefaultTabController(
       length: 3,
       child: Scaffold(
+        drawer: Functions.sideBar(context),
         appBar: AppBar(
           actions: <Widget>[
             popUpButton()
@@ -50,9 +52,6 @@ class CoursesTabControllerState extends State<CoursesTabController> {
             ),
           ),
           elevation: 0.5,
-          leading: IconButton(icon:Icon(Icons.arrow_back),
-            onPressed:() => Navigator.pop(context, false),
-          ),
           iconTheme: IconThemeData(
             color: Colors.blue,
           ),

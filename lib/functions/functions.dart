@@ -148,11 +148,8 @@ class Functions {
   static Widget appBar(String text, IconData icon, Widget popUpButton) {
     /// appBar() suporta um null no popUpButton, sendo que reprime este elemento
 
-    final GlobalKey<ScaffoldState> _scaffoldKey =
-        new GlobalKey<ScaffoldState>();
     if (popUpButton != null) {
       return AppBar(
-        key: _scaffoldKey,
         title: Text(
           text,
           textAlign: TextAlign.center,
@@ -162,11 +159,6 @@ class Functions {
             color: Colors.blue,
           ),
         ),
-        leading: IconButton(
-            icon: new Icon(Icons.view_headline), // clear all?
-            onPressed: () {
-              //_scaffoldKey.currentState.openDrawer();
-            }),
         elevation: 2.0,
         iconTheme: IconThemeData(
           color: Colors.grey, //change your color here
@@ -179,7 +171,6 @@ class Functions {
       );
     } else {
       return AppBar(
-        key: _scaffoldKey,
         title: Text(
           text,
           textAlign: TextAlign.center,
@@ -189,11 +180,6 @@ class Functions {
             color: Colors.blue,
           ),
         ),
-        leading: IconButton(
-            icon: new Icon(Icons.view_headline), // clear all?
-            onPressed: () {
-              //_scaffoldKey.currentState.openDrawer();
-            }),
         elevation: 2.0,
         iconTheme: IconThemeData(
           color: Colors.grey, //change your color here
@@ -203,6 +189,7 @@ class Functions {
       );
     }
   }
+
 
   static Widget createBar(String text, doneAction(), goBackAction()) {
     final GlobalKey<ScaffoldState> _scaffoldKey =

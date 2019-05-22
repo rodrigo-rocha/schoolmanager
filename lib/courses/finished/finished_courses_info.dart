@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/courses/finished/finished_courses.dart';
-
+import 'package:flutter_app_ihc/courses/current/current_courses.dart';
 
 class FinishedCoursesInfo extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class FinishedCoursesInfoState extends State<FinishedCoursesInfo> {
 
   void choiceActions(String choice) {
     if(choice == 'Edit') {
-      print("W8");
+      Navigator.of(context).pushNamed('/finished_course_edit');
     } else if(choice == 'Delete') {
       print("This");
     }
@@ -37,9 +37,7 @@ class FinishedCoursesInfoState extends State<FinishedCoursesInfo> {
 
     return Scaffold(
       appBar: Functions.appBar("Information", Icons.add, popUpButton()),
-      //drawer: Functions.sideBar(context),
-      //bottomNavigationBar: Functions.navBar(context),
-
+      drawer: Functions.sideBar(context),
       body: ListView(
         children: <Widget>[
           SizedBox(height: 10),
@@ -48,7 +46,7 @@ class FinishedCoursesInfoState extends State<FinishedCoursesInfo> {
           _infoC(finishedCoursesList[finished_index].grade, 'Final Grade', traillingAction(Icons.description, "Information", () {print("this");})),
           _infoC(finishedCoursesList[finished_index].code, 'Code', traillingAction(Icons.phone, "Call", () {print("this");})),
           _infoC(finishedCoursesList[finished_index].department, 'Department', traillingAction(Icons.place, "Locate", () {print("this");})),
-          _infoC(finishedCoursesList[finished_index].coordinator, 'Coordinator', traillingAction(Icons.place, "Locate", () {print("this");} )),
+          //_infoC(finishedCoursesList[finished_index].coordinator, 'Coordinator', traillingAction(Icons.place, "Locate", () {print("this");} )),
         ],
       ),
 

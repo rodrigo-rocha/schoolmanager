@@ -14,6 +14,7 @@ class Reports extends StatefulWidget {
 Map<String, double> dataMap = new Map();
 
 double mean;
+String meanString = "";
 
 class ReportsState extends State<Reports> {
 
@@ -32,12 +33,16 @@ class ReportsState extends State<Reports> {
 
     int sum = 0;
 
-    for(int i = 0; i < finishedCoursesList.length; i++) {
-      sum += int.parse(finishedCoursesList[i].grade);
+    try {
+      for(int i = 0; i < finishedCoursesList.length; i++) {
+        sum += int.parse(finishedCoursesList[i].grade);
+      }
+
+      mean = sum/finishedCoursesList.length;
+      meanString = mean.toStringAsFixed(2);
+    } catch (e) {
+      meanString = "Cannot calculate mean.";
     }
-
-    mean = sum/finishedCoursesList.length;
-
     // TODO: implement build
     return Scaffold(
       appBar: Functions.appBar("Reports", null, null),
@@ -120,8 +125,8 @@ class ReportsState extends State<Reports> {
               margin: EdgeInsets.only(left: 10.0, right: 10.0),
               child: ListTile(
                 trailing: Icon(Icons.watch_later, color: Colors.blue,),
-                title: Text("15.4"),
-                subtitle: Text("Avergare hours of study per week"),
+                title: Text(meanString),
+                subtitle: Text("Average hours of study per week"),
               ),
             )
           ],

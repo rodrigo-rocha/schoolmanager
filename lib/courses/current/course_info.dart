@@ -21,7 +21,9 @@ class CourseInfoState extends State<CourseInfo> {
       courseList.removeAt(t_idx);
       Navigator.of(context).pushReplacementNamed('/courses_tab_controller');
     } else {
+      gradeController.text = "";
       _showDialog();
+
     }
   }
 
@@ -126,10 +128,12 @@ class CourseInfoState extends State<CourseInfo> {
             new FlatButton(
               child: new Text("Submit", style: TextStyle(color: Colors.green, fontSize: 17)),
               onPressed: () {
-                finishedCoursesList.add(new Course(courseList[t_idx].name, courseList[t_idx].code, courseList[t_idx].department, courseList[t_idx].coordinator,  gradeController.text, []));
-                courseList.removeAt(t_idx);
-                Navigator.of(context).pop();
-                Navigator.of(context).pushReplacementNamed('/courses_tab_controller');
+                if(_formKey.currentState.validate()) {
+                  finishedCoursesList.add(new Course(courseList[t_idx].name, courseList[t_idx].code, courseList[t_idx].department, courseList[t_idx].coordinator,  gradeController.text, []));
+                  courseList.removeAt(t_idx);
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacementNamed('/courses_tab_controller');
+                }
               },
             ),
           ],
@@ -155,15 +159,22 @@ class CourseInfoState extends State<CourseInfo> {
     );
   }
 
+  final _formKey = GlobalKey<FormState>();
+
   Widget dropdownField(String hint, TextEditingController cont, var items) {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0, left: 18.0),
       child: new Row(
         children: <Widget>[
           new Expanded(
-            child: new TextField(
-              controller: cont,
-              decoration: InputDecoration(hintText: hint),
+            child: Form(
+              key: _formKey,
+              child: new TextFormField(
+                validator: (value) => value.isEmpty? 'Please fill in the grade' : null,
+                controller: cont,
+                enabled: false,
+                decoration: InputDecoration(hintText: hint),
+              ),
             ),
           ),
           new PopupMenuButton<String>(
