@@ -360,10 +360,8 @@ class TeacherInfoState extends State<TeacherInfo> {
             new FlatButton(
               child: new Text("Schedule Meeting", style: TextStyle(color: Colors.green, fontSize: 17)),
               onPressed: () {
-                //finishedCoursesList.add(new Course(courseList[t_idx].name, courseList[t_idx].code, courseList[t_idx].department, courseList[t_idx].coordinator,  gradeController.text, []));
-                //courseList.removeAt(t_idx);
                 Navigator.of(context).pop();
-                //Navigator.of(context).pushReplacementNamed('/courses_tab_controller');
+                Functions.confirmationMeeting(context, meetingController.text);
               },
             ),
           ],

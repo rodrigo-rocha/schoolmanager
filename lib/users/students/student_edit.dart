@@ -13,6 +13,12 @@ TextEditingController degreeController = new TextEditingController();
 TextEditingController phoneController = new TextEditingController();
 TextEditingController deptController = new TextEditingController();
 
+FocusNode nameFocus = new FocusNode();
+FocusNode emailFocus = new FocusNode();
+FocusNode degreeFocus = new FocusNode();
+FocusNode phoneFocus = new FocusNode();
+FocusNode dptFocus = new FocusNode();
+
 File galleryFile;
 
 var coursesItems = ['Interação Humano-Computador', 'Arquitetura de Redes', 'Projeto em Engenharia Informatica', 'Bases de Dados'];
@@ -23,6 +29,8 @@ class StudentEdit extends StatefulWidget {
   StudentEditState createState() => StudentEditState();
 }
 
+final _validationKey = GlobalKey<FormState>();
+
 class StudentEditState extends State<StudentEdit> {
 
 
@@ -31,36 +39,54 @@ class StudentEditState extends State<StudentEdit> {
     nameController.text = studentList[s_idx].name;
     emailController.text = studentList[s_idx].email;
     degreeController.text = studentList[s_idx].degree;
-    phoneController.text = studentList[s_idx].name;
+    phoneController.text = studentList[s_idx].phone;
     deptController.text = studentList[s_idx].department;
   }
 
   void addStudentAction() {
-    String photo = studentList[s_idx].photo;
-    studentList.removeAt(s_idx);
-    studentList.add(new Student(nameController.text, emailController.text, degreeController.text, phoneController.text, deptController.text, photo));
+    if(_validationKey.currentState.validate()) {
+      String photo = studentList[s_idx].photo;
+      studentList.removeAt(s_idx);
+      studentList.add(new Student(nameController.text, emailController.text, degreeController.text, phoneController.text, deptController.text, photo));
 
-    Navigator.pushReplacement(
-        context,
-        new MaterialPageRoute(builder: (context) => UserTabController()
-        ));
+      Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(builder: (context) => UserTabController()
+          ));
+    }
+  }
+
+  void checkEmpty() {
+    if(nameController.text != ""  || emailController.text != "" || degreeController.text != ""
+        || phoneController.text != "" || deptController.text != "") {
+      _showDialog();
+    } else {
+      Navigator.of(context).pushReplacementNamed('/user_tab_controller');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Functions.createBar(
-          "Edit Teacher", () => addStudentAction(), () =>
-          Navigator.pop(context)
+          "Edit Student", () => addStudentAction(), () =>
+          checkEmpty()
       ),
       body:
       ListView(
         children: <Widget>[
-          textField('Name *', nameController),
-          textField('E-Mail *', emailController),
-          textField('Degree', degreeController),
-          textField('Phone', phoneController),
-          dropdownField('Department', deptController, deptItems),
+          Form(
+            key: _validationKey,
+            child: Column(
+              children: <Widget>[
+                textFieldMandatory('Name *', nameController, "Name can\'t be empty", nameFocus, emailFocus),
+                textFieldMandatory('E-Mail *', emailController, "E-Mail can\'t be empty", emailFocus, degreeFocus),
+              ],
+            ),
+          ),
+          textField('Degree', degreeController, degreeFocus, phoneFocus),
+          textField('Phone', phoneController, phoneFocus, dptFocus),
+          dropdownField('Department', deptController, deptItems, dptFocus, dptFocus),
           imageField(),
           //reqFieldInfo(),
           // clearFieldText(), // Necessary??
@@ -116,10 +142,19 @@ class StudentEditState extends State<StudentEdit> {
     );
   }
 
-  Widget textField(String hint, TextEditingController cont) {
+  Widget textField(String hint, TextEditingController cont, FocusNode focus, FocusNode next) {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0),
       child: TextFormField(
+        focusNode: focus,
+        onFieldSubmitted: (term) {
+          if(focus == next) {
+            focus.unfocus();
+          } else {
+            focus.unfocus();
+            FocusScope.of(context).requestFocus(next);
+          }
+        },
         controller: cont,
         decoration: InputDecoration(
 
@@ -129,13 +164,44 @@ class StudentEditState extends State<StudentEdit> {
     );
   }
 
-  Widget dropdownField(String hint, TextEditingController cont, var items) {
+  Widget textFieldMandatory(String hint, TextEditingController cont, String msg, FocusNode focus, FocusNode next) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0),
+      child: TextFormField(
+        focusNode: focus,
+        onFieldSubmitted: (term) {
+          if(focus == next) {
+            focus.unfocus();
+          } else {
+            focus.unfocus();
+            FocusScope.of(context).requestFocus(next);
+          }
+        },
+        controller: cont,
+        validator: (val) => val.isEmpty? msg : null,
+        decoration: InputDecoration(
+          hintText: hint,
+        ),
+      ),
+    );
+  }
+
+  Widget dropdownField(String hint, TextEditingController cont, var items, FocusNode focus, FocusNode next) {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0, left: 18.0),
       child: new Row(
         children: <Widget>[
           new Expanded(
-            child: new TextField(
+            child: new TextFormField(
+              focusNode: focus,
+              onFieldSubmitted: (term) {
+                if(focus == next) {
+                  focus.unfocus();
+                } else {
+                  focus.unfocus();
+                  FocusScope.of(context).requestFocus(next);
+                }
+              },
               controller: cont,
               decoration: InputDecoration(hintText: hint),
             ),
@@ -226,6 +292,40 @@ class StudentEditState extends State<StudentEdit> {
           ),
         );
       }
+    );
+  }
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Discard Information?"),
+          content: new Text("Changes made will not be saved."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Discard Changes", style: TextStyle(color: Colors.red, fontSize: 17)),
+              onPressed: () {
+                nameController.text = "";
+                emailController.text = "";
+                degreeController.text = "";
+                phoneController.text = "";
+                deptController.text = "";
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed('/user_tab_controller');
+              },
+            ),
+            new FlatButton(
+              child: new Text("Continue Edit", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

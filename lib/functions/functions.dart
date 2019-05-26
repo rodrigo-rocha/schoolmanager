@@ -301,7 +301,28 @@ class Functions {
         // return object of type Dialog
         return AlertDialog(
           title: new Text("Email sent"),
-          content: new Text("Email send to ${email}."),
+          content: new Text("Email send to $email."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  static void confirmationMeeting(BuildContext context, String datetime) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Meeting schedule"),
+          content: new Text("Meeting shedule to: $datetime"),
           actions: <Widget>[
             new FlatButton(
               child: new Text("Close", style: TextStyle(fontSize: 17)),

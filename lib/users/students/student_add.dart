@@ -13,6 +13,13 @@ TextEditingController phoneController = new TextEditingController();
 TextEditingController deptController = new TextEditingController();
 TextEditingController coursesController = new TextEditingController();
 
+FocusNode nameFocus = new FocusNode();
+FocusNode emailFocus = new FocusNode();
+FocusNode degreeFocus = new FocusNode();
+FocusNode phoneFocus = new FocusNode();
+FocusNode dptFocus = new FocusNode();
+FocusNode coursesFocus = new FocusNode();
+
 File galleryFile;
 
 var deptItems = ['DETI', 'Biology', 'Physics', 'ISCAA', 'Mathematics'];
@@ -23,44 +30,68 @@ class StudentAdd extends StatefulWidget {
   TeachersAddState createState() => TeachersAddState();
 }
 
+final _validationKey = GlobalKey<FormState>();
+
 class TeachersAddState extends State<StudentAdd> {
 
   void addTeacherAction() {
-    studentList.add(new Student(
-        nameController.text, emailController.text, degreeController.text,
-        phoneController.text, deptController.text,
-        'https://utulsa.edu/wp-content/uploads/2018/08/generic-avatar.jpg'));
+    setState(() {
+      if(_validationKey.currentState.validate()) {
+        studentList.add(new Student(
+            nameController.text, emailController.text, degreeController.text,
+            phoneController.text, deptController.text,
+            'https://utulsa.edu/wp-content/uploads/2018/08/generic-avatar.jpg'));
 
-    nameController.text = "";
-    emailController.text = "";
-    degreeController.text = "";
-    phoneController.text = "";
-    deptController.text = "";
-    coursesController.text = "";
+        nameController.text = "";
+        emailController.text = "";
+        degreeController.text = "";
+        phoneController.text = "";
+        deptController.text = "";
+        coursesController.text = "";
 
-    Navigator.pushReplacement(
-      context,
-      new MaterialPageRoute(builder: (context) => UserTabController()
-    ));
+        Navigator.pushReplacement(
+            context,
+            new MaterialPageRoute(builder: (context) => UserTabController()
+            ));
+      }
+    });
+
+  }
+
+  void checkEmpty() {
+    if(nameController.text != ""  || emailController.text != "" || degreeController.text != ""
+    || phoneController.text != "" || deptController.text != ""  || coursesController.text != "") {
+      _showDialog();
+    } else {
+      Navigator.of(context).pushReplacementNamed('/user_tab_controller');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Functions.createBar(
-          "Create Student", () => addTeacherAction(), () =>
-          Navigator.pop(context)),
+          "Create Student", () => addTeacherAction(), () => checkEmpty()
+      ),
       //drawer: Functions.sideBar(context),
 
       body:
       ListView(
         children: <Widget>[
-          textField('Name *', nameController),
-          textField('E-Mail *', emailController),
-          textField('Degree', degreeController),
-          textField('Phone', phoneController),
-          dropdownField('Department', deptController, deptItems),
+          Form(
+            key: _validationKey,
+            child: Column(
+              children: <Widget>[
+                textFieldMandatory('Name *', nameController, "Name can\'t be empty", nameFocus, emailFocus),
+                textFieldMandatory('E-Mail *', emailController, "E-Mail can\'t be empty", emailFocus, degreeFocus),
+              ],
+            ),
+          ),
+          textField('Degree', degreeController, degreeFocus, phoneFocus),
+          textField('Phone', phoneController, phoneFocus, dptFocus),
+          dropdownField('Department', deptController, deptItems, dptFocus, dptFocus),
           imageField(),
+
           //reqFieldInfo(),
           // clearFieldText(), // Necessary??
         ],
@@ -115,29 +146,94 @@ class TeachersAddState extends State<StudentAdd> {
     );
   }
 
-  Widget textField(String hint, TextEditingController cont) {
+  Widget textField(String hint, TextEditingController cont, FocusNode focus, FocusNode next) {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0),
       child: TextFormField(
-        controller: cont,
-        decoration: InputDecoration(
-          //border: UnderlineInputBorder(
-          //borderSide: BorderSide(color: Colors.red, width: 110.1)
-          //borderSide: BorderSide(width: 0.5, color: Colors.blue)
-          //),
-          hintText: hint,
+        focusNode: focus,
+        onFieldSubmitted: (term) {
+          if(focus == next) {
+            focus.unfocus();
+          } else {
+            focus.unfocus();
+            FocusScope.of(context).requestFocus(next);
+          }
+        },
+          validator: (val) => val.isEmpty? 'This field can\'t be empty' : null,
+          controller: cont,
+          decoration: InputDecoration(
+            //border: UnderlineInputBorder(
+            //borderSide: BorderSide(color: Colors.red, width: 110.1)
+            //borderSide: BorderSide(width: 0.5, color: Colors.blue)
+            //),
+            hintText: hint,
+          ),
+        ),
+    );
+  }
+
+  Widget textFieldMandatory(String hint, TextEditingController cont, String msg, FocusNode focus, FocusNode next) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0),
+      child: TextFormField(
+        focusNode: focus,
+        onFieldSubmitted: (term) {
+          if(focus == next) {
+            focus.unfocus();
+          } else {
+            focus.unfocus();
+            FocusScope.of(context).requestFocus(next);
+          }
+        },
+          validator: (val) => val.isEmpty? msg : null,
+          controller: cont,
+          decoration: InputDecoration(
+            //border: UnderlineInputBorder(
+            //borderSide: BorderSide(color: Colors.red, width: 110.1)
+            //borderSide: BorderSide(width: 0.5, color: Colors.blue)
+            //),
+            hintText: hint,
+          ),
+        ),
+    );
+  }
+
+  Widget textFieldEmail(String hint, TextEditingController cont) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0),
+      child: Form(
+        key: _validationKey,
+        child: TextFormField(
+          validator: (val) => val.isEmpty? 'E-Mail can\'t be empty' : null,
+          controller: cont,
+          decoration: InputDecoration(
+            //border: UnderlineInputBorder(
+            //borderSide: BorderSide(color: Colors.red, width: 110.1)
+            //borderSide: BorderSide(width: 0.5, color: Colors.blue)
+            //),
+            hintText: hint,
+          ),
         ),
       ),
     );
   }
 
-  Widget dropdownField(String hint, TextEditingController cont, var items) {
+  Widget dropdownField(String hint, TextEditingController cont, var items, FocusNode focus, FocusNode next) {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0, left: 18.0),
       child: new Row(
         children: <Widget>[
           new Expanded(
-            child: new TextField(
+            child: new TextFormField(
+              focusNode: focus,
+              onFieldSubmitted: (term) {
+                if(focus == next) {
+                  focus.unfocus();
+                } else {
+                  focus.unfocus();
+                  FocusScope.of(context).requestFocus(next);
+                }
+              },
               controller: cont,
               decoration: InputDecoration(hintText: hint),
             ),
@@ -228,5 +324,40 @@ class TeachersAddState extends State<StudentAdd> {
             ),
           );
         });
+  }
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Discard Information?"),
+          content: new Text("Changes made will not be saved."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Discard Changes", style: TextStyle(color: Colors.red, fontSize: 17)),
+              onPressed: () {
+                nameController.text = "";
+                emailController.text = "";
+                degreeController.text = "";
+                phoneController.text = "";
+                deptController.text = "";
+                coursesController.text = "";
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed('/user_tab_controller');
+              },
+            ),
+            new FlatButton(
+              child: new Text("Continue Edit", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

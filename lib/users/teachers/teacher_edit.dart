@@ -14,6 +14,13 @@ TextEditingController phoneController = new TextEditingController();
 TextEditingController deptController = new TextEditingController();
 TextEditingController coursesController = new TextEditingController();
 
+FocusNode nameFocus = new FocusNode();
+FocusNode emailFocus = new FocusNode();
+FocusNode officeFocus = new FocusNode();
+FocusNode phoneFocus = new FocusNode();
+FocusNode dptFocus = new FocusNode();
+FocusNode coursesFocus = new FocusNode();
+
 File galleryFile;
 
 var coursesItems = ['Interação Humano-Computador', 'Arquitetura de Redes', 'Projeto em Engenharia Informatica', 'Bases de Dados'];
@@ -24,6 +31,8 @@ class TeachersEdit extends StatefulWidget {
   @override
   TeachersEditState createState() => TeachersEditState();
 }
+
+final _validationKey = GlobalKey<FormState>();
 
 class TeachersEditState extends State<TeachersEdit> {
 
@@ -38,15 +47,26 @@ class TeachersEditState extends State<TeachersEdit> {
   }
 
   void addTeacherAction() {
-    String photo = teachersList[t_idx].photo;
-    teachersList.removeAt(t_idx);
-    teachersList.add(new Teacher(nameController.text, emailController.text, officeController.text, phoneController.text, deptController.text, coursesController.text, photo));
 
+    if(_validationKey.currentState.validate()) {
+      String photo = teachersList[t_idx].photo;
+      teachersList.removeAt(t_idx);
+      teachersList.add(new Teacher(nameController.text, emailController.text, officeController.text, phoneController.text, deptController.text, coursesController.text, photo));
 
-    Navigator.pushReplacement(
-        context,
-        new MaterialPageRoute(builder: (context) => UserTabController()
-        ));
+      Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(builder: (context) => UserTabController()
+          ));
+    }
+  }
+
+  void checkEmpty() {
+    if(nameController.text != ""  || emailController.text != "" || officeController.text != ""
+        || phoneController.text != "" || deptController.text != "" || coursesController.text != "") {
+      _showDialog();
+    } else {
+      Navigator.of(context).pushReplacementNamed('/user_tab_controller');
+    }
   }
 
 
@@ -54,14 +74,21 @@ class TeachersEditState extends State<TeachersEdit> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: Functions.createBar("Edit Teacher", () => addTeacherAction(), () => Navigator.pop(context)),
+      appBar: Functions.createBar("Edit Teacher", () => addTeacherAction(), () => checkEmpty()),
       body:
       ListView(
         children: <Widget>[
-          textField('Name *', nameController),
-          textField('E-Mail *', emailController),
-          textField('Office', officeController),
-          textField('Phone', phoneController),
+          Form(
+            key: _validationKey,
+            child: Column(
+              children: <Widget>[
+                textFieldMandatory('Name *', nameController, "Name can\'t be empty", nameFocus, emailFocus),
+                textFieldMandatory('E-Mail *', emailController, "E-Mail can\'t be empty", emailFocus, officeFocus),
+              ],
+            ),
+          ),
+          textField('Office', officeController, officeFocus, phoneFocus),
+          textField('Phone', phoneController, phoneFocus,phoneFocus),
           dropdownField('Department', deptController, deptItems),
           dropdownField('Courses', coursesController, coursesItems),
           imageField(),
@@ -117,10 +144,41 @@ class TeachersEditState extends State<TeachersEdit> {
     );
   }
 
-  Widget textField(String hint, TextEditingController cont) {
+  Widget textFieldMandatory(String hint, TextEditingController cont, String msg, FocusNode focus, FocusNode next) {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0),
       child: TextFormField(
+        focusNode: focus,
+        onFieldSubmitted: (term) {
+          if(focus == next) {
+            focus.unfocus();
+          } else {
+            focus.unfocus();
+            FocusScope.of(context).requestFocus(next);
+          }
+        },
+        controller: cont,
+        validator: (val) => val.isEmpty? msg : null,
+        decoration: InputDecoration(
+          hintText: hint,
+        ),
+      ),
+    );
+  }
+
+  Widget textField(String hint, TextEditingController cont, FocusNode focus, FocusNode next) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0),
+      child: TextFormField(
+        focusNode: focus,
+        onFieldSubmitted: (term) {
+          if(focus == next) {
+            focus.unfocus();
+          } else {
+            focus.unfocus();
+            FocusScope.of(context).requestFocus(next);
+          }
+        },
         controller: cont,
         decoration: InputDecoration(
           //border: UnderlineInputBorder(
@@ -230,5 +288,40 @@ class TeachersEditState extends State<TeachersEdit> {
             ),
           );
         });
+  }
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Discard Information?"),
+          content: new Text("Changes made will not be saved."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Discard Changes", style: TextStyle(color: Colors.red, fontSize: 17)),
+              onPressed: () {
+                nameController.text = "";
+                emailController.text = "";
+                officeController.text = "";
+                phoneController.text = "";
+                deptController.text = "";
+                coursesController.text = "";
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed('/user_tab_controller');
+              },
+            ),
+            new FlatButton(
+              child: new Text("Continue Edit", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
