@@ -44,7 +44,8 @@ class ChatMessageState extends State<ChatMessage> {
           ],
         ),
       ), */
-      floatingActionButton: FloatingActionButton(onPressed: () => _showMailDialogue(), child: Icon(Icons.add))  ,
+      floatingActionButton: FloatingActionButton(onPressed: () => _showMailDialogue(), child: Icon(Icons.add)),
+      drawer: Functions.sideBar(context),
       appBar: Functions.appBar("Messages", Icons.add,null),
         body: new ListView.builder
           (

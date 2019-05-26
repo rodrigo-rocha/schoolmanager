@@ -53,7 +53,7 @@ class MenuState extends State<Menu> {
             _buildTileIcon('Calendar', Icons.today, () => Navigator.of(context).pushNamed('/calendar')),
             _buildTileIcon('Timeline', Icons.timeline, () => Navigator.of(context).pushNamed('/timeline')),
             _buildTileIcon('Share', Icons.share, () => Navigator.of(context).pushNamed('/share')),
-            _buildTileIcon('Reports', Icons.multiline_chart, () => Navigator.of(context).pushNamed('/reports')),
+            _buildTileIcon('Statistics', Icons.multiline_chart, () => Navigator.of(context).pushNamed('/reports')),
             _buildTileIcon('Settings', Icons.settings, () => Navigator.of(context).pushNamed('/settings')),
 
           ],

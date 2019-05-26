@@ -20,6 +20,8 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
   List _selectedEvents;
   AnimationController _controller;
 
+
+
   @override
   void initState() {
     super.initState();
@@ -94,8 +96,8 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Functions.appBar("CALENDAR", Icons.add, null),
       drawer: Functions.sideBar(context),
+      appBar: Functions.appBar("CALENDAR", Icons.add, null),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
