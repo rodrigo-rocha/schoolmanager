@@ -18,8 +18,6 @@ String meanString = "";
 
 class ReportsState extends State<Reports> {
 
-
-
   @override
   void initState() {
     dataMap.putIfAbsent("Network Architecture", () => 5);

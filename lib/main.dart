@@ -38,7 +38,7 @@ import 'package:flutter_app_ihc/share/share.dart';
 import 'package:flutter_app_ihc/share/shared_docs.dart';
 import 'package:flutter_app_ihc/calendar/week_schedule.dart';
 import 'package:flutter_app_ihc/chat/chat_list.dart';
-import 'package:flutter_app_ihc/reports/reports.dart';
+import 'package:flutter_app_ihc/statistics/statistics.dart';
 import 'package:flutter_app_ihc/courses/comunity_documents.dart';
 import 'package:flutter_app_ihc/users/generic_teacher_info.dart';
 import 'package:flutter_app_ihc/courses/course_add_exam.dart';

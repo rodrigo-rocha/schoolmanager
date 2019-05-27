@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/notes/important_notes/important_notes_list.dart';
 import 'package:flutter_app_ihc/notes/notes/note_list.dart';
+import 'package:flutter_app_ihc/functions/functions.dart';
 
 class NotesTabController extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class NotesTabControllerState extends State<NotesTabController> {
     return new DefaultTabController(
       length: 2,
       child: Scaffold(
+        drawer: Functions.sideBar(context),
         appBar: AppBar(
           centerTitle: true,
           title: Text('Notes', textAlign: TextAlign.left ,
@@ -23,7 +25,7 @@ class NotesTabControllerState extends State<NotesTabController> {
             ),
           ),
           elevation: 0.5, // 2
-          leading: IconButton(icon:Icon(Icons.arrow_back),
+          leading: IconButton(icon:Icon(Icons.menu),
             onPressed:() => Navigator.pop(context, false),
           ),
           iconTheme: IconThemeData(

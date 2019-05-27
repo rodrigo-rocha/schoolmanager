@@ -82,20 +82,14 @@ class MenuState extends State<Menu> {
   Widget _buildTileIcon(String title, IconData icon, action()) {
     return _buildTile(
       _tileFormat(title, icon),
-      onTap: () =>
-      {
-        action(),
-      }
+      onTap: () => action(),
     );
   }
 
   Widget _buildTileImage(String title, String path, action()) {
     return _buildTile(
       _tileFormatImage(title, path),
-      onTap: () =>
-      {
-        action(),
-      }
+      onTap: () => action(),
     );
   }
 
@@ -115,8 +109,9 @@ class MenuState extends State<Menu> {
               ),
             ),
           ),
+          SizedBox(height: 5,),
           Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment. center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               AutoSizeText(
