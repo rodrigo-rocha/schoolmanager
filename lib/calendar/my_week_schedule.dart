@@ -25,7 +25,7 @@ class MyWeekScheduleState extends State<MyWeekSchedule> {
         ),
         elevation: 2.0,
         iconTheme: IconThemeData(
-          color: Colors.grey, //change your color here
+          color: Colors.blue, //change your color here
         ),
         centerTitle: true,
         backgroundColor: Colors.white,

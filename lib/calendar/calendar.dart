@@ -264,6 +264,7 @@ class CalendarState extends State<Calendar> with TickerProviderStateMixin {
               const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
           child: ListTile(
             title: Text(event.TITLE),
+            trailing: Icon(Icons.info_outline, color: Colors.blue,),
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
