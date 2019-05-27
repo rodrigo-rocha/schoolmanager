@@ -19,10 +19,9 @@ class MenuState extends State<Menu> {
   Widget _buildTile(Widget child, {Function() onTap}) {
     return Material(
       color: tileColor,
-      elevation: 1.0, // Relevo dos botões
+      elevation: 4.0, // Relevo dos botões
       borderRadius: BorderRadius.circular(10), // Tiles Border Radius
       shadowColor: _shadowColor,
-
       child: InkWell
         (
           onTap: onTap != null ? () => onTap() : () { print('Not set yet'); },

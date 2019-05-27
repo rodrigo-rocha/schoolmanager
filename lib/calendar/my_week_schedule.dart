@@ -36,18 +36,18 @@ class MyWeekScheduleState extends State<MyWeekSchedule> {
       body: ListView(
         children: <Widget>[
           buildDayInfo("Monday"),
-          buildDay("Network Architecture T", '08:10 - 12:00' ,'4.1.15'),
-          buildDay("Human-Computer Interaction P", '08:10 - 12:00' ,'4.1.15'),
-          buildDay("IHuman-Computer Interaction T", '08:10 - 12:00' ,'4.1.15'),
+          buildDay("Network Architecture T", '10:00 - 12:00' ,'4.1.15'),
+          buildDay("Human-Computer Interaction P", '14:00 - 15:30' ,'4.1.15'),
+          buildDay("IHuman-Computer Interaction T", '15:30 - 18:00' ,'Anf. V'),
           buildDayInfo("Tuesday"),
-          buildDay("Databases P", '08:10 - 12:00' ,'4.1.15'),
-          buildDay("Databases T", '08:10 - 12:00' ,'4.1.15'),
-          buildDay("Human-Computer Interaction T", '08:10 - 12:00' ,'4.1.15'),
+          buildDay("Databases P", '09:00 - 10:30' ,'4.1.15'),
+          buildDay("Databases T", '10:30 - 12:00' ,'Anf. IV'),
+          buildDay("Human-Computer Interaction T", '14:00 - 15:00' ,'Anf. IV'),
           buildDayInfo("Wednesday"),
-          buildDay("Human-Computer Interaction P", '08:10 - 12:00' ,'4.1.15'),
-          buildDay("Network Architecture T", '08:10 - 12:00' ,'4.1.15'),
+          buildDay("Human-Computer Interaction P", '09:00 - 12:00' ,'4.1.15'),
+          buildDay("Network Architecture T", '14:00 - 15:00' ,'4.1.12'),
           buildDayInfo("Thursday"),
-          buildDay("Network Architecture P", '08:10 - 12:00' ,'4.1.15'),
+          buildDay("Network Architecture P", '10:00 - 12:00' ,'4.2.20'),
           buildDayInfo("Friday"),
           buildDay("No classes", '-' ,'-'),
           buildDayInfo("Saturday"),
@@ -63,7 +63,7 @@ class MyWeekScheduleState extends State<MyWeekSchedule> {
 
     return Card(
       elevation: 0.0,
-      color: Colors.blue[50],
+      color: Colors.blue[100],
       shape: UnderlineInputBorder(
         borderSide: BorderSide(
           color: Colors.grey,
