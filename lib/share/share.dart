@@ -18,6 +18,7 @@ class ShareState extends State<Share> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      drawer: Functions.sideBar(context),
       appBar: Functions.appBar("Share", Icons.add, null),
       body: ListView(
         children: <Widget>[

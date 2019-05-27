@@ -25,9 +25,6 @@ class NotesTabControllerState extends State<NotesTabController> {
             ),
           ),
           elevation: 0.5, // 2
-          leading: IconButton(icon:Icon(Icons.menu),
-            onPressed:() => Navigator.pop(context, false),
-          ),
           iconTheme: IconThemeData(
             color: Colors.blue,
           ),

@@ -43,6 +43,7 @@ class ReportsState extends State<Reports> {
     }
     // TODO: implement build
     return Scaffold(
+      drawer: Functions.sideBar(context),
       appBar: Functions.appBar("Reports", null, null),
       body: Container(
         child: StaggeredGridView.count(

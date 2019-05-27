@@ -169,7 +169,7 @@ class Functions {
         ),
         elevation: 2.0,
         iconTheme: IconThemeData(
-          color: Colors.grey, //change your color here
+          color: Colors.blue, //change your color here
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -190,7 +190,7 @@ class Functions {
         ),
         elevation: 2.0,
         iconTheme: IconThemeData(
-          color: Colors.grey, //change your color here
+          color: Colors.blue, //change your color here
         ),
         centerTitle: true,
         backgroundColor: Colors.white,

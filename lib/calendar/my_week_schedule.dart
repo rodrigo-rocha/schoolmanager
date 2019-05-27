@@ -1,18 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 
-class WeekSchedule extends StatefulWidget{
+class MyWeekSchedule extends StatefulWidget{
   @override
-  WeekScheduleState createState()=> WeekScheduleState();
+  MyWeekScheduleState createState()=> MyWeekScheduleState();
 }
 
-class WeekScheduleState extends State<WeekSchedule> {
+class MyWeekScheduleState extends State<MyWeekSchedule> {
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: Functions.appBar("Schedule", Icons.add_circle, null),
+      drawer: Functions.sideBar(context),
+      appBar: AppBar(
+        title: Text(
+          "My Schedule",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 25.0,
+            fontFamily: 'Questrial',
+            color: Colors.blue,
+          ),
+        ),
+        elevation: 2.0,
+        iconTheme: IconThemeData(
+          color: Colors.grey, //change your color here
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.add), onPressed: () => Navigator.of(context).pushNamed('/add_schedule_class')),
+        ],
+      ),
       body: ListView(
         children: <Widget>[
           buildDayInfo("Monday"),
@@ -47,7 +67,6 @@ class WeekScheduleState extends State<WeekSchedule> {
       shape: UnderlineInputBorder(
         borderSide: BorderSide(
           color: Colors.grey,
-
         ),
       ),
       child: ListTile(

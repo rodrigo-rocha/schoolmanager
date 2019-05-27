@@ -29,6 +29,7 @@ class ChatListState extends State<ChatList> {
         label: Text("New Chat", style: TextStyle(fontSize: 15, color: Colors.blue),),
       ),
       appBar: Functions.appBar("Messages", null, null),
+      drawer: Functions.sideBar(context),
       body: new Container(
         child: new Center(
           child: ListView.builder(
