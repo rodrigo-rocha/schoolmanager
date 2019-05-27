@@ -46,6 +46,7 @@ class MenuState extends State<Menu> {
           children: <Widget>[
 
             Functions.showLogo(),
+            _buildTileIcon('My Schedule', Icons.calendar_today, () => Navigator.of(context).pushNamed('/week_schedule')),
             _buildTileIcon('Contacts', Icons.supervised_user_circle, () => Navigator.of(context).pushNamed('/user_tab_controller')),
             _buildTileIcon('Courses', Icons.book, () => Navigator.of(context).pushNamed('/courses_tab_controller')),
             _buildTileIcon('Notes', Icons.note, () => Navigator.of(context).pushNamed('/notes_tab_controller')),
@@ -58,6 +59,7 @@ class MenuState extends State<Menu> {
 
           ],
           staggeredTiles: [
+            StaggeredTile.fit(3),
             StaggeredTile.fit(3),
             StaggeredTile.fit(1),
             StaggeredTile.fit(1),
