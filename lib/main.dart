@@ -40,6 +40,7 @@ import 'package:flutter_app_ihc/calendar/week_schedule.dart';
 import 'package:flutter_app_ihc/chat/chat_list.dart';
 import 'package:flutter_app_ihc/reports/reports.dart';
 import 'package:flutter_app_ihc/courses/comunity_documents.dart';
+import 'package:flutter_app_ihc/users/generic_teacher_info.dart';
 
 void main() {
   runApp(SchoolManager());
@@ -64,6 +65,7 @@ class SchoolManager extends StatelessWidget {
         '/teacher_add': (BuildContext context) => new TeachersAdd(),
         '/teacher_edit': (BuildContext context) => new TeachersEdit(),
         '/teacher_info': (BuildContext context) => new TeacherInfo(),
+        '/generic_teacher_info': (BuildContext context) => new GenericTeacherInfo(),
 
         '/student_info': (BuildContext context) => new StudentInfo(),
         '/student_list': (BuildContext context) => new StudentList(),

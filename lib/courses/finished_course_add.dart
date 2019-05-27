@@ -12,6 +12,14 @@ TextEditingController departmentController = new TextEditingController();
 TextEditingController coordinatorController = new TextEditingController();
 TextEditingController gradeController = new TextEditingController();
 
+FocusNode nameFocus = new FocusNode();
+FocusNode codeFocus = new FocusNode();
+FocusNode deptFocus = new FocusNode();
+FocusNode coordinatorFocus = new FocusNode();
+FocusNode gradeFocus = new FocusNode();
+
+final _validationKey = GlobalKey<FormState>();
+
 var coursesItems = ['Interação Humano-Computador', 'Arquitetura de Redes', 'Projeto em Engenharia Informatica', 'Bases de Dados'];
 var deptItems = ['DETI', 'Biology', 'Physics', 'ISCAA', 'Mathematics'];
 
@@ -24,51 +32,52 @@ class FinishedCourseAdd extends StatefulWidget {
 class FinishedCourseAddState extends State<FinishedCourseAdd> {
 
   void addCourseAction() {
-    finishedCoursesList.add(new Course(nameController.text, codeController.text, departmentController.text, coordinatorController.text,gradeController.text,[]));
+    if(_validationKey.currentState.validate()) {
+      finishedCoursesList.add(new Course(
+          nameController.text, codeController.text, departmentController.text,
+          coordinatorController.text, gradeController.text, []));
 
-    nameController.text = "";
-    codeController.text = "";
-    departmentController.text = "";
-    coordinatorController.text = "";
-    gradeController.text = "";
+      nameController.text = "";
+      codeController.text = "";
+      departmentController.text = "";
+      coordinatorController.text = "";
+      gradeController.text = "";
 
-    Navigator.push(
-        context,
-        new MaterialPageRoute(builder: (context) => CoursesTabController()
-        ));
+      Navigator.push(
+          context,
+          new MaterialPageRoute(builder: (context) => CoursesTabController()
+          ));
+    }
   }
 
+  void checkEmpty() {
+    if(nameController.text != ""  || codeController.text != "" || departmentController.text != ""
+        || coordinatorController.text != "" || gradeController.text != "") {
+      _showDialog();
+    } else {
+      Navigator.of(context).pushReplacementNamed('/courses_tab_controller');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: Functions.createBar("Create Course", () => addCourseAction(), () => Navigator.pop(context)),
+      appBar: Functions.createBar("Create Course", () => addCourseAction(), () => checkEmpty()),
 
       body:
       ListView(
         children: <Widget>[
-          textField('Name *', nameController),
-          textField('Code', codeController),
-          textField('Department', departmentController),
-          dropdownField("Coordinator", teachersList),
-          dropdownStringField("Final Grade", gradeController, ['10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']),
+          Form(
+            key: _validationKey,
+            child: textFieldMandatory('Name *', nameController, "Name can\'t be empty", nameFocus, codeFocus),
+          ),
+          textField('Code', codeController, codeFocus, deptFocus),
+          textField('Department', departmentController, deptFocus, coordinatorFocus),
+          //textField('Coordinator', coordinatorController),
+          dropdownField("Coordinator", teachersList, coordinatorFocus, coordinatorFocus),
           SizedBox(height: 10),
           reqFieldInfo()
-        ],
-      ),
-    );
-  }
-
-  Widget clearFieldText() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 0.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          IconButton(icon: Icon(Icons.clear), onPressed: () => print("pressed"),),
-          Text("Clear field", style: TextStyle(fontSize: 15.0)),
         ],
       ),
     );
@@ -105,22 +114,48 @@ class FinishedCourseAddState extends State<FinishedCourseAdd> {
     );
   }
 
-  Widget textField(String hint, TextEditingController cont) {
+  Widget textField(String hint, TextEditingController cont, FocusNode focus, FocusNode next) {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0),
       child: TextFormField(
+        focusNode: focus,
+        onFieldSubmitted: (term) {
+          if(focus == next) {
+            focus.unfocus();
+          } else {
+            focus.unfocus();
+            FocusScope.of(context).requestFocus(next);
+          }
+        },
         controller: cont,
         decoration: InputDecoration(
-          //border: UnderlineInputBorder(
-          //borderSide: BorderSide(color: Colors.red, width: 110.1)
-          //borderSide: BorderSide(width: 0.5, color: Colors.blue)
-          //),
           hintText: hint,
         ),
       ),
     );
   }
 
+  Widget textFieldMandatory(String hint, TextEditingController cont, String msg, FocusNode focus, FocusNode next) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0),
+      child: TextFormField(
+        focusNode: focus,
+        onFieldSubmitted: (term) {
+          if(focus == next) {
+            focus.unfocus();
+          } else {
+            focus.unfocus();
+            FocusScope.of(context).requestFocus(next);
+          }
+        },
+        validator: (val) => val.isEmpty? msg : null,
+        controller: cont,
+        decoration: InputDecoration(
+          hintText: hint,
+        ),
+      ),
+    );
+  }
 
   Widget dropdownStringField(String hint, TextEditingController cont, var items) {
     return Padding(
@@ -155,13 +190,22 @@ class FinishedCourseAddState extends State<FinishedCourseAdd> {
     );
   }
 
-  Widget dropdownField(String hint, var items) {
+  Widget dropdownField(String hint, var items, FocusNode focus, FocusNode next) {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0, left: 18.0),
       child: new Row(
         children: <Widget>[
           new Expanded(
-            child: new TextField(
+            child: new TextFormField(
+              focusNode: focus,
+              onFieldSubmitted: (term) {
+                if(focus == next) {
+                  focus.unfocus();
+                } else {
+                  focus.unfocus();
+                  FocusScope.of(context).requestFocus(next);
+                }
+              },
               controller: coordinatorController,
               decoration: InputDecoration(hintText: hint),
             ),
@@ -185,6 +229,40 @@ class FinishedCourseAddState extends State<FinishedCourseAdd> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Discard Information?"),
+          content: new Text("Changes made will not be saved."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Discard Changes", style: TextStyle(color: Colors.red, fontSize: 17)),
+              onPressed: () {
+                nameController.text = "";
+                codeController.text = "";
+                departmentController.text = "";
+                coordinatorController.text = "";
+                gradeController.text = "";
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed('/courses_tab_controller');
+              },
+            ),
+            new FlatButton(
+              child: new Text("Continue Edit", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

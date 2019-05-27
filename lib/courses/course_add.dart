@@ -11,6 +11,13 @@ TextEditingController codeController = new TextEditingController();
 TextEditingController departmentController = new TextEditingController();
 TextEditingController coordinatorController = new TextEditingController();
 
+FocusNode nameFocus = new FocusNode();
+FocusNode codeFocus = new FocusNode();
+FocusNode deptFocus = new FocusNode();
+FocusNode coordinatorFocus = new FocusNode();
+
+final _validationKey = GlobalKey<FormState>();
+
 var coursesItems = ['Interação Humano-Computador', 'Arquitetura de Redes', 'Projeto em Engenharia Informatica', 'Bases de Dados'];
 var deptItems = ['DETI', 'Biology', 'Physics', 'ISCAA', 'Mathematics'];
 
@@ -23,50 +30,49 @@ class CourseAdd extends StatefulWidget {
 class CourseAddState extends State<CourseAdd> {
 
   void addCourseAction() {
-    courseList.add(new Course(nameController.text, codeController.text, departmentController.text, coordinatorController.text,"",[]));
+    if(_validationKey.currentState.validate()) {
+      courseList.add(new Course(nameController.text, codeController.text, departmentController.text, coordinatorController.text,"",[]));
 
-    nameController.text = "";
-    codeController.text = "";
-    departmentController.text = "";
-    coordinatorController.text = "";
+      nameController.text = "";
+      codeController.text = "";
+      departmentController.text = "";
+      coordinatorController.text = "";
 
-    Navigator.push(
-      context,
-      new MaterialPageRoute(builder: (context) => CoursesTabController()
-    ));
+      Navigator.push(
+          context,
+          new MaterialPageRoute(builder: (context) => CoursesTabController()
+          ));
+    }
   }
 
+  void checkEmpty() {
+    if(nameController.text != ""  || codeController.text != "" || departmentController.text != ""
+        || coordinatorController.text != "") {
+      _showDialog();
+    } else {
+      Navigator.of(context).pushReplacementNamed('/courses_tab_controller');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: Functions.createBar("Create Course", () => addCourseAction(), () => Navigator.pop(context)),
+      appBar: Functions.createBar("Create Course", () => addCourseAction(), () => checkEmpty()),
 
       body:
       ListView(
         children: <Widget>[
-          textField('Name *', nameController),
-          textField('Code', codeController),
-          textField('Department', departmentController),
+          Form(
+            key: _validationKey,
+            child: textFieldMandatory('Name *', nameController, "Name can\'t be empty", nameFocus, codeFocus),
+          ),
+          textField('Code', codeController, codeFocus, deptFocus),
+          textField('Department', departmentController, deptFocus, coordinatorFocus),
           //textField('Coordinator', coordinatorController),
-          dropdownField("Coordinator", teachersList),
+          dropdownField("Coordinator", teachersList, coordinatorFocus, coordinatorFocus),
           SizedBox(height: 10),
           reqFieldInfo()
-        ],
-      ),
-    );
-  }
-
-  Widget clearFieldText() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 0.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          IconButton(icon: Icon(Icons.clear), onPressed: () => print("pressed"),),
-          Text("Clear field", style: TextStyle(fontSize: 15.0)),
         ],
       ),
     );
@@ -81,32 +87,41 @@ class CourseAddState extends State<CourseAdd> {
     );
   }
 
-  Widget imageField() {
+  Widget textField(String hint, TextEditingController cont, FocusNode focus, FocusNode next) {
     return Padding(
-      padding: const EdgeInsets.only(top: 5.0, left: 5.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          GestureDetector(
-            child: Row(
-              children: <Widget>[
-                IconButton(icon: Icon(Icons.image), onPressed: () => print("pressed"),),
-                Text("Add Picture", style: TextStyle(fontSize: 16.0)),
-              ],
-            ),
-            onTap: () => print("Add pic"),
-          ),
-          reqFieldInfo(),
-        ],
+      padding: const EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0),
+      child: TextFormField(
+        focusNode: focus,
+        onFieldSubmitted: (term) {
+          if(focus == next) {
+            focus.unfocus();
+          } else {
+            focus.unfocus();
+            FocusScope.of(context).requestFocus(next);
+          }
+        },
+        controller: cont,
+        decoration: InputDecoration(
+          hintText: hint,
+        ),
       ),
     );
   }
 
-  Widget textField(String hint, TextEditingController cont) {
+  Widget textFieldMandatory(String hint, TextEditingController cont, String msg, FocusNode focus, FocusNode next) {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0),
       child: TextFormField(
+        focusNode: focus,
+        onFieldSubmitted: (term) {
+          if(focus == next) {
+            focus.unfocus();
+          } else {
+            focus.unfocus();
+            FocusScope.of(context).requestFocus(next);
+          }
+        },
+        validator: (val) => val.isEmpty? msg : null,
         controller: cont,
         decoration: InputDecoration(
           hintText: hint,
@@ -116,13 +131,22 @@ class CourseAddState extends State<CourseAdd> {
   }
 
 
-  Widget dropdownField(String hint, var items) {
+  Widget dropdownField(String hint, var items, FocusNode focus, FocusNode next) {
     return Padding(
       padding: const EdgeInsets.only(top: 18.0, left: 18.0),
       child: new Row(
         children: <Widget>[
           new Expanded(
-              child: new TextField(
+              child: new TextFormField(
+                focusNode: focus,
+                onFieldSubmitted: (term) {
+                  if(focus == next) {
+                    focus.unfocus();
+                  } else {
+                    focus.unfocus();
+                    FocusScope.of(context).requestFocus(next);
+                  }
+                },
                 controller: coordinatorController,
                 decoration: InputDecoration(hintText: hint),
               ),
@@ -146,6 +170,39 @@ class CourseAddState extends State<CourseAdd> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Discard Information?"),
+          content: new Text("Changes made will not be saved."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Discard Changes", style: TextStyle(color: Colors.red, fontSize: 17)),
+              onPressed: () {
+                nameController.text = "";
+                codeController.text = "";
+                departmentController.text = "";
+                coordinatorController.text = "";
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed('/courses_tab_controller');
+              },
+            ),
+            new FlatButton(
+              child: new Text("Continue Edit", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

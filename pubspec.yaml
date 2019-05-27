@@ -39,8 +39,8 @@ dependencies:
   flutter_circular_chart:
   image_picker:
   flutter_datetime_picker:
-
-
+  flutter_document_picker:
+  document_chooser:
 
 dev_dependencies:
   flutter_test:

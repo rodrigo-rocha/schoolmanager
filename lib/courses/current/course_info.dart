@@ -3,6 +3,8 @@ import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/courses/current/current_courses.dart';
 import 'package:flutter_app_ihc/classes/Course.dart';
 import 'package:flutter_app_ihc/courses/finished/finished_courses.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 TextEditingController gradeController = new TextEditingController();
 
@@ -12,14 +14,15 @@ class CourseInfo extends StatefulWidget {
   CourseInfoState createState() => CourseInfoState();
 }
 
+File galleryFile;
+
 class CourseInfoState extends State<CourseInfo> {
 
   void choiceActions(String choice) {
     if(choice == 'Edit') {
       Navigator.of(context).pushNamed('/course_edit');
     } else if(choice == 'Delete') {
-      courseList.removeAt(t_idx);
-      Navigator.of(context).pushReplacementNamed('/courses_tab_controller');
+      _showDialogDelete();
     } else {
       gradeController.text = "";
       _showDialog();
@@ -41,6 +44,12 @@ class CourseInfoState extends State<CourseInfo> {
     );
   }
 
+  imageSelectorGallery() async {
+    galleryFile = await ImagePicker.pickImage(
+      source: ImageSource.gallery,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,13 +57,14 @@ class CourseInfoState extends State<CourseInfo> {
 
       body: ListView(
         children: <Widget>[
+          _infoT(courseList[t_idx].name, 'Name', null),
           _infoExams('Exams information', traillingAction(Icons.keyboard_arrow_right, "Exams information", () { Navigator.of(context).pushNamed('/course_exams'); } )),
           _infoExams('Comunity Documents', traillingAction(Icons.keyboard_arrow_right, "Comunity Documents", () { Navigator.of(context).pushNamed('/comunity_docs'); } )),
+          _infoExams('Submit Document', traillingAction(Icons.keyboard_arrow_right, "Submit", () { imageSelectorGallery(); } )),
           Container(height: 10, color: Colors.grey[200]),
-          _infoT(courseList[t_idx].name, 'Name', traillingAction(Icons.text_fields, "Send Email", () {print("this");} )),
-          _infoT(courseList[t_idx].code, 'Code', traillingAction(Icons.code, "Call", () {print("this");})),
-          _infoT(courseList[t_idx].department, 'Department', traillingAction(Icons.place, "Locate", () {print("this");})),
-          _infoT(courseList[t_idx].coordinator, 'Coordinator', traillingAction(Icons.account_circle, "Information", () {print("this");} )),
+          _infoT(courseList[t_idx].coordinator, 'Coordinator', traillingAction(Icons.account_circle, "Information", () {Navigator.of(context).pushNamed('/generic_teacher_info');} )),
+          _infoT(courseList[t_idx].department, 'Department', traillingAction(Icons.place, "Locate", () {Functions.showLocation(context,'assets/images/dept_location.png');})),
+          _infoT(courseList[t_idx].code, 'Code', null),
         ],
       ),
 
@@ -134,6 +144,36 @@ class CourseInfoState extends State<CourseInfo> {
                   Navigator.of(context).pop();
                   Navigator.of(context).pushReplacementNamed('/courses_tab_controller');
                 }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showDialogDelete() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Remove ${courseList[t_idx].name}"),
+          content: new Text("Are you sure you want to remove ${courseList[t_idx].name}?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Delete", style: TextStyle(color: Colors.red, fontSize: 17)),
+              onPressed: () {
+                courseList.removeAt(t_idx);
+                Navigator.of(context).pop();
+                Navigator.pushReplacementNamed(context, '/courses_tab_controller');
+              },
+            ),
+            new FlatButton(
+              child: new Text("Close", style: TextStyle(fontSize: 17)),
+              onPressed: () {
+                Navigator.of(context).pop();
               },
             ),
           ],
