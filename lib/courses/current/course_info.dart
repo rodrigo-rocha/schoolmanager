@@ -23,10 +23,11 @@ class CourseInfoState extends State<CourseInfo> {
       Navigator.of(context).pushNamed('/course_edit');
     } else if(choice == 'Delete') {
       _showDialogDelete();
+    } else if(choice == 'Add evaluation moment') {
+      Navigator.of(context).pushNamed('/add_exam');
     } else {
       gradeController.text = "";
       _showDialog();
-
     }
   }
 
@@ -34,7 +35,7 @@ class CourseInfoState extends State<CourseInfo> {
     return PopupMenuButton<String> (
       onSelected: choiceActions,
       itemBuilder: (BuildContext context) {
-        return ['Edit','Delete','Send to finished courses'].map((String choice) {
+        return ['Edit','Delete','Add evaluation moment','Send to finished courses'].map((String choice) {
           return PopupMenuItem<String>(
             value: choice,
             child: Text(choice),

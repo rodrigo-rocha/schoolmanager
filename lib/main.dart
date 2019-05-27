@@ -41,6 +41,7 @@ import 'package:flutter_app_ihc/chat/chat_list.dart';
 import 'package:flutter_app_ihc/reports/reports.dart';
 import 'package:flutter_app_ihc/courses/comunity_documents.dart';
 import 'package:flutter_app_ihc/users/generic_teacher_info.dart';
+import 'package:flutter_app_ihc/courses/course_add_exam.dart';
 
 void main() {
   runApp(SchoolManager());
@@ -100,6 +101,7 @@ class SchoolManager extends StatelessWidget {
         '/settings': (BuildContext context) => new Settings(),
         '/event_info': (BuildContext context) => new Event(),
         '/add_event' : (BuildContext context) => new EventAdd(),
+        '/add_exam' : (BuildContext context) => new AddExam(),
 
 
         '/share': (BuildContext context) => new Share(),
