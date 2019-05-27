@@ -42,7 +42,10 @@ class ImportantNoteAddState extends State<ImportantNoteAdd> {
       backgroundColor: Colors.white,
       appBar: Functions.createBar("Create new note",
         () {
-            importantNoteList.add(new Note(titleController.text, descriptionController.text, finalDate)); Navigator.pushReplacementNamed(context, '/notes_tab_controller');
+        if(_validationKey.currentState.validate()) {
+          importantNoteList.add(new Note(titleController.text, descriptionController.text, DateTime.now()));
+        }
+             Navigator.pushReplacementNamed(context, '/notes_tab_controller');
            },
         () => print("UNdone")),
       body: Padding(

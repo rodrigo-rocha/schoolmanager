@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_ihc/functions/functions.dart';
 import 'package:flutter_app_ihc/users/students/student_list.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class ComunityDocs extends StatefulWidget{
   @override
   ComunityDocsState createState()=> ComunityDocsState();
 }
+
+File galleryFile;
 
 class ComunityDocsState extends State<ComunityDocs> {
 
@@ -16,6 +20,7 @@ class ComunityDocsState extends State<ComunityDocs> {
       appBar: Functions.appBar("Comunity Documents", Icons.add_circle, null),
       body: ListView(
         children: <Widget>[
+          _infoExams('Submit Document', traillingAction(Icons.keyboard_arrow_right, "Submit", () { imageSelectorGallery(); } )),
           buildDoc("Network 101", "Carlos Luis","https://cdn4.iconfinder.com/data/icons/file-extension-names-vol-8/512/24-512.png"),
           buildDoc("Network Architecture Manual", "Carlos Luis", "https://cdn4.iconfinder.com/data/icons/file-extension-names-vol-8/512/24-512.png"),
           buildDoc("Draft Heuristic Evaluation", "Carlos Luis", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Microsoft_Word_2013_logo.svg/1043px-Microsoft_Word_2013_logo.svg.png"),
@@ -26,6 +31,43 @@ class ComunityDocsState extends State<ComunityDocs> {
       ),
 
 
+    );
+  }
+
+  imageSelectorGallery() async {
+    galleryFile = await ImagePicker.pickImage(
+      source: ImageSource.gallery,
+    );
+  }
+
+  Widget _infoExams(String name, Widget traillingAction) {
+    return Card(
+      color: Colors.transparent,
+      child: ListTile(
+        title: Text(name),
+        trailing: traillingAction,
+      ),
+      elevation: 0.0,
+    );
+  }
+
+  Widget traillingAction(IconData icon, String text, actions()) {
+    return GestureDetector(
+      child: Container(
+        width: 130,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Icon(icon, color: Colors.blue,),
+              SizedBox(height: 2,),
+              Text(text, style: TextStyle(color: Colors.blue),),
+            ]
+        ),
+      ),
+      onTap: () {
+        actions();
+      },
     );
   }
 
