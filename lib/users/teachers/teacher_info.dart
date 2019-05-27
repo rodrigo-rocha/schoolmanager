@@ -121,7 +121,7 @@ class TeacherInfoState extends State<TeacherInfo> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          IconButton(icon: Icon(Icons.fiber_smart_record), color: Colors.green, onPressed: () {Functions.showSimpleDialog(context, "Not Available", classInfo(true));}),
+          IconButton(icon: Icon(Icons.fiber_smart_record), color: Colors.green, onPressed: () {Functions.showSimpleDialog(context, "Available", classInfo(true));}),
           Text("Not at class", style: TextStyle(color: Colors.green),),
         ],
       );
@@ -130,7 +130,7 @@ class TeacherInfoState extends State<TeacherInfo> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          IconButton(icon: Icon(Icons.fiber_smart_record), color: Colors.red, onPressed: () {Functions.showSimpleDialog(context, "Available", classInfo(false));}),
+          IconButton(icon: Icon(Icons.fiber_smart_record), color: Colors.red, onPressed: () {Functions.showSimpleDialog(context, "Not Available", classInfo(false));}),
           Text("At class", style: TextStyle(color: Colors.red),),
         ],
       );

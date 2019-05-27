@@ -45,7 +45,7 @@ class ImportantNoteViewState extends State<ImportantNoteView> {
 
     return Scaffold(
 
-      appBar: Functions.appBar("Title", Icons.landscape, popUpButton()),
+      appBar: Functions.appBar("Note content", Icons.landscape, popUpButton()),
       body: Padding(
         padding: EdgeInsets.only(top: 15.0, left: 15.0, right: 15.0),
         child: ListView(

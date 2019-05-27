@@ -28,54 +28,58 @@ class EventAddState extends State<EventAdd>{
     return Scaffold(
       appBar: Functions.createBar("New Event", () => addEventAction(), () => Navigator.pop(context)),
       drawer: Functions.sideBar(context),
-      body: Column(
+      body: ListView(
         children: <Widget>[
-          textField("Title *", titleController),
-          textField("Place", placeController),
-          Card(
-            color: Colors.transparent,
-            elevation: 0.0,
-            child: ListTile(
-              title: Text('Beginning: $endDate', textAlign: TextAlign.left),
-              subtitle: Text("Tap to select"),
-              trailing: IconButton(
-                icon: Icon(Icons.keyboard_arrow_right),
-                onPressed: () {},
-              ),
-              onTap: () {
-                _selectTime(context);
-              },
-            ),
-          ),
-          Card(
-            color: Colors.transparent,
-            elevation: 0.0,
-            child: ListTile(
-              title: Text('End: $endDate', textAlign: TextAlign.left),
-              subtitle: Text("Tap to select"),
-              trailing: IconButton(
-                icon: Icon(Icons.keyboard_arrow_right),
-                onPressed: () {},
-              ),
-              onTap: () {
-                _selectTime(context);
-              },
-            ),
-          ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+          Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Text("Fields with * are required",
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red[400]),
+              textField("Title *", titleController),
+              textField("Place", placeController),
+              Card(
+                color: Colors.transparent,
+                elevation: 0.0,
+                child: ListTile(
+                  title: Text('Beginning: $endDate', textAlign: TextAlign.left),
+                  subtitle: Text("Tap to select"),
+                  trailing: IconButton(
+                    icon: Icon(Icons.keyboard_arrow_right),
+                    onPressed: () {},
+                  ),
+                  onTap: () {
+                    _selectTime(context);
+                  },
                 ),
               ),
+              Card(
+                color: Colors.transparent,
+                elevation: 0.0,
+                child: ListTile(
+                  title: Text('End: $endDate', textAlign: TextAlign.left),
+                  subtitle: Text("Tap to select"),
+                  trailing: IconButton(
+                    icon: Icon(Icons.keyboard_arrow_right),
+                    onPressed: () {},
+                  ),
+                  onTap: () {
+                    _selectTime(context);
+                  },
+                ),
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Text("Fields with * are required",
+                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red[400]),
+                    ),
+                  ),
+                ],
+              )
+
+
             ],
-          )
-
-
+          ),
         ],
       ),
     );

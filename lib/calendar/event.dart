@@ -39,7 +39,7 @@ class EventState extends State<Event> {
             child: ListTile(
               title: Text(widget.data.DATE),
               subtitle: Text("Date"),
-              trailing: Icon(Icons.accessible_forward),
+              trailing: Icon(Icons.date_range),
             ),
             elevation: 0.0,
           ),
@@ -53,7 +53,7 @@ class EventState extends State<Event> {
             child: ListTile(
               title: Text(widget.data.PERCENTAGE),
               subtitle: Text("Percentage"),
-              trailing: Icon(Icons.accessible_forward),
+              trailing: Icon(Icons.grade),
             ),
             elevation: 0.0,
           ),

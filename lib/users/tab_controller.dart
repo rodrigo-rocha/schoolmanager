@@ -33,7 +33,7 @@ class UserTabControllerState extends State<UserTabController> {
 
   Icon _searchIcon = new Icon(Icons.search);
 
-  Widget _appBarTitle = new Text('Users', style: textStyle());
+  Widget _appBarTitle = new Text('Contacts', style: textStyle());
   /* Serach Bar Options */
 
   @override
@@ -102,7 +102,7 @@ class UserTabControllerState extends State<UserTabController> {
         );
       } else {
         this._searchIcon = new Icon(Icons.search);
-        this._appBarTitle = new Text('Users', style: textStyle(),
+        this._appBarTitle = new Text('Contacts', style: textStyle(),
       );
         filteredNames = names;
         _filter.clear();
