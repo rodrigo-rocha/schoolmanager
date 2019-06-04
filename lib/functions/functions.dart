@@ -63,11 +63,9 @@ class Functions {
 
   static Widget sideBar(BuildContext context) {
     String img =
-        'https://scontent.flis4-1.fna.fbcdn.net/v/t1.0-9/54430395_2199184333474025_1424275597042909184_n.jpg?_nc_cat=102&_nc_ht=scontent.flis4-1.fna&oh=2a48f3ed61349d967bd8031ee9659a50&oe=5D028F90';
+        'https://scontent.fopo1-1.fna.fbcdn.net/v/t1.0-0/q92/p552x414/60102269_2282243121834812_8402665685657845760_n.jpg?_nc_cat=103&_nc_ht=scontent.fopo1-1.fna&oh=22fe4a787322d9c2c7e28ddb92c6a969&oe=5D6D22A9';
 
-    return Opacity(
-      opacity: 0.90,
-      child: SizedBox(
+    return SizedBox(
         width: 250,
         child: Drawer(
           elevation: 5.0,
@@ -88,12 +86,8 @@ class Functions {
                 },
                 otherAccountsPictures: <Widget>[
                   IconButton(
-                    icon: Icon(Icons.account_circle),
-                    onPressed: null,
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.cloud_queue),
-                    onPressed: null,
+                    icon: Icon(Icons.home, color: Colors.white),
+                    onPressed: ()=> Navigator.of(context).pushReplacementNamed('/menu'),
                   ),
                 ],
               ),
@@ -136,8 +130,7 @@ class Functions {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 
   static ListTile _addListItem(

@@ -14,8 +14,8 @@ class CourseExams extends StatefulWidget {
 class CourseExamsState extends State<CourseExams> {
 
   void choiceActions(String choice) {
-    if(choice == 'Edit') {
-      Navigator.of(context).pushNamed('/course_edit');
+    if(choice == 'Add evaluation moment') {
+      Navigator.of(context).pushNamed('/add_exam');
     } else if(choice == 'Delete') {
       courseList.removeAt(t_idx);
       Navigator.of(context).pushNamed('/courses_tab_controller');
@@ -31,7 +31,7 @@ class CourseExamsState extends State<CourseExams> {
     return PopupMenuButton<String> (
       onSelected: choiceActions,
       itemBuilder: (BuildContext context) {
-        return ['Add exam','Delete','Send to finished courses'].map((String choice) {
+        return ['Add evaluation moment','Delete','Send to finished courses'].map((String choice) {
           return PopupMenuItem<String>(
             value: choice,
             child: Text(choice),

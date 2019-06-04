@@ -158,7 +158,7 @@ class TeacherInfoState extends State<TeacherInfo> {
   Widget traillingAction(IconData icon, String text, actions()) {
     return GestureDetector(
       child: Container(
-        width: 70,
+        width: 80,
         child: Column(
             children: <Widget>[
               Icon(icon, color: Colors.blue,),
@@ -180,7 +180,7 @@ class TeacherInfoState extends State<TeacherInfo> {
        return Text("Currently Not at class.", style: TextStyle(color: Colors.green),);
     } else {
       return Container(
-        height: 55,
+        height: 70,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
